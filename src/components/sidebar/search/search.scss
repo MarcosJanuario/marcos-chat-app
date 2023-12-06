@@ -1,0 +1,32 @@
+@import 'src/assets/styles/variables';
+
+.search-wrapper {
+
+  .search-form {
+    padding: 1rem;
+
+    input {
+      background-color: transparent;
+      border: none;
+      color: $COLOR_DEFAULT_WHITE;
+      outline: none;
+
+      &::placeholder {
+        color: $COLOR_DEFAULT_LIGHT_GRAY;
+      }
+    }
+  }
+
+  .user-chat {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $COLOR_DEFAULT_WHITE;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $COLOR_DEFAULT_DARK_INDIGO;
+    }
+  }
+}

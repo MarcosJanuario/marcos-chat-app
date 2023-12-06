@@ -1,0 +1,9 @@
+@import 'src/assets/styles/variables';
+
+.image-avatar-component {
+  background-color: $COLOR_DEFAULT_LIGHT;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  object-fit: cover;
+}

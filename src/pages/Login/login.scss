@@ -1,25 +1,23 @@
-$LIGHT_BLUE: #42a5f5;
-$DARKER_BLUE: #0d47a1;
-$SMALL_FONT_SIZE: .9rem;
+@import 'src/assets/styles/variables';
 
 .login-wrapper {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $LIGHT_BLUE;
+  background-color: $COLOR_DEFAULT_LIGHT;
 
   .login-form-container {
-    background-color: #f5f5f5;
+    background-color: $COLOR_DEFAULT_WHITE;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: $BORDER_RADIUS;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
 
     .login-font-color {
-      color: $DARKER_BLUE;
+      color: $COLOR_DEFAULT_DARK;
     }
 
     .logo {
@@ -41,11 +39,11 @@ $SMALL_FONT_SIZE: .9rem;
       input {
         padding: 0.5rem;
         border: none;
-        border-bottom: .1rem solid $DARKER_BLUE;
-        background-color: #f5f5f5;
+        border-bottom: .1rem solid $COLOR_DEFAULT_DARK;
+        background-color: $COLOR_DEFAULT_WHITE;
 
         &::placeholder {
-          color: #bdbdbd;
+          color: $COLOR_DEFAULT_GRAY;
       }
     }
 
@@ -54,8 +52,8 @@ $SMALL_FONT_SIZE: .9rem;
     }
 
     button {
-      background-color: $DARKER_BLUE;
-      color: #f5f5f5;
+      background-color: $COLOR_DEFAULT_DARK;
+      color: $COLOR_DEFAULT_WHITE;
       padding: .5rem;
       font-weight: bold;
       border: none;
@@ -64,7 +62,7 @@ $SMALL_FONT_SIZE: .9rem;
     }
 
     p {
-      color: $LIGHT_BLUE;
+      color: $COLOR_DEFAULT_LIGHT;
       font-size: $SMALL_FONT_SIZE;
       margin-top: 1rem;
     }

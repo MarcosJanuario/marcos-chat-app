@@ -1,0 +1,18 @@
+@import 'src/assets/styles/variables';
+
+.home-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $COLOR_DEFAULT_LIGHT;
+
+  .home-container {
+    border: 1px solid $COLOR_DEFAULT_WHITE;
+    border-radius: $BORDER_RADIUS;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    overflow: hidden;
+  }
+}

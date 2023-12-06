@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .navbar-wrapper {
   display: flex;
@@ -6,11 +7,14 @@
   height: 2rem;
   padding: 1rem;
   justify-content: space-between;
-  background-color: $COLOR_DEFAULT_DARK_INDIGO;
-  color: $COLOR_DEFAULT_LIGHT ;
+  background-color: $COLOR_PRIMARY_DARKEN_4;
+  color: $COLOR_PRIMARY_LIGHTEN_4 ;
 
   span.logo {
     font-weight: bold;
+    @include tablet {
+      display: none;
+    }
   }
 
   div.user {
@@ -23,11 +27,16 @@
     }
 
     button {
-      background-color: $COLOR_DEFAULT_LIGHT;
-      color: $COLOR_DEFAULT_DARK;
-      font-size: $SMALL_FONT_SIZE;
+      background-color: $COLOR_PRIMARY_LIGHTEN_4;
+      color: $COLOR_PRIMARY_DARKEN_3;
+      font-size: $FONT_SIZE_SMALL;
       border: none;
       padding: .5rem;
+      @include tablet {
+        width: 85%;
+        position: absolute;
+        bottom: 1rem;
+      }
     }
   }
 }

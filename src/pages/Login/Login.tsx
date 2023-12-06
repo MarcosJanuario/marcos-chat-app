@@ -1,5 +1,6 @@
 import React from 'react';
 import './login.scss';
+import Button from '../../components/Button/Button';
 
 const Login = () => {
   return (
@@ -10,7 +11,7 @@ const Login = () => {
         <form>
           <input type="text" placeholder={'Display Name'}/>
           <input type="email" placeholder={'Email'}/>
-          <button>Login</button>
+          <Button text={'Login'} onClick={() => console.log('button clicked')} />
         </form>
         <p>Don't you have an account? Please Register</p>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './register.scss';
 import AddAvatar from '../../assets/images/add-avatar.png';
+import Button from '../../components/Button/Button';
 
 const Register = () => {
   return (
@@ -17,7 +18,7 @@ const Register = () => {
             <img src={AddAvatar} alt="Add Avatar" className={'add-avatar-img'}/>
             <span>Add avatar</span>
           </label>
-          <button>Sign up</button>
+          <Button text={'Sign up'} onClick={() => console.log('button clicked')} />
         </form>
         <p>Do you have an account? Please login</p>
       </div>

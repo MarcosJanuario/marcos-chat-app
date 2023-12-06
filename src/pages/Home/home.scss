@@ -1,11 +1,12 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .home-wrapper {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $COLOR_DEFAULT_LIGHT;
+  background-color: $COLOR_PRIMARY_LIGHTEN_4;
 
   .home-container {
     border: 1px solid $COLOR_DEFAULT_WHITE;
@@ -14,5 +15,8 @@
     height: 80%;
     display: flex;
     overflow: hidden;
+    @include tablet {
+      width: 90%;
+    }
   }
 }

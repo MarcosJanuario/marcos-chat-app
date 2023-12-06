@@ -4,16 +4,67 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e2fc615-aaad-4033-8b31-37bf384e6bda" name="Changes" comment="" />
+    <list default="true" id="4e2fc615-aaad-4033-8b31-37bf384e6bda" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/assets/styles/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/avatar/Avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/avatar/Avatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/avatar/avatar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/avatar/avatar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/Chat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/Input.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/chat.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/chat.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/chats/Chats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/chats/Chats.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/chats/chats.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/chats/chats.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/navbar/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/navbar/navbar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/navbar/navbar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/search/Search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/search/Search.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/search/search.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/search/search.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/sidebar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/home.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login/login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/login.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Register/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Register/Register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Register/register.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Register/register.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/types.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/marcosjanuario/LocalDocuments/development/playground/reactjs/marcos-chat-app/src/components/chat",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/marcosjanuario/LocalDocuments/development/playground/reactjs/marcos-chat-app/node_modules/typescript/lib"
+  }
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/chat" />
+    </key>
   </component>
   <component name="TaskManager">
     <servers />

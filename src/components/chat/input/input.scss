@@ -1,0 +1,30 @@
+@import 'src/assets/styles/variables';
+
+.input-wrapper {
+  height: 2rem;
+  background-color: $COLOR_DEFAULT_WHITE;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  input {
+    width: 100%;
+    height: 100%;
+    background-color: $COLOR_DEFAULT_WHITE;
+    border: none;
+    outline: none;
+    color: $COLOR_PRIMARY_DARKEN_3;
+    font-size: $FONT_SIZE_DEFAULT;
+
+    &::placeholder {
+      color: $COLOR_DEFAULT_GRAY
+    }
+  }
+
+  .send-options-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+}

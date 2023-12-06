@@ -1,0 +1,18 @@
+@import 'src/assets/styles/variables';
+
+button {
+  background-color: $COLOR_PRIMARY_LIGHTEN_4;
+  color: $COLOR_PRIMARY_DARKEN_3;
+  font-size: $FONT_SIZE_SMALL;
+  border: none;
+  padding: 1rem;
+  transition: opacity .1s ease, transform .1s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:active {
+    transform: scale(.9);
+  }
+}

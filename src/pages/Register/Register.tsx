@@ -27,9 +27,16 @@ const Register = () => {
   const [formData, setFormData] = useState<FormData>(FORM_DATA_INITIAL_VALUES);
   const [error, setError] = useState<AppError | null>(ERROR_INITIAL_VALUES);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    const { name, value, files } = e.target;
+
+    if (name === 'avatar' && files && files.length > 0) {
+      const file = files[0];
+      setFormData((prevData) => ({ ...prevData, file: file }));
+    } else {
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    }
   };
 
   const handleLoadingState = (name: keyof LoadingState | Partial<LoadingState>, value?: LoadingState[keyof LoadingState]): void => {
@@ -45,35 +52,39 @@ const Register = () => {
     setError(ERROR_INITIAL_VALUES);
   };
 
+  const resetLoading = (): void => handleLoadingState({ message: '', visible: false });
+
   const handleSubmit = (event: FormEvent): void => {
-    console.log('handleSubmit...');
     handleLoadingState({ message: 'Creating new user', visible: true });
     event.preventDefault();
     signupUser();
   };
 
   const signupUser = (): void => {
+    console.log('formData: ', formData);
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential: UserCredential) => handleImageUpload(userCredential.user as User, formData.file as Blob | Uint8Array | ArrayBuffer))
+      .then((userCredential: UserCredential) => formData.file
+        ? uploadUserAvatar(userCredential.user, formData.file as Blob | Uint8Array | ArrayBuffer)
+        : saveUserInformation(userCredential.user))
       .then(() => clearError())
-      .catch((error) => setError({ code: error.code, message: error.message }));
+      .catch((error) => {
+        setError({ code: error.code, message: error.message });
+        resetLoading();
+      });
   }
 
-  const handleImageUpload = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
-    handleLoadingState('message', 'Uploading user\'s image avatar');
+  const uploadUserAvatar = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
+    handleLoadingState('message', 'Uploading user\'s avatar');
     const storageRef = ref(storage, formData.displayName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on('state_changed',
       (snapshot): void => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
           case 'paused':
-            console.log('Upload is paused');
             break;
+            //TODO: loading bar in the loading page
           case 'running':
-            console.log('Upload is running...');
             break;
         }
       },
@@ -84,30 +95,27 @@ const Register = () => {
             displayName: user.displayName,
             photoURL: downloadURL
           })
-          .then((): Promise<void> => {
-            handleLoadingState('message', 'Saving user\'s information');
-            return saveUserInformation(user as User, downloadURL);
-          })
           .then((): void => {
-            clearError();
-            handleLoadingState({ message: '', visible: false });
+            saveUserInformation(user as User, downloadURL).then(() => clearError())
           })
           .catch((error): void => {
             setError({ code: error.code, message: error.message });
-            handleLoadingState({ message: '', visible: false });
+            resetLoading();
           })
         });
       }
     );
   }
 
-  const saveUserInformation = async (user: User, downloadURL: string): Promise<void> => {
+  const saveUserInformation = async (user: User, downloadURL?: string): Promise<void> => {
+    handleLoadingState('message', 'Saving user\'s information');
     await setDoc(doc(db, 'users', user.uid), {
       uid: user.uid,
       displayName: formData.displayName,
       email: formData.email,
-      photoURL: downloadURL
+      ...(downloadURL && { photoURL: downloadURL }),
     });
+    resetLoading();
   }
 
   return (
@@ -148,7 +156,7 @@ const Register = () => {
             <img src={AddAvatar} alt="Add Avatar" className={'add-avatar-img'} />
             <span>Add avatar</span>
           </label>
-          <Button text={'Sign up'} onClick={() => console.log('button clicked')} />
+          <Button text={'Sign up'} />
           {/*//TODO: improve later*/}
           {
             error && <span>Ops! Something went wrong!</span>

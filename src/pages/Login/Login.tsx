@@ -1,7 +1,13 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
 import './login.scss';
 import Button from '../../components/Button/Button';
-import { LoginFormData } from '../../utils/types';
+import { LoadingState, LoginFormData } from '../../utils/types';
+import { auth } from '../../firebase';
+import { useNavigate, Link } from 'react-router-dom';
+import Loading from '../../components/loading/Loading';
+import { LOADING_INITIAL_VALUES } from '../../utils/consts';
 
 const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   email: '',
@@ -9,7 +15,9 @@ const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>(LOGIN_FORM_DATA_INITIAL_VALUES);
+  const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, files } = e.target;
@@ -19,7 +27,21 @@ const Login = () => {
   const handleSubmit = (event: FormEvent): void => {
     event.preventDefault();
     console.log('login in...');
+    loginUser();
   };
+
+  const loginUser = (): void => {
+    setLoading((prevData: LoadingState) => ({ visible: true, message: 'Logging user' }));
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
+      .then((userCredential) => {
+        console.log('USER LOGGED IN');
+        setLoading((prevData: LoadingState) => ({ visible: false, message: '' }));
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log('login error: ', error.message);
+      });
+  }
 
   return (
     <div className={'login-wrapper'}>
@@ -43,7 +65,10 @@ const Login = () => {
           />
           <Button text={'Login'} />
         </form>
-        <p>Don't you have an account? Please Register</p>
+        <p>Don't you have an account? Please <Link to={'/register'}>Register</Link>.</p>
+        {
+          loading.visible && <Loading message={loading.message} />
+        }
       </div>
     </div>
   );

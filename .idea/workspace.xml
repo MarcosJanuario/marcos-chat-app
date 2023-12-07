@@ -6,14 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4e2fc615-aaad-4033-8b31-37bf384e6bda" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sidebar/chats/chats.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/chats/chats.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loading/Loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loading/Loading.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/sidebar/navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sidebar/search/search.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/search/search.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sidebar/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/sidebar.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login/login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/login.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Register/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Register/Register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/context/AuthContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +80,7 @@
       <workItem from="1701928826534" duration="3761000" />
       <workItem from="1701932600633" duration="424000" />
       <workItem from="1701933029286" duration="435000" />
-      <workItem from="1701933469037" duration="6041000" />
+      <workItem from="1701933469037" duration="10470000" />
     </task>
     <servers />
   </component>

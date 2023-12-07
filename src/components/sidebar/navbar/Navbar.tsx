@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './navbar.scss';
 import Avatar from '../../avatar/Avatar';
 import Button from '../../Button/Button';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
-// import { useNavigate } from 'react-router-dom';
+import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 
 const Navbar = () => {
-  // const navigate = useNavigate();
+  const authContext = useContext<AuthContextType>(AuthContext);
   const signOutUser = (): void => {
     signOut(auth).then(() => {
       console.log('user signed out...');
-      // navigate('/login');
+      authContext.clearUser();
     })
   }
 

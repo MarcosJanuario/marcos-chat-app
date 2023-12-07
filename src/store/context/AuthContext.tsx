@@ -2,7 +2,16 @@ import { createContext, useEffect, useState } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 
-export const AuthContext = createContext({} as User);
+export type AuthContextType = {
+  user: User,
+  clearUser: () => void
+}
+
+const initialAuthContext = {
+  user: {} as User, clearUser: () => {}
+}
+
+export const AuthContext = createContext<AuthContextType>(initialAuthContext);
 
 type AuthContextProviderProps = {
   children: JSX.Element;
@@ -20,8 +29,18 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps): JSX
     return () => unsubscribe()
   }, []);
 
+  const clearUser = () => {
+    setCurrentUser({} as User);
+  }
+
+  const authContextValue = {
+    user: currentUser,
+    clearUser
+  }
+
+
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthContext.Provider value={authContextValue}>
       { children }
     </AuthContext.Provider>
   );

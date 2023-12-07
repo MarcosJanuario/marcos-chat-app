@@ -1,17 +1,16 @@
 import React from 'react';
 import './loading.scss';
-import { LoadingState } from '../../utils/types';
 
 type LoadingProps = {
-  loading: LoadingState;
+  message: string;
 }
 
-const Loading = ({ loading }: LoadingProps) => {
+const Loading = ({ message }: LoadingProps) => {
   return (
     <div className="loading-backdrop">
       <div className="loading-spinner-container">
         <div className="spinner"></div>
-        <div className="loading-text">{ loading.message }</div>
+        <div className="loading-text">{ message }</div>
       </div>
     </div>
   );

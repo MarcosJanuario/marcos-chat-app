@@ -10,6 +10,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
 import { useNavigate } from 'react-router-dom';
+import { LOADING_INITIAL_VALUES } from '../../utils/consts';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -19,10 +20,6 @@ const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
 }
 
 const ERROR_INITIAL_VALUES: AppError = null;
-const LOADING_INITIAL_VALUES: LoadingState = {
-  message: '',
-  visible: false
-};
 
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
@@ -167,7 +164,7 @@ const Register = () => {
         </form>
         <p>Do you have an account? Please login</p>
         {
-          loading.visible && <Loading loading={loading} />
+          loading.visible && <Loading message={loading.message} />
         }
       </div>
     </div>

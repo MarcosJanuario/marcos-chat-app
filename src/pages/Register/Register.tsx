@@ -2,17 +2,13 @@ import React, { FormEvent, ChangeEvent, useState } from 'react';
 import './register.scss';
 import AddAvatar from '../../assets/images/add-avatar.png';
 import Button from '../../components/Button/Button';
-import { createUserWithEmailAndPassword, updateProfile, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
 import { auth, db, storage } from '../../firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
 import { doc, setDoc } from "firebase/firestore";
 
-type FormData = {
-  displayName: string;
-  email: string;
-  password: string;
-  file: Blob | Uint8Array | ArrayBuffer | string;
-}
+import { FormData, AppError, LoadingState } from '../../utils/types';
+import Loading from '../../components/loading/Loading';
 
 const FORM_DATA_INITIAL_VALUES: FormData = {
   displayName: '',
@@ -21,39 +17,55 @@ const FORM_DATA_INITIAL_VALUES: FormData = {
   file: '',
 }
 
+const ERROR_INITIAL_VALUES: AppError = null;
+const LOADING_INITIAL_VALUES: LoadingState = {
+  message: '',
+  visible: false
+};
+
 const Register = () => {
   const [formData, setFormData] = useState<FormData>(FORM_DATA_INITIAL_VALUES);
-  const [error, setError] = useState<boolean>(false);
-
+  const [error, setError] = useState<AppError | null>(ERROR_INITIAL_VALUES);
+  const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleLoadingState = (name: keyof LoadingState | Partial<LoadingState>, value?: LoadingState[keyof LoadingState]): void => {
+    if (typeof name === 'string') {
+      setLoading((prevData: LoadingState) => ({ ...prevData, [name]: value }));
+    } else {
+      setLoading((prevData: LoadingState) => ({ ...prevData, ...name }));
+    }
+  };
+
+
+  const clearError = (): void => {
+    setError(ERROR_INITIAL_VALUES);
+  };
+
   const handleSubmit = (event: FormEvent): void => {
+    console.log('handleSubmit...');
+    handleLoadingState({ message: 'Creating new user', visible: true });
     event.preventDefault();
     signupUser();
   };
 
   const signupUser = (): void => {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
-        console.log('[SIGNING IN SUCCESS]:', userCredential);
-        const user = userCredential.user;
-        handleImageUpload(userCredential.user as User, formData.file as Blob | Uint8Array | ArrayBuffer)
-      })
-      .catch((error) => {
-        setError(true);
-        console.log('[ERROR SIGNING IN]:', error);
-      });
+      .then((userCredential: UserCredential) => handleImageUpload(userCredential.user as User, formData.file as Blob | Uint8Array | ArrayBuffer))
+      .then(() => clearError())
+      .catch((error) => setError({ code: error.code, message: error.message }));
   }
 
   const handleImageUpload = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
+    handleLoadingState('message', 'Uploading user\'s image avatar');
     const storageRef = ref(storage, formData.displayName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on('state_changed',
-      (snapshot) => {
+      (snapshot): void => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
@@ -65,19 +77,24 @@ const Register = () => {
             break;
         }
       },
-      (error) => {
-        setError(true);
-        console.log('[ERROR LOADING IMAGE]:', error);
-      },
-      () => {
+      (error: StorageError) => setError({ code: Number(error.code), message: error.message }),
+      (): void => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string): void => {
-          console.log('[File available at]', downloadURL);
           updateProfile(user as User, {
             displayName: user.displayName,
             photoURL: downloadURL
-          }).then(() => {
-            console.log('user profile updated sucessfully...');
-            saveUserInformation(user as User, downloadURL);
+          })
+          .then((): Promise<void> => {
+            handleLoadingState('message', 'Saving user\'s information');
+            return saveUserInformation(user as User, downloadURL);
+          })
+          .then((): void => {
+            clearError();
+            handleLoadingState({ message: '', visible: false });
+          })
+          .catch((error): void => {
+            setError({ code: error.code, message: error.message });
+            handleLoadingState({ message: '', visible: false });
           })
         });
       }
@@ -138,6 +155,9 @@ const Register = () => {
           }
         </form>
         <p>Do you have an account? Please login</p>
+        {
+          loading.visible && <Loading loading={loading} />
+        }
       </div>
     </div>
   );

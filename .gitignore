@@ -30,6 +30,7 @@ yarn-error.log*
 *.launch
 .settings/
 *.sublime-workspace
+.idea/workspace.xml
 
 # firebase
 firebase.js

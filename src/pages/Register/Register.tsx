@@ -65,7 +65,7 @@ const Register = () => {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential: UserCredential) => formData.file
         ? uploadUserAvatar(userCredential.user, formData.file as Blob | Uint8Array | ArrayBuffer)
-        : saveUserInformation(userCredential.user))
+        : saveUserDatabaseInformation(userCredential.user))
       .then(() => clearError())
       .catch((error) => {
         setError({ code: error.code, message: error.message });
@@ -74,7 +74,6 @@ const Register = () => {
   }
 
   const uploadUserAvatar = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
-    handleLoadingState('message', 'Uploading user\'s avatar');
     const storageRef = ref(storage, formData.displayName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -96,7 +95,7 @@ const Register = () => {
             photoURL: downloadURL
           })
           .then((): void => {
-            saveUserInformation(user as User, downloadURL).then(() => clearError())
+            saveUserDatabaseInformation(user as User, downloadURL).then(() => clearError());
           })
           .catch((error): void => {
             setError({ code: error.code, message: error.message });
@@ -107,14 +106,15 @@ const Register = () => {
     );
   }
 
-  const saveUserInformation = async (user: User, downloadURL?: string): Promise<void> => {
-    handleLoadingState('message', 'Saving user\'s information');
+  const saveUserDatabaseInformation = async (user: User, downloadURL?: string): Promise<void> => {
     await setDoc(doc(db, 'users', user.uid), {
       uid: user.uid,
       displayName: formData.displayName,
       email: formData.email,
       ...(downloadURL && { photoURL: downloadURL }),
     });
+
+    await setDoc(doc(db, 'userChats', user.uid), {});
     resetLoading();
   }
 

@@ -9,6 +9,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 import { FormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const FORM_DATA_INITIAL_VALUES: FormData = {
   displayName: '',
@@ -27,6 +28,7 @@ const Register = () => {
   const [formData, setFormData] = useState<FormData>(FORM_DATA_INITIAL_VALUES);
   const [error, setError] = useState<AppError | null>(ERROR_INITIAL_VALUES);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, files } = e.target;
@@ -116,6 +118,7 @@ const Register = () => {
 
     await setDoc(doc(db, 'userChats', user.uid), {});
     resetLoading();
+    navigate('/');
   }
 
   return (

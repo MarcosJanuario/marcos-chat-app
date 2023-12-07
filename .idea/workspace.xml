@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e2fc615-aaad-4033-8b31-37bf384e6bda" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Register/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Register/Register.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +73,8 @@
       <option name="presentableId" value="Default" />
       <updated>1701928824846</updated>
       <workItem from="1701928826534" duration="3761000" />
-      <workItem from="1701932600633" duration="293000" />
+      <workItem from="1701932600633" duration="424000" />
+      <workItem from="1701933029286" duration="302000" />
     </task>
     <servers />
   </component>

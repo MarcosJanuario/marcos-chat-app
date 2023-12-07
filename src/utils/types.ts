@@ -1,8 +1,13 @@
-export type FormData = {
+export type RegisterFormData = {
   displayName: string;
   email: string;
   password: string;
   file: Blob | Uint8Array | ArrayBuffer | string;
+}
+
+export type LoginFormData = {
+  email: string;
+  password: string;
 }
 
 export enum ImageSize {

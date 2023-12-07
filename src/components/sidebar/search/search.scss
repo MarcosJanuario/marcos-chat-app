@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .search-wrapper {
 
@@ -27,6 +28,13 @@
 
     &:hover {
       background-color: $COLOR_PRIMARY_DARKEN_4;
+    }
+
+    .user-chat-info {
+
+      @include tablet {
+        display: none;
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .chats-wrapper {
 
@@ -25,6 +26,10 @@
         font-size: $FONT_SIZE_SMALL;
         color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
         margin: 0;
+      }
+
+      @include tablet {
+        display: none;
       }
     }
   }

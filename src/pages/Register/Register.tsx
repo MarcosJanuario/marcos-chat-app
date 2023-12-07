@@ -7,11 +7,11 @@ import { auth, db, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
 import { doc, setDoc } from "firebase/firestore";
 
-import { FormData, AppError, LoadingState } from '../../utils/types';
+import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
 import { useNavigate } from 'react-router-dom';
 
-const FORM_DATA_INITIAL_VALUES: FormData = {
+const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
   email: '',
   password: '',
@@ -25,7 +25,7 @@ const LOADING_INITIAL_VALUES: LoadingState = {
 };
 
 const Register = () => {
-  const [formData, setFormData] = useState<FormData>(FORM_DATA_INITIAL_VALUES);
+  const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
   const [error, setError] = useState<AppError | null>(ERROR_INITIAL_VALUES);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
   const navigate = useNavigate();

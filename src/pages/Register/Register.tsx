@@ -2,14 +2,14 @@ import React, { FormEvent, ChangeEvent, useState } from 'react';
 import './register.scss';
 import AddAvatar from '../../assets/images/add-avatar.png';
 import Button from '../../components/Button/Button';
-import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, User, UserCredential, updateCurrentUser } from 'firebase/auth';
 import { auth, db, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from 'firebase/firestore';
 
 import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LOADING_INITIAL_VALUES } from '../../utils/consts';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
@@ -59,17 +59,29 @@ const Register = () => {
     signupUser();
   };
 
+  const errorHandler = (error: AppError): void => {
+    setError({ code: error?.code ?? 0, message: error?.message ?? '' });
+    resetLoading();
+  }
+
   const signupUser = (): void => {
     console.log('formData: ', formData);
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential: UserCredential) => formData.file
-        ? uploadUserAvatar(userCredential.user, formData.file as Blob | Uint8Array | ArrayBuffer)
-        : saveUserDatabaseInformation(userCredential.user))
+      .then((userCredential: UserCredential) => updateDisplayName(userCredential.user))
+      .then((user: User) => formData.file
+        ? uploadUserAvatar(user, formData.file as Blob | Uint8Array | ArrayBuffer)
+        : saveUserDatabaseInformation(user))
       .then(() => clearError())
-      .catch((error) => {
-        setError({ code: error.code, message: error.message });
-        resetLoading();
-      });
+      .catch(errorHandler);
+  }
+
+  const updateDisplayName = async (user: User): Promise<User> => {
+    console.log('updating current user: ', {...user, displayName: formData.displayName });
+    await updateProfile(user, { displayName: formData.displayName })
+      .then(() => {
+        console.log('USER UPDATED!!!');
+      }).catch(errorHandler)
+    return user;
   }
 
   const uploadUserAvatar = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
@@ -162,7 +174,7 @@ const Register = () => {
             error && <span>Ops! Something went wrong!</span>
           }
         </form>
-        <p>Do you have an account? Please login</p>
+        <p>Do you have an account? Please <Link to={'/login'}>login</Link></p>
         {
           loading.visible && <Loading message={loading.message} />
         }

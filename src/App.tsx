@@ -7,16 +7,17 @@ import Home from './pages/Home/Home';
 import { AuthContext, AuthContextType } from './store/context/AuthContext';
 
 const App = () => {
-  const authContext = useContext<AuthContextType>(AuthContext);
+  const { user } = useContext<AuthContextType>(AuthContext);
   const [loggedIn, setLoggedIn] = useState(false);
+  // console.log('[USER]: ', user);
 
   useEffect(() => {
-    if (authContext.user.uid) {
+    if (user.uid) {
       setLoggedIn(true);
     } else {
       setLoggedIn(false);
     }
-  }, [authContext.user]);
+  }, [user]);
 
   return (
     <BrowserRouter>

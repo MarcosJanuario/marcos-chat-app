@@ -2,6 +2,7 @@
 @import 'src/assets/styles/mixins';
 
 .search-wrapper {
+  border-bottom: .1rem solid $COLOR_PRIMARY_LIGHTEN_5;
 
   .search-form {
     padding: 1rem;
@@ -35,6 +36,19 @@
       @include tablet {
         display: none;
       }
+    }
+  }
+
+  .error-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;;
+    align-items: center;
+    padding: 0 0 1rem 1rem;
+
+    .error-message {
+      color: $COLOR_PRIMARY_LIGHTEN_5;
+      font-size: $FONT_SIZE_SMALL;
     }
   }
 }

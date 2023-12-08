@@ -25,3 +25,11 @@ export type LoadingState = {
   message: string;
   visible: boolean;
 }
+
+
+export type FirebaseDocUser = {
+  displayName: string;
+  email: string;
+  photoURL?: string;
+  uid: string;
+}

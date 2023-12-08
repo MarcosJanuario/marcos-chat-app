@@ -12,7 +12,6 @@ const Navbar = () => {
 
   const signOutUser = (): void => {
     signOut(auth).then(() => {
-      console.log('user signed out...');
       clearUser();
     })
   }

@@ -10,7 +10,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
-import { LOADING_INITIAL_VALUES } from '../../utils/consts';
+import { LOADING_INITIAL_VALUES, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../utils/consts';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -76,10 +76,8 @@ const Register = () => {
   }
 
   const updateDisplayName = async (user: User): Promise<User> => {
-    console.log('updating current user: ', {...user, displayName: formData.displayName });
     await updateProfile(user, { displayName: formData.displayName })
       .then(() => {
-        console.log('USER UPDATED!!!');
       }).catch(errorHandler)
     return user;
   }
@@ -118,14 +116,14 @@ const Register = () => {
   }
 
   const saveUserDatabaseInformation = async (user: User, downloadURL?: string): Promise<void> => {
-    await setDoc(doc(db, 'users', user.uid), {
+    await setDoc(doc(db, USERS_DOCUMENT, user.uid), {
       uid: user.uid,
       displayName: formData.displayName,
       email: formData.email,
       ...(downloadURL && { photoURL: downloadURL }),
     });
 
-    await setDoc(doc(db, 'userChats', user.uid), {});
+    await setDoc(doc(db, USER_CHATS_DOCUMENT, user.uid), {});
     resetLoading();
     navigate('/');
   }

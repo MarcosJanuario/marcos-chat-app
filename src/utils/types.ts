@@ -27,7 +27,7 @@ export type LoadingState = {
 }
 
 
-export type FirebaseDocUser = {
+export type ChatUser = {
   displayName: string;
   email: string;
   photoURL?: string;

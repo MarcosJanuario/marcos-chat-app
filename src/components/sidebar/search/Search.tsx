@@ -70,6 +70,9 @@ const Search = () => {
     } catch(error) {
       console.log('ERROR BY HANDLING CHATS: ', error);
     }
+
+    setUsers([]);
+    setUserName('');
   }
 
   return (
@@ -77,6 +80,7 @@ const Search = () => {
       <div className="search-form">
         <input type="text" placeholder={'Find an user'}
                onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
+               value={userName}
                onChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
         />
       </div>

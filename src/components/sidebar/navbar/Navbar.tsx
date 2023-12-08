@@ -5,7 +5,7 @@ import Button from '../../Button/Button';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
-import User from '../../../assets/images/user.png';
+import DefaultUserIcon from '../../../assets/images/user.png';
 
 const Navbar = () => {
   const { user, clearUser } = useContext<AuthContextType>(AuthContext);
@@ -20,7 +20,7 @@ const Navbar = () => {
     <div className="navbar-wrapper">
       <span className="logo">Marcos Chat</span>
       <div className="user">
-        <Avatar image={user.photoURL ?? User}  />
+        <Avatar image={user.photoURL ?? DefaultUserIcon}  />
         <span>{ user.displayName }</span>
         <Button text={'Logout'} onClick={() => signOutUser()} />
       </div>

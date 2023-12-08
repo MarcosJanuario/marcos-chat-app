@@ -1,16 +1,15 @@
 import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 
 import './search.scss';
-import Avatar from '../../avatar/Avatar';
-import { AppError, ChatUser, ImageSize } from '../../../utils/types';
+import { AppError, ChatUser } from '../../../utils/types';
 import { collection, doc, getDoc, getDocs, query, setDoc, where, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import User from '../../../assets/images/user.png';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../../utils/consts';
+import ChatThumbnail from '../../chatThumbnail/ChatThumbnail';
 
 const Search = () => {
-  const { user : currentUser, clearUser } = useContext<AuthContextType>(AuthContext);
+  const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const [ userName, setUserName ] = useState('');
   const [ users, setUsers ] = useState<ChatUser[]>([]);
   const [error, setError] = useState<AppError | null>(null);
@@ -50,9 +49,9 @@ const Search = () => {
         // create/update userChats, where this will hold all the chats the SELECTED user is having with
         await updateDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
           [combinedID + '.userInfo']: {
-            uid: selectedUser.uid,
-            displayName: selectedUser.displayName,
-            ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL })
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            ...(currentUser.photoURL && { photoURL: currentUser.photoURL })
           },
           [combinedID + '.date']: serverTimestamp()
         });
@@ -60,9 +59,9 @@ const Search = () => {
         // create/update userChats, where this will hold all the chats the LOGGEDIN user is having with
         await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
           [combinedID + '.userInfo']: {
-            uid: currentUser.uid,
-            displayName: currentUser.displayName,
-            ...(currentUser.photoURL && { photoURL: currentUser.photoURL })
+            uid: selectedUser.uid,
+            displayName: selectedUser.displayName,
+            ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL })
           },
           [combinedID + '.date']: serverTimestamp()
         })
@@ -88,15 +87,7 @@ const Search = () => {
       {
         users && users.length > 0 &&
           users?.map((user: ChatUser) =>
-            <div key={user.uid} className="user-chat" onClick={() => handleSelection(user)}>
-              <Avatar image={user?.photoURL ?? User}
-                      size={ImageSize.BIG}
-              />
-              <div className="user-chat-info">
-                <span>{ user.displayName ?? '' }</span>
-              </div>
-            </div>
-          )
+            <ChatThumbnail userInfo={user} lastMessage={'Hello'} onClick={(user: ChatUser) => handleSelection(user)} />)
       }
       {
         error && <div className={'error-wrapper'}>

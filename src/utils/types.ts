@@ -26,10 +26,19 @@ export type LoadingState = {
   visible: boolean;
 }
 
-
 export type ChatUser = {
   displayName: string;
   email: string;
   photoURL?: string;
   uid: string;
 }
+
+export type DateInfo = {
+  seconds: number;
+  nanoseconds: number;
+};
+
+export type UserChatDocument = {
+  date: DateInfo;
+  userInfo: ChatUser;
+};

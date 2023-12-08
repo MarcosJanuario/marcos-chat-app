@@ -50,6 +50,7 @@ const Search = () => {
         await updateDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
           [combinedID + '.userInfo']: {
             uid: currentUser.uid,
+            email: currentUser.email,
             displayName: currentUser.displayName,
             ...(currentUser.photoURL && { photoURL: currentUser.photoURL })
           },
@@ -60,6 +61,7 @@ const Search = () => {
         await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
           [combinedID + '.userInfo']: {
             uid: selectedUser.uid,
+            email: selectedUser.email,
             displayName: selectedUser.displayName,
             ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL })
           },
@@ -87,7 +89,10 @@ const Search = () => {
       {
         users && users.length > 0 &&
           users?.map((user: ChatUser) =>
-            <ChatThumbnail userInfo={user} lastMessage={'Hello'} onClick={(user: ChatUser) => handleSelection(user)} />)
+            <div key={user.uid}>
+              <ChatThumbnail userInfo={user} lastMessage={'Hello'} onClick={(user: ChatUser) => handleSelection(user)} />
+            </div>
+          )
       }
       {
         error && <div className={'error-wrapper'}>

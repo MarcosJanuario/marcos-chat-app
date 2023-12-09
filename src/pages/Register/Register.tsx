@@ -2,7 +2,7 @@ import React, { FormEvent, ChangeEvent, useState } from 'react';
 import './register.scss';
 import AddAvatar from '../../assets/images/add-avatar.png';
 import Button from '../../components/Button/Button';
-import { createUserWithEmailAndPassword, updateProfile, User, UserCredential, updateCurrentUser } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
 import { auth, db, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';

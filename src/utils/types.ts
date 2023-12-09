@@ -1,3 +1,6 @@
+
+import {Timestamp } from 'firebase/firestore';
+
 export type RegisterFormData = {
   displayName: string;
   email: string;
@@ -42,3 +45,12 @@ export type UserChatDocument = {
   date: DateInfo;
   userInfo: ChatUser;
 };
+
+export type FileType = Blob | Uint8Array | ArrayBuffer;
+
+export type MessageChat = {
+  id: string;
+  text: string;
+  senderID: string;
+  date: Timestamp;
+}

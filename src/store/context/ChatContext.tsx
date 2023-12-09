@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { AuthContext, AuthContextType } from './AuthContext';
 import { ChatUser } from '../../utils/types';
 

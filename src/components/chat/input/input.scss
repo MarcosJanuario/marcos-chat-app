@@ -26,5 +26,26 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
+
+    .send-image-input {
+      display: none;
+    }
+
+    label {
+      img {
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+        transition: opacity .1s ease, transform .1s ease;;
+      }
+
+      &:hover {
+        opacity: .8;
+      }
+
+      &:active {
+        transform: scale(.9);
+      }
+    }
   }
 }

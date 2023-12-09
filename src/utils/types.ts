@@ -54,4 +54,5 @@ export type MessageChat = {
   text: string;
   senderID: string;
   date: Timestamp;
+  image?: string;
 }

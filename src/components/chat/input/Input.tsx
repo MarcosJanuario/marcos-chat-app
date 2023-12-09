@@ -99,7 +99,7 @@ const Input = () => {
 
   return (
     <div className="input-wrapper">
-      <input type="text" placeholder={'Find an user'}
+      <input type="text" placeholder={'Enter a message'}
              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleSendMessage}
              value={text}
              onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}

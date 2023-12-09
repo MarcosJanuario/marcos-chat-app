@@ -9,6 +9,7 @@ import { mapObjectToArray } from '../../../utils/helpers';
 import './chats.scss';
 import ChatThumbnail from '../../chatThumbnail/ChatThumbnail';
 import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
+import { cloneDeep } from 'lodash';
 
 const Chats = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
@@ -26,7 +27,13 @@ const Chats = () => {
             userInfo: value.userInfo,
           }));
           console.log('[userChatsArray]: ', userChatsArray);
-          setChats(userChatsArray);
+          setChats(() => cloneDeep(userChatsArray)
+            .sort((a: UserChatDocument, b: UserChatDocument): number => {
+              if (!a.date || !b.date) {
+                return 0;
+              }
+              return b.date.seconds - a.date.seconds;
+            }));
         }
 
       });
@@ -43,6 +50,7 @@ const Chats = () => {
   return (
     <div className="chats-wrapper">
       {
+        chats.length > 0 &&
         chats.map((userChat: UserChatDocument) =>
           userChat.userInfo && <div key={userChat.userInfo.uid}>
             <ChatThumbnail userInfo={userChat.userInfo} lastMessage={userChat.lastMessage?.text}

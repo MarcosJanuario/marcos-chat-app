@@ -1,5 +1,10 @@
 @import 'src/assets/styles/variables';
 
+$OWNER_SPEECH_BALLOON_COLOR: $COLOR_PRIMARY_DARKEN_3;
+$OWNER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_WHITE;
+$OTHER_SPEECH_BALLOON_COLOR: $COLOR_DEFAULT_GRAY;
+$OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
+
 .message-wrapper {
   background-color: $COLOR_PRIMARY_LIGHTEN_5;
   display: flex;
@@ -11,6 +16,19 @@
     flex-direction: column;
     color: $COLOR_DEFAULT_GRAY;
     font-weight: 300;
+    padding-top: 2rem;
+
+    &.left {
+      align-items: flex-start;
+    }
+
+    &.right {
+      align-items: flex-end;
+    }
+
+    span {
+      font-size: $FONT_SIZE_SMALL;
+    }
   }
 
   .message-content-wrapper {
@@ -20,9 +38,9 @@
     gap: 1rem;
 
     p {
-      background-color: $COLOR_DEFAULT_WHITE;
+      background-color: $OTHER_SPEECH_BALLOON_COLOR;
       padding: 1rem;
-      border-radius: 0 1rem 1rem 1rem;
+      border-radius: 1rem;
       max-width: max-content;
       margin: 0;
     }
@@ -39,10 +57,66 @@
       align-items: flex-end;
 
       p {
-        background-color: $COLOR_PRIMARY_DARKEN_3;
-        color: $COLOR_DEFAULT_WHITE;
-        border-radius: 1rem 0 1rem 1rem;
+        background-color: $OWNER_SPEECH_BALLOON_COLOR;
+        border-radius: 1rem;
       }
     }
   }
+}
+
+.message-content-wrapper p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 75%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.message-content-wrapper p::before,
+.message-content-wrapper p::after {
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+p.owner {
+  align-self: flex-end;
+  background-color: $OWNER_SPEECH_BALLOON_COLOR;
+  color: $OWNER_SPEECH_BALLOON_TEXT_COLOR;
+}
+
+p.owner::before {
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1rem solid $OWNER_SPEECH_BALLOON_COLOR;
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.owner::after {
+  background-color: $COLOR_PRIMARY_LIGHTEN_5;
+  border-bottom-left-radius: 0.5rem;
+  right: -40px;
+  transform:translate(-30px, -2px);
+  width: 10px;
+}
+
+p.from-other {
+  color: $OTHER_SPEECH_BALLOON_TEXT_COLOR;
+}
+
+p.from-other:before {
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1rem solid $OTHER_SPEECH_BALLOON_COLOR;
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-other::after {
+  background-color: $COLOR_PRIMARY_LIGHTEN_5;
+  border-bottom-right-radius: 0.5rem;
+  left: 20px;
+  transform: translate(-30px, -2px);
+  width: 10px;
 }

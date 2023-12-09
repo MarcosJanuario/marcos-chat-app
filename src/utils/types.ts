@@ -43,6 +43,7 @@ export type DateInfo = {
 
 export type UserChatDocument = {
   date: DateInfo;
+  lastMessage?: { text: string };
   userInfo: ChatUser;
 };
 

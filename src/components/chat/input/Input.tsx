@@ -8,9 +8,9 @@ import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 import { AppError, FileType } from '../../../utils/types';
 import { getDownloadURL, ref, StorageError, uploadBytesResumable } from 'firebase/storage';
-import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../../firebase';
-import { CHATS_DOCUMENT } from '../../../utils/consts';
+import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from '../../../utils/consts';
 import { v4 as uuid } from 'uuid';
 
 import './input.scss';
@@ -76,6 +76,17 @@ const Input = () => {
           setError({ code: error.code, message: error.message });
         })
     }
+
+    await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
+      [data.chatID + '.lastMessage']: { text: text },
+      [data.chatID + '.date']: serverTimestamp()
+    });
+
+    await updateDoc(doc(db, USER_CHATS_DOCUMENT, data.user.uid), {
+      [data.chatID + '.lastMessage']: { text: text },
+      [data.chatID + '.date']: serverTimestamp()
+    });
+
     setText('');
     setImage(null);
   }

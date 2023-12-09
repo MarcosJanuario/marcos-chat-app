@@ -23,6 +23,7 @@ const ChatThumbnail = ({ userInfo, lastMessage, onClick }: UserChatComponentProp
       <div className="user-chat-info">
         <span>{ userInfo.displayName }</span>
         {
+          // TODO: LIMIT TEXT SIZE
           lastMessage && <p>{ lastMessage}</p>
         }
       </div>

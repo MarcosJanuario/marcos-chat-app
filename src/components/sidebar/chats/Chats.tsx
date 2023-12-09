@@ -16,14 +16,13 @@ const Chats = () => {
   const [ chats, setChats ] = useState<UserChatDocument[]>([]);
 
   useEffect(() => {
-    console.log('[chatContext data]: ', data);
     if (currentUser.uid) {
       const unsubscribe = onSnapshot(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), (doc) => {
         if (doc.exists()) {
           const userChatsDocument = doc.data();
-          console.log('[userChatsDocument]: ', userChatsDocument);
           const userChatsArray: UserChatDocument[] = mapObjectToArray(userChatsDocument, (value) => ({
             date: value.date,
+            lastMessage: value.lastMessage,
             userInfo: value.userInfo,
           }));
           setChats(userChatsArray);
@@ -45,7 +44,7 @@ const Chats = () => {
       {
         chats.map((userChat: UserChatDocument) =>
           <div key={userChat.userInfo.uid}>
-            <ChatThumbnail userInfo={userChat.userInfo} lastMessage={'Hello'}
+            <ChatThumbnail userInfo={userChat.userInfo} lastMessage={userChat.lastMessage?.text}
                            onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
             />
           </div>

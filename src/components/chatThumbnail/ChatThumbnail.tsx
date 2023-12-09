@@ -4,6 +4,7 @@ import Avatar from '../avatar/Avatar';
 import DefaultUserIcon from '../../assets/images/user.png';
 
 import './chatThumbnail.scss';
+import { stringSizeLimiter } from '../../utils/helpers';
 
 interface UserChatComponentProps {
   userInfo: ChatUser;
@@ -23,8 +24,7 @@ const ChatThumbnail = ({ userInfo, lastMessage, onClick }: UserChatComponentProp
       <div className="user-chat-info">
         <span>{ userInfo.displayName }</span>
         {
-          // TODO: LIMIT TEXT SIZE
-          lastMessage && <p>{ lastMessage}</p>
+          lastMessage && <p>{ stringSizeLimiter(lastMessage, 17)}</p>
         }
       </div>
     </div>

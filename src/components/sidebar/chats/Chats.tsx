@@ -25,6 +25,7 @@ const Chats = () => {
             lastMessage: value.lastMessage,
             userInfo: value.userInfo,
           }));
+          console.log('[userChatsArray]: ', userChatsArray);
           setChats(userChatsArray);
         }
 
@@ -43,7 +44,7 @@ const Chats = () => {
     <div className="chats-wrapper">
       {
         chats.map((userChat: UserChatDocument) =>
-          <div key={userChat.userInfo.uid}>
+          userChat.userInfo && <div key={userChat.userInfo.uid}>
             <ChatThumbnail userInfo={userChat.userInfo} lastMessage={userChat.lastMessage?.text}
                            onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
             />

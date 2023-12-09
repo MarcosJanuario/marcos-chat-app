@@ -10,9 +10,15 @@ import { doc, setDoc } from 'firebase/firestore';
 import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
-import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../utils/consts';
-import Avatar from '../../components/avatar/Avatar';
+import {
+  DEFAULT_USER_AVATAR,
+  LOADING_INITIAL_VALUES,
+  PASSWORD_MIN_CHARS,
+  USER_CHATS_DOCUMENT,
+  USERS_DOCUMENT
+} from '../../utils/consts';
 import { validateEmail } from '../../utils/helpers';
+import Avatar from '../../components/avatar/Avatar';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -179,7 +185,7 @@ const Register = () => {
             onChange={handleChange}
           />
           <label htmlFor="file">
-            <Avatar image={AddAvatar} />
+            <Avatar image={DEFAULT_USER_AVATAR} />
             <span>Add avatar</span>
           </label>
           <Button text={'Sign up'} disabled={!fieldsCorrectlyFulfilled()} />

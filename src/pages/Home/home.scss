@@ -9,10 +9,8 @@
   background-color: $COLOR_PRIMARY_LIGHTEN_4;
 
   .home-container {
-    border: 1px solid $COLOR_DEFAULT_WHITE;
-    border-radius: $BORDER_RADIUS;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     display: flex;
     overflow: hidden;
     @include tablet {

@@ -12,7 +12,15 @@ button {
   justify-content: center;
   align-items: center;
 
-  &:active {
-    transform: scale(.9);
+  &:disabled {
+    background-color: $COLOR_DEFAULT_GRAY;
+    color: $COLOR_DEFAULT_WHITE;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    &:active {
+      transform: scale(.9);
+    }
   }
 }

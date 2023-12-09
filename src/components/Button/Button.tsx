@@ -1,13 +1,15 @@
 import React from 'react';
 
 import './button.scss';
+
 interface ButtonProps {
   text: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
-const Button = ({ text, onClick }: ButtonProps) => {
+const Button = ({ text, onClick, disabled }: ButtonProps) => {
   return (
-    <button onClick={onClick}>{ text }</button>
+    <button className={`${disabled && disabled}`} onClick={onClick} disabled={disabled}>{ text }</button>
   );
 }
 

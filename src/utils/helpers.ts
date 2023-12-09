@@ -9,3 +9,8 @@ export const stringSizeLimiter = (inputString: string, maxLength: number): strin
 
   return inputString.substring(0, maxLength) + '...';
 }
+
+export const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};

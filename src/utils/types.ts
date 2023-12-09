@@ -5,6 +5,7 @@ export type RegisterFormData = {
   displayName: string;
   email: string;
   password: string;
+  passwordRepeat: string;
   file: Blob | Uint8Array | ArrayBuffer | string;
 }
 

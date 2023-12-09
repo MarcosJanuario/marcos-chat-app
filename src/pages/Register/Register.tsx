@@ -10,20 +10,21 @@ import { doc, setDoc } from 'firebase/firestore';
 import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
-import { LOADING_INITIAL_VALUES, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../utils/consts';
+import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../utils/consts';
+import Avatar from '../../components/avatar/Avatar';
+import { validateEmail } from '../../utils/helpers';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
   email: '',
   password: '',
+  passwordRepeat: '',
   file: '',
 }
 
-const ERROR_INITIAL_VALUES: AppError = null;
-
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
-  const [error, setError] = useState<AppError | null>(ERROR_INITIAL_VALUES);
+  const [error, setError] = useState<AppError | null>(null);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
   const navigate = useNavigate();
 
@@ -48,7 +49,7 @@ const Register = () => {
 
 
   const clearError = (): void => {
-    setError(ERROR_INITIAL_VALUES);
+    setError(null);
   };
 
   const resetLoading = (): void => handleLoadingState({ message: '', visible: false });
@@ -59,8 +60,8 @@ const Register = () => {
     signupUser();
   };
 
-  const errorHandler = (error: AppError): void => {
-    setError({ code: error?.code ?? 0, message: error?.message ?? '' });
+  const errorHandler = (error: any): void => {
+    setError({ code: error?.code ?? 0, message: error?.message ?? 'Error by creating new user' });
     resetLoading();
   }
 
@@ -128,6 +129,14 @@ const Register = () => {
     navigate('/');
   }
 
+  const passwordsAreCorrect = (): boolean => {
+    return formData.password.length > PASSWORD_MIN_CHARS
+      && formData.passwordRepeat.length > PASSWORD_MIN_CHARS
+      && formData.password === formData.passwordRepeat
+  }
+
+  const fieldsCorrectlyFulfilled = (): boolean => passwordsAreCorrect() && validateEmail(formData.email);
+
   return (
     <div className={'register-wrapper'}>
       <div className={'register-form-container'}>
@@ -156,6 +165,13 @@ const Register = () => {
             onChange={handleChange}
           />
           <input
+            type="password"
+            placeholder={'Repeated Password'}
+            name="passwordRepeat"
+            value={formData.passwordRepeat}
+            onChange={handleChange}
+          />
+          <input
             type="file"
             className={'register-input-avatar'}
             id={'file'}
@@ -163,13 +179,13 @@ const Register = () => {
             onChange={handleChange}
           />
           <label htmlFor="file">
-            <img src={AddAvatar} alt="Add Avatar" className={'add-avatar-img'} />
+            <Avatar image={AddAvatar} />
             <span>Add avatar</span>
           </label>
-          <Button text={'Sign up'} />
+          <Button text={'Sign up'} disabled={!fieldsCorrectlyFulfilled()} />
           {/*//TODO: improve later*/}
           {
-            error && <span>Ops! Something went wrong!</span>
+            error && <span className={'error'}>{ error.message }</span>
           }
         </form>
         <p>Do you have an account? Please <Link to={'/login'}>login</Link></p>

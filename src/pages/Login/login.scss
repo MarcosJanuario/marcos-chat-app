@@ -45,21 +45,17 @@
 
         &::placeholder {
           color: $COLOR_DEFAULT_GRAY;
+        }
+      }
+
+      .login-input-avatar {
+        display: none;
       }
     }
 
-    .login-input-avatar {
-      display: none;
-    }
-
-    button {
-      background-color: $COLOR_PRIMARY_DARKEN_3;
-      color: $COLOR_DEFAULT_WHITE;
-      padding: .5rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
+    span.error {
+      color: $COLOR_DEFAULT_RED;
+      font-size: $FONT_SIZE_SMALL;
     }
 
     p {

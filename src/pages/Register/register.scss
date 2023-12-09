@@ -63,19 +63,20 @@
           cursor: pointer;
         }
 
+        img {
+          cursor: pointer;
+        }
+
         span {
           font-size: $FONT_SIZE_SMALL;
-          color: $COLOR_PRIMARY_LIGHTEN_4;
+          color: $COLOR_PRIMARY_DARKEN_3;
+          cursor: pointer;
         }
       }
 
-      button {
-        background-color: $COLOR_PRIMARY_DARKEN_3;
-        color: $COLOR_DEFAULT_WHITE;
-        padding: .5rem;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
+      span.error {
+        color: $COLOR_DEFAULT_RED;
+        font-size: $FONT_SIZE_SMALL;
       }
     }
 

@@ -12,14 +12,15 @@ interface UserChatComponentProps {
   userInfo: ChatUser;
   lastMessage?: string;
   onClick?: (user: ChatUser) => void;
+  color?: string;
 }
 
-const ChatThumbnail = ({ userInfo, lastMessage, onClick }: UserChatComponentProps) => {
+const ChatThumbnail = ({ userInfo, lastMessage, onClick, color }: UserChatComponentProps) => {
   return (
     <div key={userInfo.uid} className="molecule-chat-thumbnail-wrapper" onClick={() => onClick && onClick(userInfo)}>
       <Image image={userInfo.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.BIG} />
       <div className="user-chat-info">
-        <Text type={TextType.TITLE} color={'#f5f5f5'}>{userInfo.displayName}</Text>
+        <Text type={TextType.TITLE} color={color && '#f5f5f5'}>{userInfo.displayName}</Text>
         {
           lastMessage &&
             <p>{ stringSizeLimiter(lastMessage, MAX_STRING_CHARS)}</p>

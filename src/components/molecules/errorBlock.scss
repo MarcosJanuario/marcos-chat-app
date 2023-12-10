@@ -6,10 +6,9 @@
   width: 100%;
   justify-content: flex-start;;
   align-items: center;
-  padding: 0 0 1rem 1rem;
 
-  .error-message {
-    color: $COLOR_PRIMARY_LIGHTEN_5;
-    font-size: $FONT_SIZE_SMALL;
+  .atomic-text-small {
+    width: 100%;
+    text-align: center;
   }
 }

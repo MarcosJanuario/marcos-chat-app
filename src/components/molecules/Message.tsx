@@ -40,6 +40,7 @@ const Message = ({ message }: messageProps) => {
 
   return (
     <div className={`message-wrapper ${messageFromLoggedUser() && 'owner'}`} ref={ref}>
+
       <div className={`message-info-wrapper ${messageFromLoggedUser() ? 'left' : 'right'}`}>
         <Image image={getMessageOwnerImage()} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
         <Text type={TextType.SMALL} color={'#bdbdbd'} style={{ maxWidth: '3rem', textAlign: 'center' }}>

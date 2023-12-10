@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 import './button.scss';
 
@@ -6,10 +6,15 @@ interface ButtonProps {
   text: string;
   onClick?: () => void;
   disabled?: boolean;
+  style?: CSSProperties;
 }
-const Button = ({ text, onClick, disabled }: ButtonProps) => {
+const Button = ({ text, onClick, disabled, style }: ButtonProps) => {
   return (
-    <button className={`${disabled && disabled}`} onClick={onClick} disabled={disabled}>{ text }</button>
+    <button className={`${disabled && disabled}`}
+            style={{...style}}
+            onClick={onClick} disabled={disabled}>
+      { text }
+    </button>
   );
 }
 

@@ -1,6 +1,7 @@
 import { LoadingState, RegisterInputField, SizeMap } from './types';
 import DefaultUserIcon from '../assets/images/user-avatar.png';
 import DefaultCheckIcon from '../assets/images/check.png';
+import DefaulCloseIcon from '../assets/images/close.png';
 
 export const LOADING_INITIAL_VALUES: LoadingState = {
   message: '',
@@ -18,6 +19,7 @@ export const MAX_STRING_CHARS = 17;
 
 export const DEFAULT_USER_AVATAR = DefaultUserIcon;
 export const DEFAULT_CHECK_ICON = DefaultCheckIcon;
+export const DEFAULT_CLOSE_ICON = DefaulCloseIcon;
 
 const convertSizeStringToBytes = (sizeString: string): number => {
   const sizeNumber = parseFloat(sizeString);

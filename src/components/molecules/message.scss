@@ -20,14 +20,18 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 
     &.left {
       align-items: flex-start;
+
+      img {
+        margin-left: 0.4rem;
+      }
     }
 
     &.right {
       align-items: flex-end;
-    }
 
-    span {
-      font-size: $FONT_SIZE_SMALL;
+      img {
+        margin-right: 0.4rem;
+      }
     }
   }
 
@@ -43,10 +47,6 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
       border-radius: 1rem;
       max-width: max-content;
       margin: 0;
-    }
-
-    img {
-      width: 50%;
     }
   }
 

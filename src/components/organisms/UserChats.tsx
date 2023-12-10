@@ -54,8 +54,11 @@ const UserChats = () => {
         chats.length > 0 &&
         chats.map((userChat: UserChatDocument) =>
           userChat.userInfo && <div key={userChat.userInfo.uid}>
-            <ChatThumbnail userInfo={userChat.userInfo} lastMessage={userChat.lastMessage?.text}
-                           onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
+            <ChatThumbnail
+              userInfo={userChat.userInfo}
+              lastMessage={userChat.lastMessage?.text}
+              color={'#f5f5f5'}
+              onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
             />
           </div>
         )

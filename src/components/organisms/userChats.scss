@@ -17,18 +17,7 @@
     }
 
     .user-chat-info {
-      span {
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      p {
-        font-size: $FONT_SIZE_SMALL;
-        color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
-        margin: 0;
-      }
-
-      @include tablet {
+      @include mobile {
         display: none;
       }
     }

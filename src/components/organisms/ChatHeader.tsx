@@ -10,9 +10,25 @@ import AddUser from '../../assets/images/add-user.png';
 import More from '../../assets/images/more.png';
 
 import './chatHeader.scss';
+import { UIContext, UIReducer } from '../../store/context/UIContext';
+import ModalMore from './ModalMore';
+import ModalAddUser from './ModalAddUser';
 
 const ChatHeader = () => {
   const { data } = useContext<ChatReducer>(ChatContext);
+  const { dispatchUI } = useContext<UIReducer>(UIContext);
+
+  const handleOnClick = (content: JSX.Element): void => {
+    dispatchUI({
+      type: 'HANDLE_MODAL',
+      payload: {
+        modal: {
+          content: content,
+          visibility: true
+        }
+      }
+    })
+  }
   return (
     <div className="chat-info-wrapper">
       {
@@ -28,9 +44,12 @@ const ChatHeader = () => {
       }
 
       <div className="chat-icons-wrapper">
-        <Image image={Camera} type={ImageType.ICON} />
-        <Image image={AddUser} type={ImageType.ICON} />
-        <Image image={More} type={ImageType.ICON} />
+        {/*// TODO: OTHER 2 MODALS*/}
+
+        {/*<Image image={Camera} type={ImageType.ICON} />*/}
+        <Image image={AddUser} type={ImageType.ICON}
+               onClick={() => handleOnClick(<ModalAddUser />)} />
+        {/*<Image image={More} type={ImageType.ICON} />*/}
       </div>
     </div>
   );

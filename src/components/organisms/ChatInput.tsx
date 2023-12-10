@@ -108,17 +108,19 @@ const ChatInput = () => {
              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
       />
       <div className="send-options-wrapper">
-        <Image image={FileUpload} type={ImageType.ICON} />
-        <input
-          type="file"
-          className={'send-image-input'}
-          id={'file'}
-          name="image-sender"
-          onChange={handleInputFile}
-        />
-        <label htmlFor="file">
-          <img src={ImageUpload} alt="Add Avatar" className={'add-avatar-img'} />
-        </label>
+        {/*// TODO: BUTTON TO SEND IMAGE ATTACHED TO THE MESSAGE*/}
+
+        {/*<Image image={FileUpload} type={ImageType.ICON} />*/}
+        {/*<input*/}
+        {/*  type="file"*/}
+        {/*  className={'send-image-input'}*/}
+        {/*  id={'file'}*/}
+        {/*  name="image-sender"*/}
+        {/*  onChange={handleInputFile}*/}
+        {/*/>*/}
+        {/*<label htmlFor="file">*/}
+        {/*  <img src={ImageUpload} alt="Add Avatar" className={'add-avatar-img'} />*/}
+        {/*</label>*/}
         <Button text={'Send'} onClick={handleSendMessage} />
       </div>
     </div>

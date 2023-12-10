@@ -5,6 +5,7 @@ import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import { AuthContext, AuthContextType } from './store/context/AuthContext';
+import ModalHandler from './components/templates/ModalHandler';
 
 const App = () => {
   const { user } = useContext<AuthContextType>(AuthContext);
@@ -20,19 +21,21 @@ const App = () => {
   }, [user]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={'/'}>
-          {loggedIn ? (
-            <Route index element={<Home />} />
-          ) : (
-            <Route index element={<Login />} />
-          )}
-          <Route path={'login'} element={loggedIn ? <Navigate to="/" /> : <Login />} />
-          <Route path={'register'} element={<Register />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ModalHandler>
+      <BrowserRouter>
+        <Routes>
+          <Route path={'/'}>
+            {loggedIn ? (
+              <Route index element={<Home />} />
+            ) : (
+              <Route index element={<Login />} />
+            )}
+            <Route path={'login'} element={loggedIn ? <Navigate to="/" /> : <Login />} />
+            <Route path={'register'} element={<Register />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ModalHandler>
   );
 }
 

@@ -1,0 +1,75 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+.modal-add-user-wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-height: 50vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  .modal-action-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+    .clickable-icon {
+      img {
+        margin: 0.5rem 0.5rem 0 0;
+      }
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 0 .5rem 0;
+  }
+
+  .content {
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+
+    .search-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .5rem;
+    }
+
+    .result-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: .5rem;
+
+      .user-wrapper {
+        display: flex;
+        width: 60%;
+        justify-content: flex-start;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      .user-action-wrapper {
+        display: flex;
+        width: 30%;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          width: 100%;
+          border-radius: $BORDER_RADIUS;
+        }
+      }
+    }
+  }
+}

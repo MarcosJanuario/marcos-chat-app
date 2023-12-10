@@ -1,0 +1,28 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+.modal-wrapper {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(.2rem);
+  filter: blur(.3px);
+  -webkit-backdrop-filter: blur(.3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-content-wrapper {
+    width: 30%;
+    background: $COLOR_DEFAULT_WHITE;
+    border-radius: $BORDER_RADIUS;
+    @include tablet {
+      width: 50%;
+    }
+    @include mobile {
+      width: 70%;
+    }
+  }
+}

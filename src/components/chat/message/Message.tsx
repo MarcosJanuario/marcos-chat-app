@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import Avatar from '../../avatar/Avatar';
-import { ImageSize, MessageChat } from '../../../utils/types';
+import { ImageSize, ImageType, MessageChat } from '../../../utils/types';
 
 import './message.scss';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
 import DefaultUserIcon from '../../../assets/images/user.png';
+import Image from '../../atoms/Image';
 
 type messageProps = {
   message: MessageChat;
@@ -39,10 +39,7 @@ const Message = ({ message }: messageProps) => {
   return (
     <div className={`message-wrapper ${messageFromLoggedUser() && 'owner'}`} ref={ref}>
       <div className={`message-info-wrapper ${messageFromLoggedUser() ? 'left' : 'right'}`}>
-        <Avatar
-          image={getMessageOwnerImage()}
-          size={ImageSize.NORMAL}
-        />
+        <Image image={getMessageOwnerImage()} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
         <span>just now</span>
       </div>
 

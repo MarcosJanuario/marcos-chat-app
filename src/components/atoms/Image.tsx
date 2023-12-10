@@ -1,12 +1,15 @@
 import React from 'react';
-import './avatar.scss';
-import { ImageSize } from '../../utils/types';
+import { ImageSize, ImageType } from '../../utils/types';
+
+import './image.scss';
 
 interface AvatarProps {
   image: string;
+  type: ImageType;
   size?: ImageSize;
+  onClick?: () => void;
 }
-const Avatar = ({ image, size = ImageSize.NORMAL }: AvatarProps) => {
+const Image = ({ image, type, size = ImageSize.NORMAL, onClick }: AvatarProps) => {
   const getSizeStyles = () => {
     switch (size) {
       case ImageSize.SMALL:
@@ -19,7 +22,17 @@ const Avatar = ({ image, size = ImageSize.NORMAL }: AvatarProps) => {
         return { width: '2rem', height: '2rem', minWidth: '2rem', minHeight: '2rem' };
     }
   };
-  return <img src={image} alt="Image Avatar" className={'image-avatar-component'} style={{ ...getSizeStyles() }} />;
+  if (type === ImageType.AVATAR) {
+    return (
+      <img src={image} alt="Image Avatar" className={'image-avatar'} style={{ ...getSizeStyles() }} />
+    );
+  } else {
+    return (
+      <div className="clickable-icon" onClick={onClick}>
+        <img src={image} alt="Image Avatar" className={'image-avatar'} style={{ ...getSizeStyles() }} />
+      </div>
+    )
+  }
 }
 
-export default Avatar;
+export default Image;

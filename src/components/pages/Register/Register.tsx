@@ -1,6 +1,6 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
 import './register.scss';
-import Button from '../../Button/Button';
+import Button from '../../atoms/Button';
 import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
 import { auth, db, storage } from '../../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
@@ -10,9 +10,8 @@ import {
   RegisterFormData,
   AppError,
   LoadingState,
-  ImageSize,
   RegisterInputField,
-  TextType
+  TextType, ImageType
 } from '../../../utils/types';
 import Loading from '../../loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,9 +24,9 @@ import {
   USERS_DOCUMENT
 } from '../../../utils/consts';
 import { validateEmail } from '../../../utils/helpers';
-import Icon from '../../icon/Icon';
 import Input from '../../atoms/Input';
 import Text from '../../atoms/Text';
+import Image from '../../atoms/Image';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -189,13 +188,13 @@ const Register = () => {
           <div className={'add-avatar-wrapper'}>
             <div className={'add-avatar-button-wrapper'}>
               <label htmlFor="file">
-                <Icon image={DEFAULT_USER_AVATAR} />
+                <Image image={DEFAULT_USER_AVATAR} type={ImageType.ICON} />
                 <span>Add avatar</span>
               </label>
             </div>
             {
               formData.file &&
-              <Icon image={DEFAULT_CHECK_ICON} size={ImageSize.SMALL} />
+              <Image image={DEFAULT_CHECK_ICON} type={ImageType.ICON} />
             }
           </div>
 

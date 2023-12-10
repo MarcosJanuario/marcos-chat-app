@@ -1,4 +1,15 @@
 @import 'src/assets/styles/mixins';
+@import 'src/assets/styles/variables';
+
+.image-avatar {
+  background-color: $COLOR_PRIMARY_LIGHTEN_4;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  object-fit: cover;
+  @include not-draggable;
+}
+
 
 .clickable-icon {
   cursor: pointer;
@@ -13,4 +24,3 @@
     transform: scale(.9);
   }
 }
-

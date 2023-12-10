@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import './login.scss';
-import Button from '../../Button/Button';
+import Button from '../../atoms/Button';
 import { AppError, LoadingState, LoginFormData, TextType } from '../../../utils/types';
 import { auth } from '../../../firebase';
 import { useNavigate, Link } from 'react-router-dom';

@@ -79,3 +79,8 @@ export type RegisterInputField = {
   id?: string;
   accept?: string;
 };
+
+export enum ImageType {
+  AVATAR,
+  ICON
+}

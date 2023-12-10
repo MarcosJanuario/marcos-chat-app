@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import './navbar.scss';
-import Avatar from '../../avatar/Avatar';
-import Button from '../../Button/Button';
+import Button from '../../atoms/Button';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 import { DEFAULT_USER_AVATAR } from '../../../utils/consts';
 import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
+import Image from '../../atoms/Image';
+import { ImageType } from '../../../utils/types';
 
 const Navbar = () => {
   const { user, clearUser } = useContext<AuthContextType>(AuthContext);
@@ -23,7 +24,7 @@ const Navbar = () => {
     <div className="navbar-wrapper">
       <span className="logo">Marcos Chat</span>
       <div className="user">
-        <Avatar image={user.photoURL ?? DEFAULT_USER_AVATAR}  />
+        <Image image={user.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} />
         <span>{ user.displayName }</span>
         <Button text={'Logout'} onClick={() => signOutUser()} />
       </div>

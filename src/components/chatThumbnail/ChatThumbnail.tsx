@@ -1,10 +1,10 @@
 import React from 'react';
-import { ImageSize, ChatUser } from '../../utils/types';
-import Avatar from '../avatar/Avatar';
+import { ImageSize, ChatUser, ImageType } from '../../utils/types';
 import DefaultUserIcon from '../../assets/images/user.png';
 
 import './chatThumbnail.scss';
 import { stringSizeLimiter } from '../../utils/helpers';
+import Image from '../atoms/Image';
 
 interface UserChatComponentProps {
   userInfo: ChatUser;
@@ -17,10 +17,7 @@ const ChatThumbnail = ({ userInfo, lastMessage, onClick }: UserChatComponentProp
     <div key={userInfo.uid} className="chat-thumbnail-wrapper"
          onClick={() => onClick && onClick(userInfo)}
     >
-      <Avatar
-        image={userInfo.photoURL ?? DefaultUserIcon}
-        size={ImageSize.BIG}
-      />
+      <Image image={userInfo.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.BIG} />
       <div className="user-chat-info">
         <span>{ userInfo.displayName }</span>
         {

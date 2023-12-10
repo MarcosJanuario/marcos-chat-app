@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Message from '../message/Message';
+import Message from '../molecules/Message';
 
 import './messages.scss';
-import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
+import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import { CHATS_DOCUMENT } from '../../../utils/consts';
-import { MessageChat } from '../../../utils/types';
+import { db } from '../../firebase';
+import { CHATS_DOCUMENT } from '../../utils/consts';
+import { MessageChat } from '../../utils/types';
 
 const Messages = () => {
   const { data } = useContext<ChatReducer>(ChatContext);

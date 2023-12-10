@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
-import './navbar.scss';
-import Button from '../../atoms/Button';
+import Button from '../atoms/Button';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
-import { DEFAULT_USER_AVATAR } from '../../../utils/consts';
-import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
-import Image from '../../atoms/Image';
-import { ImageType } from '../../../utils/types';
+import { auth } from '../../firebase';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+import { DEFAULT_USER_AVATAR } from '../../utils/consts';
+import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
+import Image from '../atoms/Image';
+import { ImageType } from '../../utils/types';
 
-const Navbar = () => {
+import './userChatsNavbar.scss';
+
+const UserChatsNavbar = () => {
   const { user, clearUser } = useContext<AuthContextType>(AuthContext);
   const { data, dispatch } = useContext<ChatReducer>(ChatContext);
 
@@ -32,4 +33,4 @@ const Navbar = () => {
   );
 }
 
-export default Navbar;
+export default UserChatsNavbar;

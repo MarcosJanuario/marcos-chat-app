@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { ImageSize, ImageType, MessageChat } from '../../../utils/types';
+import { ImageSize, ImageType, MessageChat } from '../../utils/types';
 
 import './message.scss';
-import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
-import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
-import DefaultUserIcon from '../../../assets/images/user.png';
-import Image from '../../atoms/Image';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
+import DefaultUserIcon from '../../assets/images/user.png';
+import Image from '../atoms/Image';
 
 type messageProps = {
   message: MessageChat;

@@ -13,7 +13,7 @@ import {
   RegisterInputField,
   TextType, ImageType
 } from '../../../utils/types';
-import Loading from '../../loading/Loading';
+import Loading from '../../molecules/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   DEFAULT_CHECK_ICON,

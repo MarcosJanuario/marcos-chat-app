@@ -1,6 +1,6 @@
 import React from 'react';
-import Sidebar from '../../sidebar/Sidebar';
-import Chat from '../../chat/Chat';
+import Sidebar from '../../templates/Sidebar';
+import Chat from '../../templates/Chat';
 import './home.scss';
 
 const Home = () => {

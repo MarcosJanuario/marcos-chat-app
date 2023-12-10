@@ -1,21 +1,21 @@
 import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
-import FileUpload from '../../../assets/images/send-file.png';
-import ImageUpload from '../../../assets/images/send-image.png';
+import FileUpload from '../../assets/images/send-file.png';
+import ImageUpload from '../../assets/images/send-image.png';
 
-import Button from '../../atoms/Button';
-import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
-import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
-import { AppError, FileType, ImageType } from '../../../utils/types';
+import Button from '../atoms/Button';
+import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+import { AppError, FileType, ImageType } from '../../utils/types';
 import { getDownloadURL, ref, StorageError, uploadBytesResumable } from 'firebase/storage';
 import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
-import { db, storage } from '../../../firebase';
-import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from '../../../utils/consts';
+import { db, storage } from '../../firebase';
+import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from '../../utils/consts';
 import { v4 as uuid } from 'uuid';
+import Image from '../atoms/Image';
 
-import './input.scss';
-import Image from '../../atoms/Image';
+import './messageInput.scss';
 
-const Input = () => {
+const MessageInput = () => {
   const { data } = useContext<ChatReducer>(ChatContext);
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
@@ -121,4 +121,4 @@ const Input = () => {
   );
 }
 
-export default Input;
+export default MessageInput;

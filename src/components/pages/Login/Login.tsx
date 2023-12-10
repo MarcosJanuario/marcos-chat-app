@@ -6,7 +6,7 @@ import Button from '../../atoms/Button';
 import { AppError, LoadingState, LoginFormData, TextType } from '../../../utils/types';
 import { auth } from '../../../firebase';
 import { useNavigate, Link } from 'react-router-dom';
-import Loading from '../../loading/Loading';
+import Loading from '../../molecules/Loading';
 import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../../utils/consts';
 import { validateEmail } from '../../../utils/helpers';
 import Input from '../../atoms/Input';

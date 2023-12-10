@@ -7,6 +7,7 @@ import { db } from '../../../firebase';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../../utils/consts';
 import ChatThumbnail from '../../chatThumbnail/ChatThumbnail';
+import Input from '../../atoms/Input';
 
 const Search = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
@@ -79,10 +80,13 @@ const Search = () => {
   return (
     <div className="search-wrapper">
       <div className="search-form">
-        <input type="text" placeholder={'Find an user'}
-               onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
-               value={userName}
-               onChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
+        <Input
+          type={'text'}
+          placeholder={'Find an user'}
+          name={'findUser'}
+          value={userName}
+          handleOnChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
+          handleOnKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
         />
       </div>
 

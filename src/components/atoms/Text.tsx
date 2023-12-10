@@ -9,7 +9,7 @@ export type TextProps = {
   color?: string;
 }
 
-const Text = ({ type, color, children }: TextProps) => {
+const Text = ({ type, color = '#1565C0FF', children }: TextProps) => {
 
   return (
     <span

@@ -2,15 +2,15 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import './login.scss';
-import Button from '../../atoms/Button';
-import { AppError, LoadingState, LoginFormData, TextType } from '../../../utils/types';
-import { auth } from '../../../firebase';
+import Button from '../atoms/Button';
+import { AppError, LoadingState, LoginFormData, TextType } from '../../utils/types';
+import { auth } from '../../firebase';
 import { useNavigate, Link } from 'react-router-dom';
-import Loading from '../../molecules/Loading';
-import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../../utils/consts';
-import { validateEmail } from '../../../utils/helpers';
-import Input from '../../atoms/Input';
-import Text from '../../atoms/Text';
+import Loading from '../molecules/Loading';
+import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../utils/consts';
+import { validateEmail } from '../../utils/helpers';
+import Input from '../atoms/Input';
+import Text from '../atoms/Text';
 
 const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   email: '',

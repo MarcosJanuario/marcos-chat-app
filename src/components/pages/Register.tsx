@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './register.scss';
-import Button from '../../atoms/Button';
+import Button from '../atoms/Button';
 import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
-import { auth, db, storage } from '../../../firebase';
+import { auth, db, storage } from '../../firebase';
 import { getDownloadURL, ref, StorageError, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -14,8 +14,8 @@ import {
   RegisterFormData,
   RegisterInputField,
   TextType
-} from '../../../utils/types';
-import Loading from '../../molecules/Loading';
+} from '../../utils/types';
+import Loading from '../molecules/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   DEFAULT_CHECK_ICON,
@@ -26,11 +26,11 @@ import {
   REGISTER_INPUT_FIELDS,
   USER_CHATS_DOCUMENT,
   USERS_DOCUMENT
-} from '../../../utils/consts';
-import { validateEmail } from '../../../utils/helpers';
-import Input from '../../atoms/Input';
-import Text from '../../atoms/Text';
-import Image from '../../atoms/Image';
+} from '../../utils/consts';
+import { validateEmail } from '../../utils/helpers';
+import Input from '../atoms/Input';
+import Text from '../atoms/Text';
+import Image from '../atoms/Image';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',

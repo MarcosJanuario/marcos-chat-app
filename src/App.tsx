@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
-import Register from './components/pages/Register/Register';
-import Login from './components/pages/Login/Login';
-import Home from './components/pages/Home/Home';
+import Register from './components/pages/Register';
+import Login from './components/pages/Login';
+import Home from './components/pages/Home';
 import { AuthContext, AuthContextType } from './store/context/AuthContext';
 
 const App = () => {

@@ -1,0 +1,34 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+.login-wrapper {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $COLOR_PRIMARY_LIGHTEN_4;
+
+  .login-form-container {
+    background-color: $COLOR_DEFAULT_WHITE;
+    padding: 2rem;
+    border-radius: $BORDER_RADIUS;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 80%;
+    }
+
+    p {
+      color: $COLOR_DEFAULT_GRAY;
+      font-size: $FONT_SIZE_SMALL;
+      margin-top: 1rem;
+    }
+  }
+}

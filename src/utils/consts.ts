@@ -1,4 +1,4 @@
-import { LoadingState, SizeMap } from './types';
+import { LoadingState, RegisterInputField, SizeMap } from './types';
 import DefaultUserIcon from '../assets/images/user-avatar.png';
 import DefaultCheckIcon from '../assets/images/check.png';
 
@@ -33,3 +33,35 @@ const convertSizeStringToBytes = (sizeString: string): number => {
 }
 
 export const IMAGE_FILE_SIZE = convertSizeStringToBytes('1MB');
+
+export const REGISTER_INPUT_FIELDS: RegisterInputField[] = [
+  {
+    id: '1',
+    type: 'text',
+    placeholder: 'Display Name',
+    name: 'displayName',
+    value: 'displayName',
+  },
+  {
+    id: '2',
+    type: 'email',
+    placeholder: 'Email',
+    name: 'email',
+    value: 'email',
+  },
+  {
+    id: '3',
+    type: 'password',
+    placeholder: 'Password',
+    name: 'password',
+    value: 'password',
+  },
+  {
+    id: '4',
+    type: 'password',
+    placeholder: 'Repeated Password',
+    name: 'passwordRepeat',
+    value: 'passwordRepeat',
+  },
+];
+

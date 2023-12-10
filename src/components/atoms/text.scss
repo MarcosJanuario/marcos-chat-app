@@ -1,0 +1,24 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+.atomic-text-header {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: $COLOR_PRIMARY_DARKEN_3;
+}
+
+.atomic-text-body {
+  font-size: 1rem;
+  color: $COLOR_PRIMARY_DARKEN_3;
+}
+
+.atomic-text-small {
+  font-size: .9rem;
+  color: $COLOR_PRIMARY_DARKEN_3;
+}
+
+.atomic-text-error {
+  font-size: .9rem;
+  text-align: center;
+  color: $COLOR_DEFAULT_RED;
+}

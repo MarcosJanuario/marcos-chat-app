@@ -2,13 +2,15 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import './login.scss';
-import Button from '../../components/Button/Button';
-import { AppError, LoadingState, LoginFormData } from '../../utils/types';
-import { auth } from '../../firebase';
+import Button from '../../Button/Button';
+import { AppError, LoadingState, LoginFormData, TextType } from '../../../utils/types';
+import { auth } from '../../../firebase';
 import { useNavigate, Link } from 'react-router-dom';
-import Loading from '../../components/loading/Loading';
-import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../utils/consts';
-import { validateEmail } from '../../utils/helpers';
+import Loading from '../../loading/Loading';
+import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../../utils/consts';
+import { validateEmail } from '../../../utils/helpers';
+import Input from '../../atoms/Input';
+import Text from '../../atoms/Text';
 
 const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   email: '',
@@ -54,26 +56,24 @@ const Login = () => {
   return (
     <div className={'login-wrapper'}>
       <div className={'login-form-container'}>
-        <span className={'logo login-font-color'}>Marcos Chat App</span>
-        <span className={'title login-font-color'}>Login</span>
+        <Text type={TextType.HEADER}>Marcos Chat App</Text>
+        <Text type={TextType.SMALL}>Login</Text>
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
+          <Input
+            type={'email'}
             placeholder={'Email'}
-            name="email"
+            name={'email'}
             value={formData.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
+            handleOnChange={handleChange} />
+          <Input
+            type={'password'}
             placeholder={'Password'}
-            name="password"
+            name={'password'}
             value={formData.password}
-            onChange={handleChange}
-          />
+            handleOnChange={handleChange} />
           <Button text={'Login'} disabled={!fieldsCorrectlyFulfilled()} />
           {
-            error && <span className={'error'}>{ error.message }</span>
+            error && <Text type={TextType.ERROR}>{error.message}</Text>
           }
         </form>
         <p>Don't you have an account? Please <Link to={'/register'}>Register</Link>.</p>

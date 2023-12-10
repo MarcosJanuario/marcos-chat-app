@@ -1,0 +1,17 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+input.atomic-input {
+  padding: 0.5rem;
+  border: none;
+  border-bottom: .1rem solid $COLOR_PRIMARY_DARKEN_3;
+  background-color: $COLOR_DEFAULT_WHITE;
+
+  &::placeholder {
+    color: $COLOR_DEFAULT_GRAY;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}

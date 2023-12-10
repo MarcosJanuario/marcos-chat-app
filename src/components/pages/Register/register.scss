@@ -18,58 +18,16 @@
     gap: 1rem;
     align-items: center;
 
-    .register-font-color {
-      color: $COLOR_PRIMARY_DARKEN_3;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
-
-    .title {
-      font-size: $FONT_SIZE_SMALL;
-    }
-
     form {
       display: flex;
       flex-direction: column;
       gap: 1rem;
       width: 80%;
 
-      input {
-        padding: 0.5rem;
-        border: none;
-        border-bottom: .1rem solid $COLOR_PRIMARY_DARKEN_3;
-        background-color: $COLOR_DEFAULT_WHITE;
-
-        &::placeholder {
-          color: #bdbdbd;
-        }
-
-        &:focus-visible {
-          outline: none;
-        }
-      }
-
-      .register-input-avatar {
-        display: none;
-      }
-
       label {
         display: flex;
         align-items: center;
         gap: .5rem;
-
-        .add-avatar-img {
-          width: 1.5rem;
-          height: 1.5rem;
-          cursor: pointer;
-        }
-
-        img {
-          cursor: pointer;
-        }
 
         span {
           font-size: $FONT_SIZE_SMALL;
@@ -88,12 +46,6 @@
           align-items: center;
           justify-content: flex-start;
         }
-      }
-
-      span.error {
-        color: $COLOR_DEFAULT_RED;
-        font-size: $FONT_SIZE_SMALL;
-        text-align: center;
       }
     }
 

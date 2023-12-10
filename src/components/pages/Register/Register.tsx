@@ -1,24 +1,33 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
 import './register.scss';
-import Button from '../../components/Button/Button';
+import Button from '../../Button/Button';
 import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
-import { auth, db, storage } from '../../firebase';
+import { auth, db, storage } from '../../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 
-import { RegisterFormData, AppError, LoadingState, ImageSize } from '../../utils/types';
-import Loading from '../../components/loading/Loading';
+import {
+  RegisterFormData,
+  AppError,
+  LoadingState,
+  ImageSize,
+  RegisterInputField,
+  TextType
+} from '../../../utils/types';
+import Loading from '../../loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   DEFAULT_CHECK_ICON,
   DEFAULT_USER_AVATAR, IMAGE_FILE_SIZE,
   LOADING_INITIAL_VALUES,
-  PASSWORD_MIN_CHARS,
+  PASSWORD_MIN_CHARS, REGISTER_INPUT_FIELDS,
   USER_CHATS_DOCUMENT,
   USERS_DOCUMENT
-} from '../../utils/consts';
-import { validateEmail } from '../../utils/helpers';
-import Icon from '../../components/icon/Icon';
+} from '../../../utils/consts';
+import { validateEmail } from '../../../utils/helpers';
+import Icon from '../../icon/Icon';
+import Input from '../../atoms/Input';
+import Text from '../../atoms/Text';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -152,39 +161,25 @@ const Register = () => {
   return (
     <div className={'register-wrapper'}>
       <div className={'register-form-container'}>
-        <span className={'logo register-font-color'}>Marcos Chat App</span>
-        <span className={'title register-font-color'}>Register</span>
+        <Text type={TextType.HEADER}>Marcos Chat App</Text>
+        <Text type={TextType.SMALL}>Register</Text>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder={'Display Name'}
-            name="displayName"
-            value={formData.displayName}
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            placeholder={'Email'}
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder={'Password'}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder={'Repeated Password'}
-            name="passwordRepeat"
-            value={formData.passwordRepeat}
-            onChange={handleChange}
-          />
+          {
+            REGISTER_INPUT_FIELDS.map((inputField: RegisterInputField) => (
+              <Input
+                key={inputField.id}
+                type={inputField.type}
+                placeholder={inputField.placeholder}
+                name={inputField.name}
+                value={formData[inputField.name as keyof RegisterFormData] as string}
+                handleOnChange={handleChange}
+              />
+            ))
+          }
+
           <input
             type="file"
+            style={{ display: 'none' }}
             className={'register-input-avatar'}
             id={'file'}
             name="avatar"
@@ -199,15 +194,22 @@ const Register = () => {
               </label>
             </div>
             {
-              formData.file && <Icon image={DEFAULT_CHECK_ICON} size={ImageSize.SMALL} />
+              formData.file &&
+              <Icon image={DEFAULT_CHECK_ICON} size={ImageSize.SMALL} />
             }
           </div>
+
           <Button text={'Sign up'} disabled={!fieldsCorrectlyFulfilled()} />
+
           {
-            error && <span className={'error'}>{ error.message }</span>
+            error &&
+            error && <Text type={TextType.ERROR}>{error.message}</Text>
           }
+
         </form>
+
         <p>Do you have an account? Please <Link to={'/login'}>login</Link></p>
+
         {
           loading.visible && <Loading message={loading.message} />
         }

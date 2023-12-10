@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { TextType } from '../../utils/types';
 
 import './text.scss';
@@ -7,14 +7,15 @@ export type TextProps = {
   children: any;
   type: TextType;
   color?: string;
+  style?: CSSProperties;
 }
 
-const Text = ({ type, color = '#1565C0FF', children }: TextProps) => {
+const Text = ({ type, color = '#1565C0FF', children, style }: TextProps) => {
 
   return (
     <span
       className={`atomic-text-${type}`}
-      style={{color: color}}
+      style={{...style, color: color}}
     >{ children }
     </span>
   );

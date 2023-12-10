@@ -1,25 +1,29 @@
-import React, { FormEvent, ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './register.scss';
 import Button from '../../atoms/Button';
 import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
 import { auth, db, storage } from '../../../firebase';
-import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
+import { getDownloadURL, ref, StorageError, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 
 import {
-  RegisterFormData,
   AppError,
+  ImageSize,
+  ImageType,
   LoadingState,
+  RegisterFormData,
   RegisterInputField,
-  TextType, ImageType
+  TextType
 } from '../../../utils/types';
 import Loading from '../../molecules/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   DEFAULT_CHECK_ICON,
-  DEFAULT_USER_AVATAR, IMAGE_FILE_SIZE,
+  DEFAULT_USER_AVATAR,
+  IMAGE_FILE_SIZE,
   LOADING_INITIAL_VALUES,
-  PASSWORD_MIN_CHARS, REGISTER_INPUT_FIELDS,
+  PASSWORD_MIN_CHARS,
+  REGISTER_INPUT_FIELDS,
   USER_CHATS_DOCUMENT,
   USERS_DOCUMENT
 } from '../../../utils/consts';
@@ -180,21 +184,21 @@ const Register = () => {
             type="file"
             style={{ display: 'none' }}
             className={'register-input-avatar'}
-            id={'file'}
+            id={'add-avatar-file'}
             name="avatar"
             onChange={handleChange}
             accept=".jpg, .jpeg, .png"
           />
           <div className={'add-avatar-wrapper'}>
             <div className={'add-avatar-button-wrapper'}>
-              <label htmlFor="file">
+              <label htmlFor="add-avatar-file">
                 <Image image={DEFAULT_USER_AVATAR} type={ImageType.ICON} />
                 <span>Add avatar</span>
               </label>
             </div>
             {
               formData.file &&
-              <Image image={DEFAULT_CHECK_ICON} type={ImageType.ICON} />
+              <Image image={DEFAULT_CHECK_ICON} type={ImageType.ICON} size={ImageSize.SMALL} />
             }
           </div>
 

@@ -4,7 +4,7 @@ import { ChatUser } from '../../utils/types';
 
 export type ChatContextType = {
   user: ChatUser,
-  chatID: string;
+  chatID: string | null;
 }
 
 export type ChatDispatchAction = {
@@ -18,7 +18,7 @@ export type ChatReducer = {
 }
 
 const INITIAL_CHAT_CONTEXT = {
-  chatID: 'null',
+  chatID: null,
   user: {} as ChatUser
 }
 

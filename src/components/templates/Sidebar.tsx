@@ -1,9 +1,9 @@
 import React from 'react';
-import UserChatsNavbar from '../molecules/UserChatsNavbar';
-import Search from '../sidebar/search/Search';
+import UserChatsNavbar from '../organisms/UserChatsNavbar';
+import UserChatsSearch from '../organisms/UserChatsSearch';
 
 import './sidebar.scss';
-import Chats from '../sidebar/chats/Chats';
+import UserChats from '../organisms/UserChats';
 
 const Sidebar = () => {
   return (
@@ -12,10 +12,10 @@ const Sidebar = () => {
       <UserChatsNavbar />
 
       {/*Organism*/}
-      <Search />
+      <UserChatsSearch />
 
       {/*Organism*/}
-      <Chats />
+      <UserChats />
     </div>
   );
 }

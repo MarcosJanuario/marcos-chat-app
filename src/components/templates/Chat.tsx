@@ -1,15 +1,9 @@
 import React, { useContext } from 'react';
 import './chat.scss';
-import Camera from '../../assets/images/camera.png';
-import AddUser from '../../assets/images/add-user.png';
-import More from '../../assets/images/more.png';
-import Messages from '../organisms/Messages';
-import MessageInput from '../molecules/MessageInput';
+import ChatMessages from '../organisms/ChatMessages';
+import ChatInput from '../organisms/ChatInput';
 import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
-import { ImageSize, ImageType, TextType } from '../../utils/types';
-import DefaultUserIcon from '../../assets/images/user.png';
-import Image from '../atoms/Image';
-import Text from '../atoms/Text';
+import ChatHeader from '../organisms/ChatHeader';
 
 const Chat = () => {
   const { data } = useContext<ChatReducer>(ChatContext);
@@ -17,26 +11,11 @@ const Chat = () => {
   return (
     <div className="chat-wrapper">
 
-      {/*// Organism*/}
-      <div className="chat-info-wrapper">
+      <ChatHeader />
 
-        <div className="chat-user-info-wrapper">
-          <Image image={data.user.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-          <Text type={TextType.BODY} color={'#bbdefb'}>{data.user.displayName}</Text>
-        </div>
+      <ChatMessages />
 
-        <div className="chat-icons-wrapper">
-          <Image image={Camera} type={ImageType.ICON} />
-          <Image image={AddUser} type={ImageType.ICON} />
-          <Image image={More} type={ImageType.ICON} />
-        </div>
-      </div>
-
-      {/*// Organism*/}
-      <Messages />
-
-      {/*// Organism*/}
-      <MessageInput />
+      <ChatInput />
     </div>
   );
 }

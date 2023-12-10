@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { ImageSize, ImageType, MessageChat } from '../../utils/types';
+import { ImageSize, ImageType, MessageChat, TextType } from '../../utils/types';
 
 import './message.scss';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import DefaultUserIcon from '../../assets/images/user.png';
 import Image from '../atoms/Image';
+import Text from '../atoms/Text';
+import { dateConverter } from '../../utils/helpers';
 
 type messageProps = {
   message: MessageChat;
@@ -40,7 +42,9 @@ const Message = ({ message }: messageProps) => {
     <div className={`message-wrapper ${messageFromLoggedUser() && 'owner'}`} ref={ref}>
       <div className={`message-info-wrapper ${messageFromLoggedUser() ? 'left' : 'right'}`}>
         <Image image={getMessageOwnerImage()} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-        <span>just now</span>
+        <Text type={TextType.SMALL} color={'#bdbdbd'} style={{ maxWidth: '3rem', textAlign: 'center' }}>
+          { dateConverter(message.date, 'dd.MM.yy HH:mm')}
+        </Text>
       </div>
 
       <div className="message-content-wrapper">

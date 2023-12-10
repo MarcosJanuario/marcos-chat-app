@@ -14,6 +14,8 @@ export const USER_CHATS_DOCUMENT = 'userChats';
 
 export const PASSWORD_MIN_CHARS = 7;
 
+export const MAX_STRING_CHARS = 17;
+
 export const DEFAULT_USER_AVATAR = DefaultUserIcon;
 export const DEFAULT_CHECK_ICON = DefaultCheckIcon;
 

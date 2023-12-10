@@ -23,6 +23,7 @@ export enum ImageSize {
 
 export enum TextType {
   HEADER = 'header',
+  TITLE = 'title',
   BODY = 'body',
   SMALL = 'small',
   ERROR = 'error',

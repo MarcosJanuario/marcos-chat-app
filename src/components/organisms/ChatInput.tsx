@@ -13,9 +13,9 @@ import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from '../../utils/consts';
 import { v4 as uuid } from 'uuid';
 import Image from '../atoms/Image';
 
-import './messageInput.scss';
+import './chatInput.scss';
 
-const MessageInput = () => {
+const ChatInput = () => {
   const { data } = useContext<ChatReducer>(ChatContext);
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
@@ -41,20 +41,22 @@ const MessageInput = () => {
         (): void => {
           getDownloadURL(uploadTask.snapshot.ref)
             .then((downloadURL: string): void => {
-              console.log('[downloadURL]: ', downloadURL);
-              updateDoc(doc(db, CHATS_DOCUMENT, data.chatID), {
-                messages: arrayUnion({
-                  id: uuid(),
-                  text: text,
-                  senderID: currentUser.uid,
-                  date: Timestamp.now(),
-                  image: downloadURL
+              if (data.chatID) {
+                console.log('[downloadURL]: ', downloadURL);
+                updateDoc(doc(db, CHATS_DOCUMENT, data.chatID), {
+                  messages: arrayUnion({
+                    id: uuid(),
+                    text: text,
+                    senderID: currentUser.uid,
+                    date: Timestamp.now(),
+                    image: downloadURL
+                  })
                 })
-              })
-                .catch((error) => {
-                  console.log('[ERROR SAVING IMAGE MESSAGE]: ', error);
-                  setError({ code: error.code, message: error.message });
-                })
+                  .catch((error) => {
+                    console.log('[ERROR SAVING IMAGE MESSAGE]: ', error);
+                    setError({ code: error.code, message: error.message });
+                  })
+              }
             })
             .catch((error) => {
               console.log('[ERROR GETTING IMAGE URL]: ', error);
@@ -63,18 +65,20 @@ const MessageInput = () => {
         }
       );
     } else {
-      await updateDoc(doc(db, CHATS_DOCUMENT, data.chatID), {
-        messages: arrayUnion({
-          id: uuid(),
-          text: text,
-          senderID: currentUser.uid,
-          date: Timestamp.now()
+      if (data.chatID) {
+        await updateDoc(doc(db, CHATS_DOCUMENT, data.chatID), {
+          messages: arrayUnion({
+            id: uuid(),
+            text: text,
+            senderID: currentUser.uid,
+            date: Timestamp.now()
+          })
         })
-      })
-        .catch((error) => {
-          console.log('[ERROR SAVING TEXT MESSAGE]: ', error);
-          setError({ code: error.code, message: error.message });
-        })
+          .catch((error) => {
+            console.log('[ERROR SAVING TEXT MESSAGE]: ', error);
+            setError({ code: error.code, message: error.message });
+          })
+      }
     }
 
     await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
@@ -121,4 +125,4 @@ const MessageInput = () => {
   );
 }
 
-export default MessageInput;
+export default ChatInput;

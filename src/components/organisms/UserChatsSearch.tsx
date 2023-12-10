@@ -1,15 +1,15 @@
 import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 
-import './search.scss';
-import { AppError, ChatUser } from '../../../utils/types';
+import './userChatsSearch.scss';
+import { AppError, ChatUser } from '../../utils/types';
 import { collection, doc, getDoc, getDocs, query, setDoc, where, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../../firebase';
-import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
-import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../../utils/consts';
-import ChatThumbnail from '../../chatThumbnail/ChatThumbnail';
-import Input from '../../atoms/Input';
+import { db } from '../../firebase';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../utils/consts';
+import ChatThumbnail from '../molecules/ChatThumbnail';
+import Input from '../atoms/Input';
 
-const Search = () => {
+const UserChatsSearch = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const [ userName, setUserName ] = useState('');
   const [ users, setUsers ] = useState<ChatUser[]>([]);
@@ -107,4 +107,4 @@ const Search = () => {
   );
 }
 
-export default Search;
+export default UserChatsSearch;

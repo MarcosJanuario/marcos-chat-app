@@ -31,6 +31,7 @@ import { validateEmail } from '../../utils/helpers';
 import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import Image from '../atoms/Image';
+import ErrorBlock from '../molecules/ErrorBlock';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -205,8 +206,7 @@ const Register = () => {
           <Button text={'Sign up'} disabled={!fieldsCorrectlyFulfilled()} />
 
           {
-            error &&
-            error && <Text type={TextType.ERROR}>{error.message}</Text>
+            error && <ErrorBlock text={error.message} />
           }
 
         </form>

@@ -8,6 +8,7 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from '../../utils/consts';
 import ChatThumbnail from '../molecules/ChatThumbnail';
 import Input from '../atoms/Input';
+import ErrorBlock from '../molecules/ErrorBlock';
 
 const UserChatsSearch = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
@@ -87,21 +88,18 @@ const UserChatsSearch = () => {
           value={userName}
           handleOnChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
           handleOnKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
+          style={{ width: '100%', height: '3rem', backgroundColor: '#1565c0', color: '#f5f5f5' }}
         />
       </div>
 
       {
         users && users.length > 0 &&
           users?.map((user: ChatUser) =>
-            <div key={user.uid}>
-              <ChatThumbnail userInfo={user} onClick={(user: ChatUser) => handleSelection(user)} />
-            </div>
+            <ChatThumbnail key={user.uid} userInfo={user} onClick={(user: ChatUser) => handleSelection(user)} />
           )
       }
       {
-        error && <div className={'error-wrapper'}>
-          <span className="error-message">{error.message}</span>
-        </div>
+        error && <ErrorBlock text={error.message} />
       }
     </div>
   );

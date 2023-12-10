@@ -8,49 +8,9 @@
     padding: 0 1rem;
 
     input {
-      background-color: transparent;
-      border: none;
-      color: $COLOR_DEFAULT_WHITE;
-      outline: none;
-      width: 100%;
-      height: 3rem;
-
       &::placeholder {
         color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
       }
-    }
-  }
-
-  .user-chat {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: $COLOR_DEFAULT_WHITE;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $COLOR_PRIMARY_DARKEN_4;
-    }
-
-    .user-chat-info {
-
-      @include tablet {
-        display: none;
-      }
-    }
-  }
-
-  .error-wrapper {
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;;
-    align-items: center;
-    padding: 0 0 1rem 1rem;
-
-    .error-message {
-      color: $COLOR_PRIMARY_LIGHTEN_5;
-      font-size: $FONT_SIZE_SMALL;
     }
   }
 }

@@ -17,6 +17,16 @@
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    width: 20%;
+    @include laptop {
+      width: 30%;
+    }
+    @include tablet {
+      width: 60%;
+    }
+    @include mobile {
+      width: 90%;
+    }
 
     form {
       display: flex;

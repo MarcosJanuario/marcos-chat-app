@@ -6,7 +6,8 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import Image from '../atoms/Image';
-import { ImageType } from '../../utils/types';
+import { ImageType, TextType } from '../../utils/types';
+import Text from '../atoms/Text';
 
 import './userChatsNavbar.scss';
 
@@ -23,7 +24,7 @@ const UserChatsNavbar = () => {
 
   return (
     <div className="navbar-wrapper">
-      <span className="logo">Marcos Chat</span>
+      <Text type={TextType.TITLE} color={'#f5f5f5'}>Marcos Chat</Text>
       <div className="user">
         <Image image={user.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} />
         <span>{ user.displayName }</span>

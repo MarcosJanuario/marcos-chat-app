@@ -11,6 +11,7 @@ import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../utils/consts';
 import { validateEmail } from '../../utils/helpers';
 import Input from '../atoms/Input';
 import Text from '../atoms/Text';
+import ErrorBlock from '../molecules/ErrorBlock';
 
 const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   email: '',
@@ -73,7 +74,7 @@ const Login = () => {
             handleOnChange={handleChange} />
           <Button text={'Login'} disabled={!fieldsCorrectlyFulfilled()} />
           {
-            error && <Text type={TextType.ERROR}>{error.message}</Text>
+            error && <ErrorBlock text={error.message} />
           }
         </form>
         <p>Don't you have an account? Please <Link to={'/register'}>Register</Link>.</p>

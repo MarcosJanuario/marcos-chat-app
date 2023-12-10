@@ -16,10 +16,14 @@ const ChatHeader = () => {
   return (
     <div className="chat-info-wrapper">
       {
-        data.chatID &&
         <div className="chat-user-info-wrapper">
-          <Image image={data.user.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-          <Text type={TextType.BODY} color={'#bbdefb'}>{data.user.displayName}</Text>
+          {
+            data.chatID &&
+              <>
+                <Image image={data.user.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
+                <Text type={TextType.BODY} color={'#bbdefb'}>{data.user.displayName}</Text>
+              </>
+          }
         </div>
       }
 

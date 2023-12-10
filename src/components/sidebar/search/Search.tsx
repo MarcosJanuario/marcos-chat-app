@@ -90,7 +90,7 @@ const Search = () => {
         users && users.length > 0 &&
           users?.map((user: ChatUser) =>
             <div key={user.uid}>
-              <ChatThumbnail userInfo={user} lastMessage={'Hello'} onClick={(user: ChatUser) => handleSelection(user)} />
+              <ChatThumbnail userInfo={user} onClick={(user: ChatUser) => handleSelection(user)} />
             </div>
           )
       }

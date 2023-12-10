@@ -9,7 +9,7 @@ export type ChatContextType = {
 
 export type ChatDispatchAction = {
   type: string;
-  payload: ChatUser
+  payload?: ChatUser
 }
 
 export type ChatReducer = {
@@ -19,7 +19,7 @@ export type ChatReducer = {
 
 const INITIAL_CHAT_CONTEXT = {
   chatID: 'null',
-  user: {}
+  user: {} as ChatUser
 }
 
 export const ChatContext = createContext<any>('');
@@ -31,17 +31,20 @@ type ChatContextProviderProps = {
 export const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
-  const chatReducer = (state: ChatContextType, action: ChatDispatchAction): ChatContextType => {
-    console.log('[REDUCER] state: ', state);
-    console.log('[REDUCER] action: ', action);
-    switch (action.type) {
+  const chatReducer = (state: ChatContextType, action?: ChatDispatchAction): ChatContextType => {
+    switch (action?.type) {
       case 'CHANGE_USER':
+        if (!action?.payload) {
+          return state;
+        }
         return {
           user: action.payload,
-          chatID: currentUser.uid > action.payload.uid
-            ? currentUser.uid + action.payload.uid
-            : action.payload.uid + currentUser.uid
+          chatID: currentUser.uid > action.payload?.uid!
+            ? currentUser.uid + action.payload?.uid
+            : action.payload?.uid + currentUser.uid
         }
+      case 'CLEAR':
+        return INITIAL_CHAT_CONTEXT
       default:
         return state;
     }

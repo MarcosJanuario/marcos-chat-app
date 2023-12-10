@@ -6,13 +6,16 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { AuthContext, AuthContextType } from '../../../store/context/AuthContext';
 import { DEFAULT_USER_AVATAR } from '../../../utils/consts';
+import { ChatContext, ChatReducer } from '../../../store/context/ChatContext';
 
 const Navbar = () => {
   const { user, clearUser } = useContext<AuthContextType>(AuthContext);
+  const { data, dispatch } = useContext<ChatReducer>(ChatContext);
 
   const signOutUser = (): void => {
     signOut(auth).then(() => {
       clearUser();
+      dispatch({ type: 'CLEAR' });
     })
   }
 

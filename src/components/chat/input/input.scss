@@ -8,7 +8,7 @@
   flex-direction: row;
   justify-content: space-between;
 
-  input {
+  textarea {
     width: 100%;
     height: 100%;
     background-color: $COLOR_DEFAULT_WHITE;
@@ -16,6 +16,7 @@
     outline: none;
     color: $COLOR_PRIMARY_DARKEN_3;
     font-size: $FONT_SIZE_DEFAULT;
+    resize: none;
 
     &::placeholder {
       color: $COLOR_DEFAULT_GRAY

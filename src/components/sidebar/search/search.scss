@@ -5,13 +5,15 @@
   border-bottom: .1rem solid $COLOR_PRIMARY_LIGHTEN_5;
 
   .search-form {
-    padding: 1rem;
+    padding: 0 1rem;
 
     input {
       background-color: transparent;
       border: none;
       color: $COLOR_DEFAULT_WHITE;
       outline: none;
+      width: 100%;
+      height: 3rem;
 
       &::placeholder {
         color: $COLOR_PRIMARY_GREY_LIGHTEN_3;

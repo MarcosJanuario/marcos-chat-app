@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import Avatar from '../../avatar/Avatar';
 import { ImageSize, MessageChat } from '../../../utils/types';
 

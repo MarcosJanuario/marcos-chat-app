@@ -14,7 +14,6 @@ import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from '../../../utils/consts';
 import { v4 as uuid } from 'uuid';
 
 import './input.scss';
-import { updateProfile, User } from 'firebase/auth';
 
 const Input = () => {
   const { data } = useContext<ChatReducer>(ChatContext);
@@ -25,6 +24,7 @@ const Input = () => {
   const [error, setError] = useState<AppError | null>(null);
 
   const handleSendMessage = async (): Promise<void> => {
+    console.log('[handleKeyDown]');
     if (image) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, image);
@@ -99,10 +99,9 @@ const Input = () => {
 
   return (
     <div className="input-wrapper">
-      <input type="text" placeholder={'Enter a message'}
-             onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleSendMessage}
+      <textarea placeholder={'Enter a message'}
              value={text}
-             onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
       />
       <div className="send-options-wrapper">
         <Icon image={FileUpload} />

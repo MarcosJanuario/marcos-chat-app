@@ -1,24 +1,24 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
 import './register.scss';
-import AddAvatar from '../../assets/images/add-avatar.png';
 import Button from '../../components/Button/Button';
 import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
 import { auth, db, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, StorageError } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 
-import { RegisterFormData, AppError, LoadingState } from '../../utils/types';
+import { RegisterFormData, AppError, LoadingState, ImageSize } from '../../utils/types';
 import Loading from '../../components/loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  DEFAULT_USER_AVATAR,
+  DEFAULT_CHECK_ICON,
+  DEFAULT_USER_AVATAR, IMAGE_FILE_SIZE,
   LOADING_INITIAL_VALUES,
   PASSWORD_MIN_CHARS,
   USER_CHATS_DOCUMENT,
   USERS_DOCUMENT
 } from '../../utils/consts';
 import { validateEmail } from '../../utils/helpers';
-import Avatar from '../../components/avatar/Avatar';
+import Icon from '../../components/icon/Icon';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -39,7 +39,13 @@ const Register = () => {
 
     if (name === 'avatar' && files && files.length > 0) {
       const file = files[0];
-      setFormData((prevData) => ({ ...prevData, file: file }));
+
+      if (file.size <= IMAGE_FILE_SIZE) {
+        setFormData((prevData) => ({ ...prevData, file: file }));
+        clearError();
+      } else {
+        setError({ code: 0, message: 'File size exceeds the limit of 1MB.' });
+      }
     } else {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
@@ -90,7 +96,7 @@ const Register = () => {
   }
 
   const uploadUserAvatar = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
-    const storageRef = ref(storage, formData.displayName);
+    const storageRef = ref(storage, `${user.displayName}:${formData.email}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on('state_changed',
@@ -183,13 +189,20 @@ const Register = () => {
             id={'file'}
             name="avatar"
             onChange={handleChange}
+            accept=".jpg, .jpeg, .png"
           />
-          <label htmlFor="file">
-            <Avatar image={DEFAULT_USER_AVATAR} />
-            <span>Add avatar</span>
-          </label>
+          <div className={'add-avatar-wrapper'}>
+            <div className={'add-avatar-button-wrapper'}>
+              <label htmlFor="file">
+                <Icon image={DEFAULT_USER_AVATAR} />
+                <span>Add avatar</span>
+              </label>
+            </div>
+            {
+              formData.file && <Icon image={DEFAULT_CHECK_ICON} size={ImageSize.SMALL} />
+            }
+          </div>
           <Button text={'Sign up'} disabled={!fieldsCorrectlyFulfilled()} />
-          {/*//TODO: improve later*/}
           {
             error && <span className={'error'}>{ error.message }</span>
           }

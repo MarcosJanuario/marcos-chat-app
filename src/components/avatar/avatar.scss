@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .image-avatar-component {
   background-color: $COLOR_PRIMARY_LIGHTEN_4;
@@ -6,4 +7,5 @@
   height: 1rem;
   border-radius: 50%;
   object-fit: cover;
+  @include not-draggable;
 }

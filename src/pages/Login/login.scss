@@ -46,6 +46,10 @@
         &::placeholder {
           color: $COLOR_DEFAULT_GRAY;
         }
+
+        &:focus-visible {
+          outline: none;
+        }
       }
 
       .login-input-avatar {
@@ -56,6 +60,7 @@
     span.error {
       color: $COLOR_DEFAULT_RED;
       font-size: $FONT_SIZE_SMALL;
+      text-align: center;
     }
 
     p {

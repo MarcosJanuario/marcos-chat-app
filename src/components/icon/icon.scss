@@ -1,6 +1,9 @@
+@import 'src/assets/styles/mixins';
+
 .clickable-icon {
   cursor: pointer;
   transition: opacity .1s ease, transform .1s ease;
+  @include not-draggable;
 
   &:hover {
     opacity: .8;

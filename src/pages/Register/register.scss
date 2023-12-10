@@ -46,6 +46,10 @@
         &::placeholder {
           color: #bdbdbd;
         }
+
+        &:focus-visible {
+          outline: none;
+        }
       }
 
       .register-input-avatar {
@@ -74,9 +78,22 @@
         }
       }
 
+      .add-avatar-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .add-avatar-button-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+      }
+
       span.error {
         color: $COLOR_DEFAULT_RED;
         font-size: $FONT_SIZE_SMALL;
+        text-align: center;
       }
     }
 

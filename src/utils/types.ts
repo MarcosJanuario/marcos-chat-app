@@ -57,3 +57,7 @@ export type MessageChat = {
   date: Timestamp;
   image?: string;
 }
+
+export type SizeMap = {
+  [key: string]: number;
+};

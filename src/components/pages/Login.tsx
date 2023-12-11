@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { UserCredential } from 'firebase/auth';
 
 import './login.scss';
 import Button from '../atoms/Button';
 import { AppError, LoadingState, LoginFormData, TextType } from '../../utils/types';
-import { auth } from '../../firebase';
 import { useNavigate, Link } from 'react-router-dom';
 import Loading from '../molecules/Loading';
 import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../utils/consts';
@@ -12,6 +11,7 @@ import { validateEmail } from '../../utils/helpers';
 import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import ErrorBlock from '../molecules/ErrorBlock';
+import { FIREBASE } from '../../utils/firebase';
 
 const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   email: '',
@@ -36,18 +36,22 @@ const Login = () => {
     }
   };
 
+  const handleLoginSuccess = (): void => {
+    setLoading((prevData: LoadingState) => ({ visible: false, message: '' }));
+    navigate('/');
+  }
+
+  const handleLoginError = (error: any): void => {
+    console.log('login error: ', error.message);
+    setLoading(LOADING_INITIAL_VALUES);
+    setError({ code: error?.code ?? 0, message: error?.message ?? '' });
+  }
+
   const loginUser = (): void => {
     setLoading((prevData: LoadingState) => ({ visible: true, message: 'Logging user' }));
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
-      .then(() => {
-        setLoading((prevData: LoadingState) => ({ visible: false, message: '' }));
-        navigate('/');
-      })
-      .catch((error) => {
-        console.log('login error: ', error.message);
-        setLoading(LOADING_INITIAL_VALUES);
-        setError({ code: error?.code ?? 0, message: error?.message ?? '' });
-      });
+    FIREBASE.doLogin(formData.email, formData.password)
+      .then((userCredential: UserCredential) => handleLoginSuccess)
+      .catch((error) => handleLoginError(error));
   }
 
   const fieldsCorrectlyFulfilled = (): boolean =>

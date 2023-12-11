@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './register.scss';
 import Button from '../atoms/Button';
-import { createUserWithEmailAndPassword, updateProfile, User, UserCredential } from 'firebase/auth';
-import { auth, db, storage } from '../../firebase';
-import { getDownloadURL, ref, StorageError, uploadBytesResumable } from 'firebase/storage';
+import { updateProfile, User, UserCredential } from 'firebase/auth';
+import { db, storage } from '../../firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 
 import {
@@ -32,6 +32,7 @@ import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import Image from '../atoms/Image';
 import ErrorBlock from '../molecules/ErrorBlock';
+import { FIREBASE } from '../../utils/firebase';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -90,13 +91,17 @@ const Register = () => {
     resetLoading();
   }
 
+  const handleUserDocumentation = (user: User): void => {
+    formData.file
+      ? uploadUserAvatar(user, formData.file as Blob | Uint8Array | ArrayBuffer)
+      : saveUserDatabaseInformation(user)
+  }
+
   const signupUser = (): void => {
     console.log('formData: ', formData);
-    createUserWithEmailAndPassword(auth, formData.email, formData.password)
+    FIREBASE.createUser(formData.email, formData.password)
       .then((userCredential: UserCredential) => updateDisplayName(userCredential.user))
-      .then((user: User) => formData.file
-        ? uploadUserAvatar(user, formData.file as Blob | Uint8Array | ArrayBuffer)
-        : saveUserDatabaseInformation(user))
+      .then((user: User) => handleUserDocumentation(user))
       .then(() => clearError())
       .catch(errorHandler);
   }
@@ -108,38 +113,39 @@ const Register = () => {
     return user;
   }
 
-  const uploadUserAvatar = (user: User, file: Blob | Uint8Array | ArrayBuffer): void => {
+  const uploadFileToStorage = async (user: User, file: Blob | Uint8Array | ArrayBuffer): Promise<string> => {
     const storageRef = ref(storage, `${user.displayName}:${formData.email}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed',
-      (snapshot): void => {
-        switch (snapshot.state) {
-          case 'paused':
-            break;
-            //TODO: loading bar in the loading page
-          case 'running':
-            break;
-        }
-      },
-      (error: StorageError) => setError({ code: Number(error.code), message: error.message }),
-      (): void => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string): void => {
-          updateProfile(user as User, {
-            displayName: user.displayName,
-            photoURL: downloadURL
-          })
-          .then((): void => {
-            saveUserDatabaseInformation(user as User, downloadURL).then(() => clearError());
-          })
-          .catch((error): void => {
-            setError({ code: error.code, message: error.message });
-            resetLoading();
-          })
-        });
-      }
-    );
-  }
+    try {
+      await new Promise<void>((resolve, reject) => {
+        uploadTask.on('state_changed', (snapshot) => {
+        }, reject, resolve);
+      });
+
+      return await getDownloadURL(uploadTask.snapshot.ref);
+    } catch (error: any) {
+      throw new Error(`Error uploading file: ${error.message}`);
+    }
+  };
+
+  const uploadUserAvatar = async (user: User, file: Blob | Uint8Array | ArrayBuffer): Promise<void> => {
+    try {
+      const downloadURL = await uploadFileToStorage(user, file);
+
+      await updateProfile(user, {
+        displayName: user.displayName,
+        photoURL: downloadURL,
+      });
+
+      await saveUserDatabaseInformation(user, downloadURL);
+
+      clearError();
+    } catch (error: any) {
+      setError({ code: error.code || 0, message: error.message && 'Error uploading users avatar' });
+      resetLoading();
+    }
+  };
 
   const saveUserDatabaseInformation = async (user: User, downloadURL?: string): Promise<void> => {
     await setDoc(doc(db, USERS_DOCUMENT, user.uid), {

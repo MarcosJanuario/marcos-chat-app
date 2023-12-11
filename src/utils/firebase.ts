@@ -5,26 +5,44 @@ import {
 } from 'firebase/auth';
 import { auth, db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { collection, doc, getDoc, getDocs, onSnapshot, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
-import { ChatUser, MessageChat, UserChatDocument } from './types';
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  serverTimestamp,
+  setDoc, Timestamp,
+  updateDoc,
+  where
+} from 'firebase/firestore';
+import { ChatUser, FileType, MessageChat, UserChatDocument } from './types';
 import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from './consts';
+import { v4 as uuid } from 'uuid';
 
 export const FIREBASE = {
   doLogin: (email: string, password: string): Promise<UserCredential> => {
     return signInWithEmailAndPassword(auth, email, password);
   },
+
   createUser: (email: string, password: string): Promise<UserCredential> => {
     return createUserWithEmailAndPassword(auth, email, password);
   },
+
   updateProfile: async (user: any, profile: { displayName?: string; photoURL?: string }): Promise<void> => {
     await updateProfile(user, profile);
   },
+
   getDownloadURL: async (ref: any): Promise<string> => {
     return await getDownloadURL(ref);
   },
+
   setDoc: async (docRef: any, data: any): Promise<void> => {
     await setDoc(docRef, data);
   },
+
   uploadFileToStorage: async (user: any, file: Blob | Uint8Array | ArrayBuffer): Promise<string> => {
     const storageRef = ref(storage, `${user.displayName}:${user.email}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -39,6 +57,7 @@ export const FIREBASE = {
       throw new Error(`Error uploading file: ${error.message}`);
     }
   },
+
   getUserChats: (
     currentUser: ChatUser,
     callback: (userChats: UserChatDocument[]) => void
@@ -68,6 +87,7 @@ export const FIREBASE = {
 
     return unsubscribe;
   },
+
   getChatMessages: (
     chatID: string,
     callback: (messages: MessageChat[]) => void
@@ -86,6 +106,7 @@ export const FIREBASE = {
 
     return unsubscribe;
   },
+
   getUsersByEmail: async (email: string): Promise<ChatUser[]> => {
     const users: ChatUser[] = [];
     const q = query(collection(db, USERS_DOCUMENT), where('email', '==', email));
@@ -95,6 +116,7 @@ export const FIREBASE = {
     });
     return users;
   },
+
   addChatAndUsers: async (
     currentUser: User,
     selectedUser: ChatUser,
@@ -133,4 +155,52 @@ export const FIREBASE = {
       throw new Error('Error adding the user');
     }
   },
+
+  uploadImageMessage: async (currentUser: User, chatID: string, text: string, image: FileType): Promise<void> => {
+    const storageRef = ref(storage, uuid());
+    const uploadTask = uploadBytesResumable(storageRef, image);
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+        uploadTask.on('state_changed', (snapshot) => {}, reject, resolve);
+      });
+
+      const downloadURL = await FIREBASE.getDownloadURL(uploadTask.snapshot.ref);
+      if (chatID) {
+        await updateDoc(doc(db, CHATS_DOCUMENT, chatID), {
+          messages: arrayUnion({
+            id: uuid(),
+            text: text,
+            senderID: currentUser.uid,
+            date: Timestamp.now(),
+            image: downloadURL,
+          }),
+        });
+      }
+    } catch (error: any) {
+      throw new Error(`Error uploading image`);
+    }
+  },
+
+  sendTextMessage: async (currentUser: User, chatID: string, text: string): Promise<void> => {
+    if (chatID) {
+      await updateDoc(doc(db, CHATS_DOCUMENT, chatID), {
+        messages: arrayUnion({
+          id: uuid(),
+          text: text,
+          senderID: currentUser.uid,
+          date: Timestamp.now(),
+        }),
+      });
+    }
+  },
+
+  updateUserChats: async (uid: string, chatID: string, text: string): Promise<void> => {
+    // Update userChats for both users
+    await updateDoc(doc(db, USER_CHATS_DOCUMENT, uid), {
+      [chatID + '.lastMessage']: { text: text },
+      [chatID + '.date']: serverTimestamp(),
+    });
+  },
+
 }

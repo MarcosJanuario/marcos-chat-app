@@ -11,7 +11,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: .2rem;
+  border-radius: .5rem;
 
   &:disabled {
     background-color: $COLOR_DEFAULT_GRAY;

@@ -3,13 +3,14 @@ import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
 
 import './modalAddUser.scss';
-import { AppError, ChatUser, ImageSize, ImageType, TextType } from '../../utils/types';
+import { AppError, ChatUser, ImageSize, ImageType, LoadingState, TextType, UserChatDocument } from '../../utils/types';
 import Input from '../atoms/Input';
 import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import {
   CHATS_DOCUMENT,
   DEFAULT_CLOSE_ICON,
+  LOADING_INITIAL_VALUES,
   USER_CHATS_DOCUMENT,
   USERS_DOCUMENT
 } from '../../utils/consts';
@@ -18,20 +19,21 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import Image from '../atoms/Image';
 import DefaultUserIcon from '../../assets/images/user.png';
 import ErrorBlock from '../molecules/ErrorBlock';
+import Loading from '../molecules/Loading';
+import { UserChatsContext, UserChatsReducer } from '../../store/context/UserChatsContext';
 
 const ModalAddUser = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
-  const { data: ui, dispatchUI } = useContext<UIReducer>(UIContext);
+  const { dispatchUI } = useContext<UIReducer>(UIContext);
+  const { data: userChats } = useContext<UserChatsReducer>(UserChatsContext);
   const [ userEmail, setUserEmail ] = useState<string>('');
   const [error, setError] = useState<AppError | null>(null);
   const [ usersFound, setUsersFound ] = useState<ChatUser[]>([]);
-
-  useEffect(() => {
-    console.log('[UI MODAL MORE]: ', ui);
-  }, [ui]);
+  const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
 
   {/*// TODO: SINGLE SERVICE FOR FB METHODS*/}
-  const handleSearch = async (): Promise<void> => {
+  const handleSearch = async (): Promise<void> => {setUsersFound([])
+    setLoading({ message: 'Searching user', visible: true});
     let tempUsers: ChatUser[] = [];
     const q =
       query(collection(db, USERS_DOCUMENT),
@@ -54,7 +56,12 @@ const ModalAddUser = () => {
       setUsersFound(tempUsers);
       setError(null)
     }
+
+    setLoading({ message: '', visible: false});
   }
+
+  const alreadyAdded = (userFoundUID: string): boolean =>
+    userChats.userChats.some((chat: UserChatDocument) => chat.userInfo.uid === userFoundUID)
 
   const handleSelection = async (selectedUser: ChatUser): Promise<void> => {
     const combinedID = currentUser.uid > selectedUser.uid ? currentUser.uid + selectedUser.uid : selectedUser.uid + currentUser.uid;
@@ -105,11 +112,13 @@ const ModalAddUser = () => {
 
   return (
     <div className="modal-add-user-wrapper">
-      <div className={'modal-action-wrapper'}>
-        <Image image={DEFAULT_CLOSE_ICON} type={ImageType.ICON} onClick={handleOnClose} />
-      </div>
-      <div className="modal-header">
-        <Text type={TextType.HEADER}>Add User</Text>
+      <div className="modal-header-wrapper">
+        <div className={'modal-action-wrapper'}>
+          <Image image={DEFAULT_CLOSE_ICON} type={ImageType.ICON} onClick={handleOnClose} />
+        </div>
+        <div className="modal-header">
+          <Text type={TextType.HEADER}>Add User</Text>
+        </div>
       </div>
 
       <div className="content">
@@ -121,15 +130,21 @@ const ModalAddUser = () => {
             value={userEmail}
             handleOnChange={(e: ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)}
             handleOnKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
-            style={{ width: '60%',
+            style={{
+              flex: 2,
               height: '1rem',
               border: '1px solid #1565c0',
               color: '#212121',
               borderRadius: '.5rem'
             }}
           />
+          <div className={'h-spacing'}></div>
           <Button text={'Search'} onClick={handleSearch}
-                  style={{ padding: '.5rem 0', width: '30%', borderRadius: '.5rem '}}/>
+                  style={{ padding: '.5rem 0', width: '15%', flex: 1}}/>
+          <div className={'h-spacing'}></div>
+          <Button text={'Clear Search'} onClick={() => setUsersFound([])}
+                  disabled={usersFound.length === 0}
+                  style={{ padding: '.5rem 0', width: '15%', flex: 1}}/>
         </div>
 
         <div className="result-wrapper">
@@ -143,7 +158,11 @@ const ModalAddUser = () => {
                   </div>
                 </div>
                 <div className="user-action-wrapper">
-                  <Button text={'Add'} onClick={() => handleSelection(userFound)} />
+                  <Button
+                    text={`${alreadyAdded(userFound.uid) ? 'Already Added' : 'Add'}`}
+                    disabled={alreadyAdded(userFound.uid)}
+                    onClick={() => handleSelection(userFound)}
+                  />
                 </div>
               </>
             )
@@ -154,6 +173,9 @@ const ModalAddUser = () => {
         </div>
 
       </div>
+      {
+        loading.visible && <Loading message={loading.message} />
+      }
     </div>
   );
 }

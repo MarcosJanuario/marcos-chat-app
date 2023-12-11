@@ -10,10 +10,12 @@ import './userChats.scss';
 import ChatThumbnail from '../molecules/ChatThumbnail';
 import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import { cloneDeep } from 'lodash';
+import { UserChatsContext, UserChatsReducer } from '../../store/context/UserChatsContext';
 
 const UserChats = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
-  const { data, dispatch } = useContext<ChatReducer>(ChatContext);
+  const { dispatch: dispatchMainChat } = useContext<ChatReducer>(ChatContext);
+  const { dispatch: dispatchUserChats } = useContext<UserChatsReducer>(UserChatsContext);
   const [ chats, setChats ] = useState<UserChatDocument[]>([]);
 
   useEffect(() => {
@@ -28,13 +30,17 @@ const UserChats = () => {
             userInfo: value.userInfo,
           }));
           console.log('[userChatsArray]: ', userChatsArray);
-          setChats(() => cloneDeep(userChatsArray)
+
+          const sortedUserChats: UserChatDocument[] = cloneDeep(userChatsArray)
             .sort((a: UserChatDocument, b: UserChatDocument): number => {
               if (!a.date || !b.date) {
                 return 0;
               }
               return b.date.seconds - a.date.seconds;
-            }));
+            });
+
+          setChats(sortedUserChats);
+          dispatchUserChats({ type: 'UPDATE_USER_CHATS', payload: sortedUserChats })
         }
 
       });
@@ -45,7 +51,7 @@ const UserChats = () => {
   }, [currentUser.uid]);
 
   const handleSelect = (selectedUser: ChatUser): void => {
-    dispatch({ type: 'CHANGE_USER', payload: selectedUser})
+    dispatchMainChat({ type: 'CHANGE_USER', payload: selectedUser})
   }
 
   return (

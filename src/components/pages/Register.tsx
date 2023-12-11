@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './register.scss';
 import Button from '../atoms/Button';
-import { updateProfile, User, UserCredential } from 'firebase/auth';
-import { db, storage } from '../../firebase';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { doc, setDoc } from 'firebase/firestore';
+import { User, UserCredential } from 'firebase/auth';
+import { db } from '../../firebase';
+import { doc } from 'firebase/firestore';
 
 import {
   AppError,
@@ -40,7 +39,7 @@ const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   password: '',
   passwordRepeat: '',
   file: '',
-}
+};
 
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
@@ -65,14 +64,16 @@ const Register = () => {
     }
   };
 
-  const handleLoadingState = (name: keyof LoadingState | Partial<LoadingState>, value?: LoadingState[keyof LoadingState]): void => {
+  const handleLoadingState = (
+    name: keyof LoadingState | Partial<LoadingState>,
+    value?: LoadingState[keyof LoadingState]
+  ): void => {
     if (typeof name === 'string') {
       setLoading((prevData: LoadingState) => ({ ...prevData, [name]: value }));
     } else {
       setLoading((prevData: LoadingState) => ({ ...prevData, ...name }));
     }
   };
-
 
   const clearError = (): void => {
     setError(null);
@@ -87,84 +88,71 @@ const Register = () => {
   };
 
   const errorHandler = (error: any): void => {
-    setError({ code: error?.code ?? 0, message: error?.message ?? 'Error by creating new user' });
+    setError({ code: error?.code ?? 0, message: error?.message ?? 'Error by creating a new user' });
     resetLoading();
-  }
+  };
 
-  const handleUserDocumentation = (user: User): void => {
-    formData.file
-      ? uploadUserAvatar(user, formData.file as Blob | Uint8Array | ArrayBuffer)
-      : saveUserDatabaseInformation(user)
-  }
+  const handleUserDocumentation = async (user: User): Promise<void> => {
+    try {
+      if (formData.file) {
+        const downloadURL = await FIREBASE.uploadFileToStorage(user, formData.file as Blob | Uint8Array | ArrayBuffer);
+
+        await FIREBASE.updateProfile(user, {
+          displayName: user.displayName ?? '',
+          photoURL: downloadURL,
+        });
+
+        await FIREBASE.setDoc(doc(db, USERS_DOCUMENT, user.uid), {
+          uid: user.uid,
+          displayName: formData.displayName,
+          email: formData.email,
+          ...(downloadURL && { photoURL: downloadURL }),
+        });
+
+        await FIREBASE.setDoc(doc(db, USER_CHATS_DOCUMENT, user.uid), {});
+      } else {
+        await saveUserDatabaseInformation(user);
+      }
+
+      resetLoading();
+      navigate('/');
+      clearError();
+    } catch (error: any) {
+      setError({ code: error.code || 0, message: error.message });
+      resetLoading();
+    }
+  };
 
   const signupUser = (): void => {
-    console.log('formData: ', formData);
     FIREBASE.createUser(formData.email, formData.password)
       .then((userCredential: UserCredential) => updateDisplayName(userCredential.user))
       .then((user: User) => handleUserDocumentation(user))
       .then(() => clearError())
       .catch(errorHandler);
-  }
+  };
 
   const updateDisplayName = async (user: User): Promise<User> => {
-    await updateProfile(user, { displayName: formData.displayName })
-      .then(() => {
-      }).catch(errorHandler)
+    await FIREBASE.updateProfile(user, { displayName: formData.displayName }).catch(errorHandler);
     return user;
-  }
-
-  const uploadFileToStorage = async (user: User, file: Blob | Uint8Array | ArrayBuffer): Promise<string> => {
-    const storageRef = ref(storage, `${user.displayName}:${formData.email}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    try {
-      await new Promise<void>((resolve, reject) => {
-        uploadTask.on('state_changed', (snapshot) => {
-        }, reject, resolve);
-      });
-
-      return await getDownloadURL(uploadTask.snapshot.ref);
-    } catch (error: any) {
-      throw new Error(`Error uploading file: ${error.message}`);
-    }
   };
 
-  const uploadUserAvatar = async (user: User, file: Blob | Uint8Array | ArrayBuffer): Promise<void> => {
-    try {
-      const downloadURL = await uploadFileToStorage(user, file);
-
-      await updateProfile(user, {
-        displayName: user.displayName,
-        photoURL: downloadURL,
-      });
-
-      await saveUserDatabaseInformation(user, downloadURL);
-
-      clearError();
-    } catch (error: any) {
-      setError({ code: error.code || 0, message: error.message && 'Error uploading users avatar' });
-      resetLoading();
-    }
-  };
-
-  const saveUserDatabaseInformation = async (user: User, downloadURL?: string): Promise<void> => {
-    await setDoc(doc(db, USERS_DOCUMENT, user.uid), {
+  const saveUserDatabaseInformation = async (user: User): Promise<void> => {
+    await FIREBASE.setDoc(doc(db, USERS_DOCUMENT, user.uid), {
       uid: user.uid,
       displayName: formData.displayName,
       email: formData.email,
-      ...(downloadURL && { photoURL: downloadURL }),
     });
 
-    await setDoc(doc(db, USER_CHATS_DOCUMENT, user.uid), {});
-    resetLoading();
-    navigate('/');
-  }
+    await FIREBASE.setDoc(doc(db, USER_CHATS_DOCUMENT, user.uid), {});
+  };
 
   const passwordsAreCorrect = (): boolean => {
-    return formData.password.length > PASSWORD_MIN_CHARS
-      && formData.passwordRepeat.length > PASSWORD_MIN_CHARS
-      && formData.password === formData.passwordRepeat
-  }
+    return (
+      formData.password.length > PASSWORD_MIN_CHARS &&
+      formData.passwordRepeat.length > PASSWORD_MIN_CHARS &&
+      formData.password === formData.passwordRepeat
+    );
+  };
 
   const fieldsCorrectlyFulfilled = (): boolean => passwordsAreCorrect() && validateEmail(formData.email);
 
@@ -174,18 +162,16 @@ const Register = () => {
         <Text type={TextType.HEADER}>Marcos Chat App</Text>
         <Text type={TextType.SMALL}>Register</Text>
         <form onSubmit={handleSubmit}>
-          {
-            REGISTER_INPUT_FIELDS.map((inputField: RegisterInputField) => (
-              <Input
-                key={inputField.id}
-                type={inputField.type}
-                placeholder={inputField.placeholder}
-                name={inputField.name}
-                value={formData[inputField.name as keyof RegisterFormData] as string}
-                handleOnChange={handleChange}
-              />
-            ))
-          }
+          {REGISTER_INPUT_FIELDS.map((inputField: RegisterInputField) => (
+            <Input
+              key={inputField.id}
+              type={inputField.type}
+              placeholder={inputField.placeholder}
+              name={inputField.name}
+              value={formData[inputField.name as keyof RegisterFormData] as string}
+              handleOnChange={handleChange}
+            />
+          ))}
 
           <input
             type="file"
@@ -203,25 +189,20 @@ const Register = () => {
                 <span>Add avatar</span>
               </label>
             </div>
-            {
-              formData.file &&
-              <Image image={DEFAULT_CHECK_ICON} type={ImageType.ICON} size={ImageSize.SMALL} />
-            }
+            {formData.file && <Image image={DEFAULT_CHECK_ICON} type={ImageType.ICON} size={ImageSize.SMALL} />}
           </div>
 
           <Button text={'Sign up'} disabled={!fieldsCorrectlyFulfilled()} />
 
-          {
-            error && <ErrorBlock text={error.message} />
-          }
+          {error && <ErrorBlock text={error.message} />}
 
         </form>
 
-        <p>Do you have an account? Please <Link to={'/login'}>login</Link></p>
+        <p>
+          Do you have an account? Please <Link to={'/login'}>login</Link>
+        </p>
 
-        {
-          loading.visible && <Loading message={loading.message} />
-        }
+        {loading.visible && <Loading message={loading.message} />}
       </div>
     </div>
   );

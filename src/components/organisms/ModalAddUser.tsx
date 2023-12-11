@@ -151,7 +151,7 @@ const ModalAddUser = () => {
           {
             usersFound.length > 0 && usersFound.map((userFound: ChatUser) =>
               <>
-                <div className={'user-wrapper'}>
+                <div className={'user-wrapper'} key={userFound.uid}>
                   <Image image={userFound.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.BIG} />
                   <div className="user-chat-info">
                     <Text type={TextType.TITLE} color={'#1565c0'}>{userFound.displayName}</Text>

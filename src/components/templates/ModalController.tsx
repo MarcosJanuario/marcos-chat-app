@@ -1,18 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 
-import './modalHandler.scss';
+import './modalController.scss';
 
 type ModalHandlerProps = {
   children: JSX.Element;
 }
 
-const ModalHandler = ({ children }: ModalHandlerProps) => {
-  const { data: ui, dispatchUI } = useContext<UIReducer>(UIContext);
-
-  useEffect(() => {
-    console.log('[UI MODAL HANDLER]: ', ui);
-  }, [ui]);
+const ModalController = ({ children }: ModalHandlerProps) => {
+  const { data: ui } = useContext<UIReducer>(UIContext);
 
   return (
     <>
@@ -31,4 +27,4 @@ const ModalHandler = ({ children }: ModalHandlerProps) => {
   );
 }
 
-export default ModalHandler;
+export default ModalController;

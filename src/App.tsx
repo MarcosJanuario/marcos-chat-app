@@ -5,7 +5,7 @@ import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import { AuthContext, AuthContextType } from './store/context/AuthContext';
-import ModalHandler from './components/templates/ModalHandler';
+import ModalController from './components/templates/ModalController';
 
 const App = () => {
   const { user } = useContext<AuthContextType>(AuthContext);
@@ -21,7 +21,7 @@ const App = () => {
   }, [user]);
 
   return (
-    <ModalHandler>
+    <ModalController>
       <BrowserRouter>
         <Routes>
           <Route path={'/'}>
@@ -35,7 +35,7 @@ const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
-    </ModalHandler>
+    </ModalController>
   );
 }
 

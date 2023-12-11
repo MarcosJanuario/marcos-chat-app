@@ -20,7 +20,6 @@ const UserChats = () => {
     if (currentUser.uid) {
       unsubscribe = FIREBASE.getUserChats(currentUser as ChatUser, (sortedUserChats) => {
         setChats(sortedUserChats);
-        console.log('[USER_CHATS] sortedUserChats : ', sortedUserChats);
         dispatchUserChats({ type: 'UPDATE_USER_CHATS', payload: sortedUserChats });
       });
     }

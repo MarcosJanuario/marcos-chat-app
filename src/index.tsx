@@ -7,21 +7,24 @@ import { AuthContextProvider } from './store/context/AuthContext';
 import { ChatContextProvider } from './store/context/ChatContext';
 import { UIContextProvider } from './store/context/UIContext';
 import { UserChatsContextProvider } from './store/context/UserChatsContext';
+import { PermissionsContextProvider } from './store/context/PermissionContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <AuthContextProvider>
-    <ChatContextProvider>
-      <UIContextProvider>
-        <UserChatsContextProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </UserChatsContextProvider>
-      </UIContextProvider>
-    </ChatContextProvider>
+    <PermissionsContextProvider>
+      <ChatContextProvider>
+        <UIContextProvider>
+          <UserChatsContextProvider>
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </UserChatsContextProvider>
+        </UIContextProvider>
+      </ChatContextProvider>
+    </PermissionsContextProvider>
   </AuthContextProvider>
 );
 

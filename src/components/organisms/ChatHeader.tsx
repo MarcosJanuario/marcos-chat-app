@@ -4,18 +4,21 @@ import Image from '../atoms/Image';
 import { ImageSize, ImageType, TextType } from '../../utils/types';
 
 import DefaultUserIcon from '../../assets/images/user.png';
+import DefaultLogoutIcon from '../../assets/images/exit.png';
 import Text from '../atoms/Text';
-import Camera from '../../assets/images/camera.png';
 import AddUser from '../../assets/images/add-user.png';
-import More from '../../assets/images/more.png';
 
-import './chatHeader.scss';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
-import ModalMore from './ModalMore';
 import ModalAddUser from './ModalAddUser';
 
+import './chatHeader.scss';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+
 const ChatHeader = () => {
-  const { data } = useContext<ChatReducer>(ChatContext);
+  const { clearUser } = useContext<AuthContextType>(AuthContext);
+  const { data, dispatch } = useContext<ChatReducer>(ChatContext);
   const { dispatchUI } = useContext<UIReducer>(UIContext);
 
   const handleOnClick = (content: JSX.Element): void => {
@@ -29,6 +32,14 @@ const ChatHeader = () => {
       }
     })
   }
+
+  const signOutUser = (): void => {
+    signOut(auth).then(() => {
+      clearUser();
+      dispatch({ type: 'CLEAR' });
+    })
+  }
+
   return (
     <div className="chat-info-wrapper">
       {
@@ -44,12 +55,10 @@ const ChatHeader = () => {
       }
 
       <div className="chat-icons-wrapper">
-        {/*// TODO: OTHER 2 MODALS*/}
-
-        {/*<Image image={Camera} type={ImageType.ICON} />*/}
         <Image image={AddUser} type={ImageType.ICON}
                onClick={() => handleOnClick(<ModalAddUser />)} />
-        {/*<Image image={More} type={ImageType.ICON} />*/}
+        <Image image={DefaultLogoutIcon} type={ImageType.ICON}
+               onClick={signOutUser} />
       </div>
     </div>
   );

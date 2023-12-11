@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import './register.scss';
 import Button from '../atoms/Button';
 import { User, UserCredential } from 'firebase/auth';
@@ -32,6 +32,9 @@ import Text from '../atoms/Text';
 import Image from '../atoms/Image';
 import ErrorBlock from '../molecules/ErrorBlock';
 import { FIREBASE } from '../../utils/firebase';
+import { UIContext, UIReducer } from '../../store/context/UIContext';
+import { PermissionsContext, PermissionsReducer } from '../../store/context/PermissionContext';
+import ModalPermissions from '../organisms/ModalPermissions';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -45,7 +48,19 @@ const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
   const [error, setError] = useState<AppError | null>(null);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
+  const { dispatchUI } = useContext<UIReducer>(UIContext);
+  const { data: userPermission, dispatchPermissions } = useContext<PermissionsReducer>(PermissionsContext);
   const navigate = useNavigate();
+  const [modalAlreadyShown, setModalAlreadyShown] = useState<boolean>(false);
+
+
+  useEffect(() => {
+    if (modalAlreadyShown) {
+      handleLoadingState({ message: 'Creating new user', visible: true });
+      signupUser();
+    }
+  }, [userPermission]);
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, files } = e.target;
@@ -82,9 +97,23 @@ const Register = () => {
   const resetLoading = (): void => handleLoadingState({ message: '', visible: false });
 
   const handleSubmit = (event: FormEvent): void => {
-    handleLoadingState({ message: 'Creating new user', visible: true });
+    setModalAlreadyShown(true);
     event.preventDefault();
-    signupUser();
+    if (userPermission.permission.persistUserEmail && userPermission.permission.uploadUserImages) {
+      handleLoadingState({ message: 'Creating new user', visible: true });
+      event.preventDefault();
+      signupUser();
+    } else {
+      dispatchUI({
+        type: 'HANDLE_MODAL',
+        payload: {
+          modal: {
+            content: <ModalPermissions />,
+            visibility: true
+          }
+        }
+      });
+    }
   };
 
   const errorHandler = (error: any): void => {

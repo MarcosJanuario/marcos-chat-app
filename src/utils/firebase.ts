@@ -6,8 +6,8 @@ import {
 import { auth, db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
-import { ChatUser, UserChatDocument } from './types';
-import { USER_CHATS_DOCUMENT } from './consts';
+import { ChatUser, MessageChat, UserChatDocument } from './types';
+import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from './consts';
 
 export const FIREBASE = {
   doLogin: (email: string, password: string): Promise<UserCredential> => {
@@ -58,10 +58,28 @@ export const FIREBASE = {
           );
 
           const sortedUserChats: UserChatDocument[] = userChatsArray
-            .filter((chat) => chat.userInfo) // Remove invalid chats
+            .filter((chat: UserChatDocument) => chat.userInfo)
             .sort((a, b) => (b.date?.seconds || 0) - (a.date?.seconds || 0));
 
           callback(sortedUserChats);
+        }
+      }
+    );
+
+    return unsubscribe;
+  },
+  getChatMessages: (
+    chatID: string,
+    callback: (messages: MessageChat[]) => void
+  ): (() => void) => {
+    const docRef = doc(db, CHATS_DOCUMENT, chatID);
+    const unsubscribe = onSnapshot(
+      docRef,
+      (doc: any) => {
+        if (doc.exists()) {
+          const messagesData = doc.data()?.messages;
+          const messagesArray: MessageChat[] = messagesData ? (messagesData as MessageChat[]) : [];
+          callback(messagesArray);
         }
       }
     );

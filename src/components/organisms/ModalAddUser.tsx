@@ -45,6 +45,7 @@ const ModalAddUser = () => {
         tempUsers.push(doc.data() as ChatUser);
       });
       setError(null);
+      setLoading({ message: '', visible: false});
     } catch (error) {
       console.log('[ERROR QUERING USERS]: ', { code: 0, message: 'Error querying users' });
       setError({ code: 0, message: 'Error querying users' });
@@ -57,13 +58,13 @@ const ModalAddUser = () => {
       setError(null)
     }
 
-    setLoading({ message: '', visible: false});
   }
 
   const alreadyAdded = (userFoundUID: string): boolean =>
     userChats.userChats.some((chat: UserChatDocument) => chat.userInfo.uid === userFoundUID)
 
   const handleSelection = async (selectedUser: ChatUser): Promise<void> => {
+    setLoading({ message: 'Adding user', visible: true});
     const combinedID = currentUser.uid > selectedUser.uid ? currentUser.uid + selectedUser.uid : selectedUser.uid + currentUser.uid;
 
     try {
@@ -93,10 +94,13 @@ const ModalAddUser = () => {
             ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL })
           },
           [combinedID + '.date']: serverTimestamp()
-        })
+        });
+
+        setLoading({ message: '', visible: false});
       }
     } catch(error) {
-      console.log('ERROR BY HANDLING CHATS: ', error);
+      setLoading({ message: '', visible: false});
+      setError({ code: 0, message: 'Error adding the user' })
     }
   }
 

@@ -29,7 +29,7 @@ const ModalAddUser = () => {
     setUsersFound([]);
     setLoading({ message: 'Searching user', visible: true });
     try {
-      const users = await FIREBASE.getUsersByEmail(userEmail);
+      const users = await FIREBASE.getUsersByEmail(userEmail.toLowerCase());
       setError(null);
       setLoading({ message: '', visible: false });
       if (users.length === 0) {
@@ -63,9 +63,13 @@ const ModalAddUser = () => {
   }
 
   const handleOnClose = (): void => {
+    handleOnClear();
+    dispatchUI({ type: 'RESET_MODAL'});
+  }
+
+  const handleOnClear = (): void => {
     setUserEmail('');
     setUsersFound([]);
-    dispatchUI({ type: 'RESET_MODAL'});
   }
 
   return (
@@ -100,7 +104,7 @@ const ModalAddUser = () => {
           <Button text={'Search'} onClick={handleSearch}
                   style={{ padding: '.5rem 0', width: '15%', flex: 1}}/>
           <div className={'h-spacing'}></div>
-          <Button text={'Clear Search'} onClick={() => setUsersFound([])}
+          <Button text={'Clear'} onClick={handleOnClear}
                   disabled={usersFound.length === 0}
                   style={{ padding: '.5rem 0', width: '15%', flex: 1}}/>
         </div>

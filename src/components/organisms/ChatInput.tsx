@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 
 import Button from '../atoms/Button';
 import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
@@ -18,7 +18,6 @@ const ChatInput = () => {
   const [error, setError] = useState<AppError | null>(null);
 
   const handleSendMessage = async (): Promise<void> => {
-    console.log('[handleKeyDown]');
     try {
       if (data.chatID) {
         if (image) {
@@ -41,18 +40,18 @@ const ChatInput = () => {
     setImage(null);
   }
 
-  // TODO: when adding image
-  // const handleInputFile = (e: ChangeEvent<HTMLInputElement>): void => {
-  //   if (e.target?.files && e.target?.files[0]) {
-  //     setImage(e.target.files[0] as FileType);
-  //   }
-  // };
+  const handleOnKeyDown = async (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): Promise<void> => {
+    if (e.code  === 'Enter') {
+      await handleSendMessage();
+    }
+  }
 
   return (
     <div className="input-wrapper">
       <textarea placeholder={'Enter a message'}
-             value={text}
-             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
+                value={text}
+                onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => handleOnKeyDown(e)}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
       />
       <div className="send-options-wrapper">
         <Button text={'Send'} onClick={handleSendMessage} />

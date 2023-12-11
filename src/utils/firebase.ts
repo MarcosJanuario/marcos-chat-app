@@ -1,13 +1,13 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, updateProfile,
+  signInWithEmailAndPassword, updateProfile, User,
   UserCredential
 } from 'firebase/auth';
 import { auth, db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, onSnapshot, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
 import { ChatUser, MessageChat, UserChatDocument } from './types';
-import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT } from './consts';
+import { CHATS_DOCUMENT, USER_CHATS_DOCUMENT, USERS_DOCUMENT } from './consts';
 
 export const FIREBASE = {
   doLogin: (email: string, password: string): Promise<UserCredential> => {
@@ -85,5 +85,52 @@ export const FIREBASE = {
     );
 
     return unsubscribe;
-  }
+  },
+  getUsersByEmail: async (email: string): Promise<ChatUser[]> => {
+    const users: ChatUser[] = [];
+    const q = query(collection(db, USERS_DOCUMENT), where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data() as ChatUser);
+    });
+    return users;
+  },
+  addChatAndUsers: async (
+    currentUser: User,
+    selectedUser: ChatUser,
+    combinedID: string
+  ): Promise<void> => {
+    try {
+      const resChats = await getDoc(doc(db, CHATS_DOCUMENT, combinedID));
+
+      if (!resChats.exists()) {
+        // create a new chats collection that will contain the whole conversation with each user
+        await setDoc(doc(db, CHATS_DOCUMENT, combinedID), { messages: [] });
+
+        // update userChats, where this will hold all the chats the SELECTED user is having with
+        await updateDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
+          [combinedID + '.userInfo']: {
+            uid: currentUser.uid,
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            ...(currentUser.photoURL && { photoURL: currentUser.photoURL }),
+          },
+          [combinedID + '.date']: serverTimestamp(),
+        });
+
+        // update userChats, where this will hold all the chats the LOGGEDIN user is having with
+        await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
+          [combinedID + '.userInfo']: {
+            uid: selectedUser.uid,
+            email: selectedUser.email,
+            displayName: selectedUser.displayName,
+            ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL }),
+          },
+          [combinedID + '.date']: serverTimestamp(),
+        });
+      }
+    } catch (error) {
+      throw new Error('Error adding the user');
+    }
+  },
 }

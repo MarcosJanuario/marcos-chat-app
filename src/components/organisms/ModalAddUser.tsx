@@ -1,19 +1,10 @@
-import React, { ChangeEvent, KeyboardEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
 
-import './modalAddUser.scss';
 import { AppError, ChatUser, ImageSize, ImageType, LoadingState, TextType, UserChatDocument } from '../../utils/types';
 import Input from '../atoms/Input';
-import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
-import { db } from '../../firebase';
-import {
-  CHATS_DOCUMENT,
-  DEFAULT_CLOSE_ICON,
-  LOADING_INITIAL_VALUES,
-  USER_CHATS_DOCUMENT,
-  USERS_DOCUMENT
-} from '../../utils/consts';
+import { DEFAULT_CLOSE_ICON, LOADING_INITIAL_VALUES, } from '../../utils/consts';
 import Button from '../atoms/Button';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import Image from '../atoms/Image';
@@ -21,6 +12,9 @@ import DefaultUserIcon from '../../assets/images/user.png';
 import ErrorBlock from '../molecules/ErrorBlock';
 import Loading from '../molecules/Loading';
 import { UserChatsContext, UserChatsReducer } from '../../store/context/UserChatsContext';
+import { FIREBASE } from '../../utils/firebase';
+
+import './modalAddUser.scss';
 
 const ModalAddUser = () => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
@@ -31,33 +25,22 @@ const ModalAddUser = () => {
   const [ usersFound, setUsersFound ] = useState<ChatUser[]>([]);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
 
-  {/*// TODO: SINGLE SERVICE FOR FB METHODS*/}
-  const handleSearch = async (): Promise<void> => {setUsersFound([])
-    setLoading({ message: 'Searching user', visible: true});
-    let tempUsers: ChatUser[] = [];
-    const q =
-      query(collection(db, USERS_DOCUMENT),
-        where('email', '==', userEmail));
+  const handleSearch = async (): Promise<void> => {
+    setUsersFound([]);
+    setLoading({ message: 'Searching user', visible: true });
     try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        console.log('[doc.data()]: ', doc.data());
-        tempUsers.push(doc.data() as ChatUser);
-      });
+      const users = await FIREBASE.getUsersByEmail(userEmail);
       setError(null);
-      setLoading({ message: '', visible: false});
+      setLoading({ message: '', visible: false });
+      if (users.length === 0) {
+        setError({ code: 0, message: 'No user with this email found' });
+      } else {
+        setUsersFound(users);
+        setError(null);
+      }
     } catch (error) {
-      console.log('[ERROR QUERING USERS]: ', { code: 0, message: 'Error querying users' });
       setError({ code: 0, message: 'Error querying users' });
     }
-    console.log('[tempUsers]: ', tempUsers);
-    if (tempUsers.length === 0) {
-      setError({ code: 0, message: 'No user with this email found' })
-    } else {
-      setUsersFound(tempUsers);
-      setError(null)
-    }
-
   }
 
   const alreadyAdded = (userFoundUID: string): boolean =>
@@ -66,38 +49,9 @@ const ModalAddUser = () => {
   const handleSelection = async (selectedUser: ChatUser): Promise<void> => {
     setLoading({ message: 'Adding user', visible: true});
     const combinedID = currentUser.uid > selectedUser.uid ? currentUser.uid + selectedUser.uid : selectedUser.uid + currentUser.uid;
-
     try {
-      const resChats = await getDoc(doc(db, 'chats', combinedID));
-
-      if (!resChats.exists()) {
-        // create a new chats collection that will contain the whole conversation with each user
-        await setDoc(doc(db, CHATS_DOCUMENT, combinedID), { messages: [] });
-
-        // create/update userChats, where this will hold all the chats the SELECTED user is having with
-        await updateDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
-          [combinedID + '.userInfo']: {
-            uid: currentUser.uid,
-            email: currentUser.email,
-            displayName: currentUser.displayName,
-            ...(currentUser.photoURL && { photoURL: currentUser.photoURL })
-          },
-          [combinedID + '.date']: serverTimestamp()
-        });
-
-        // create/update userChats, where this will hold all the chats the LOGGEDIN user is having with
-        await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
-          [combinedID + '.userInfo']: {
-            uid: selectedUser.uid,
-            email: selectedUser.email,
-            displayName: selectedUser.displayName,
-            ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL })
-          },
-          [combinedID + '.date']: serverTimestamp()
-        });
-
-        setLoading({ message: '', visible: false});
-      }
+      await FIREBASE.addChatAndUsers(currentUser, selectedUser, combinedID);
+      setLoading({ message: '', visible: false});
     } catch(error) {
       setLoading({ message: '', visible: false});
       setError({ code: 0, message: 'Error adding the user' })

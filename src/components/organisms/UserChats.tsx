@@ -1,76 +1,57 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChatUser, UserChatDocument } from '../../utils/types';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../../firebase';
-import { USER_CHATS_DOCUMENT } from '../../utils/consts';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
-import { mapObjectToArray } from '../../utils/helpers';
 
 import './userChats.scss';
 import ChatThumbnail from '../molecules/ChatThumbnail';
-import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
-import { cloneDeep } from 'lodash';
-import { UserChatsContext, UserChatsReducer } from '../../store/context/UserChatsContext';
+import { ChatContext } from '../../store/context/ChatContext';
+import { UserChatsContext } from '../../store/context/UserChatsContext';
+import { FIREBASE } from '../../utils/firebase';
 
 const UserChats = () => {
-  const { user : currentUser } = useContext<AuthContextType>(AuthContext);
-  const { dispatch: dispatchMainChat } = useContext<ChatReducer>(ChatContext);
-  const { dispatch: dispatchUserChats } = useContext<UserChatsReducer>(UserChatsContext);
-  const [ chats, setChats ] = useState<UserChatDocument[]>([]);
+  const { user: currentUser } = useContext<AuthContextType>(AuthContext);
+  const { dispatch: dispatchMainChat } = useContext(ChatContext);
+  const { dispatch: dispatchUserChats } = useContext(UserChatsContext);
+  const [chats, setChats] = useState<UserChatDocument[]>([]);
 
   useEffect(() => {
+    let unsubscribe: () => void;
+
     if (currentUser.uid) {
-      const unsubscribe = onSnapshot(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), (doc) => {
-        if (doc.exists()) {
-
-          const userChatsDocument = doc.data();
-          const userChatsArray: UserChatDocument[] = mapObjectToArray(userChatsDocument, (value) => ({
-            date: value.date,
-            lastMessage: value.lastMessage,
-            userInfo: value.userInfo,
-          }));
-          console.log('[userChatsArray]: ', userChatsArray);
-
-          const sortedUserChats: UserChatDocument[] = cloneDeep(userChatsArray)
-            .sort((a: UserChatDocument, b: UserChatDocument): number => {
-              if (!a.date || !b.date) {
-                return 0;
-              }
-              return b.date.seconds - a.date.seconds;
-            });
-
-          setChats(sortedUserChats);
-          dispatchUserChats({ type: 'UPDATE_USER_CHATS', payload: sortedUserChats })
-        }
-
+      unsubscribe = FIREBASE.getUserChats(currentUser as ChatUser, (sortedUserChats) => {
+        setChats(sortedUserChats);
+        dispatchUserChats({ type: 'UPDATE_USER_CHATS', payload: sortedUserChats });
       });
-      return () => {
+    }
+
+    return () => {
+      if (unsubscribe) {
         unsubscribe();
       }
-    }
+    };
   }, [currentUser.uid]);
 
   const handleSelect = (selectedUser: ChatUser): void => {
-    dispatchMainChat({ type: 'CHANGE_USER', payload: selectedUser})
-  }
+    dispatchMainChat({ type: 'CHANGE_USER', payload: selectedUser });
+  };
 
   return (
     <div className="chats-wrapper">
-      {
-        chats.length > 0 &&
-        chats.map((userChat: UserChatDocument) =>
-          userChat.userInfo && <div key={userChat.userInfo.uid}>
-            <ChatThumbnail
-              userInfo={userChat.userInfo}
-              lastMessage={userChat.lastMessage?.text}
-              color={'#f5f5f5'}
-              onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
-            />
-          </div>
-        )
-      }
+      {chats.length > 0 &&
+        chats.map((userChat: UserChatDocument) => (
+          userChat.userInfo && (
+            <div key={userChat.userInfo.uid}>
+              <ChatThumbnail
+                userInfo={userChat.userInfo}
+                lastMessage={userChat.lastMessage?.text}
+                color={'#f5f5f5'}
+                onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
+              />
+            </div>
+          )
+        ))}
     </div>
   );
-}
+};
 
 export default UserChats;

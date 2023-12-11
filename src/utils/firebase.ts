@@ -3,9 +3,11 @@ import {
   signInWithEmailAndPassword, updateProfile,
   UserCredential
 } from 'firebase/auth';
-import { auth, storage } from '../firebase';
+import { auth, db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { setDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { ChatUser, UserChatDocument } from './types';
+import { USER_CHATS_DOCUMENT } from './consts';
 
 export const FIREBASE = {
   doLogin: (email: string, password: string): Promise<UserCredential> => {
@@ -37,4 +39,33 @@ export const FIREBASE = {
       throw new Error(`Error uploading file: ${error.message}`);
     }
   },
+  getUserChats: (
+    currentUser: ChatUser,
+    callback: (userChats: UserChatDocument[]) => void
+  ): (() => void) => {
+    const docRef = doc(db, USER_CHATS_DOCUMENT, currentUser.uid);
+    const unsubscribe = onSnapshot(
+      docRef,
+      (snapshot: any) => {
+        if (snapshot.exists()) {
+          const userChatsDocument = snapshot.data();
+          const userChatsArray: UserChatDocument[] = Object.values(userChatsDocument).map(
+            (value: any) => ({
+              date: value.date,
+              lastMessage: value.lastMessage,
+              userInfo: value.userInfo
+            })
+          );
+
+          const sortedUserChats: UserChatDocument[] = userChatsArray
+            .filter((chat) => chat.userInfo) // Remove invalid chats
+            .sort((a, b) => (b.date?.seconds || 0) - (a.date?.seconds || 0));
+
+          callback(sortedUserChats);
+        }
+      }
+    );
+
+    return unsubscribe;
+  }
 }

@@ -102,7 +102,7 @@ const ModalAddUser = () => {
               borderRadius: '.5rem'
             }}
           />
-          <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} />
+          <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} disabled={!userEmail} />
           <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} disabled={!userEmail} />
         </div>
 

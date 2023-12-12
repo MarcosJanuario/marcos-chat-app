@@ -10,7 +10,7 @@ import { FIREBASE } from '../../utils/firebase';
 import ErrorBlock from '../molecules/ErrorBlock';
 
 const ChatInput = () => {
-  const { data } = useContext<ChatReducer>(ChatContext);
+  const { data: chat } = useContext<ChatReducer>(ChatContext);
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
   const [text, setText] = useState<string>('');
@@ -22,15 +22,15 @@ const ChatInput = () => {
       const tempText = text;
       setText('');
       try {
-        if (data.chatID) {
+        if (chat.chatID) {
           if (image) {
-            await FIREBASE.uploadImageMessage(currentUser, data.chatID, tempText, image);
+            await FIREBASE.uploadImageMessage(currentUser, chat.chatID, tempText, image);
           } else {
-            await FIREBASE.sendTextMessage(currentUser, data.chatID, tempText);
+            await FIREBASE.sendTextMessage(currentUser, chat.chatID, tempText);
           }
 
-          await FIREBASE.updateUserChats(currentUser.uid, data.chatID, tempText);
-          await FIREBASE.updateUserChats(data.user.uid, data.chatID, tempText);
+          await FIREBASE.updateUserChats(currentUser.uid, chat.chatID, tempText);
+          await FIREBASE.updateUserChats(chat.user.uid, chat.chatID, tempText);
 
           setText('');
           setImage(null);
@@ -52,7 +52,7 @@ const ChatInput = () => {
     <div className="input-wrapper">
       <>
         {
-          data.chatID &&
+          chat.chatID &&
             <>
               <textarea
                 placeholder={'Enter a message'}

@@ -4,7 +4,7 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
 import './userChats.scss';
 import ChatThumbnail from '../molecules/ChatThumbnail';
-import { ChatContext } from '../../store/context/ChatContext';
+import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import { UserChatsContext } from '../../store/context/UserChatsContext';
 import { FIREBASE } from '../../utils/firebase';
 
@@ -12,6 +12,7 @@ const UserChats = () => {
   const { user: currentUser } = useContext<AuthContextType>(AuthContext);
   const { dispatch: dispatchMainChat } = useContext(ChatContext);
   const { dispatch: dispatchUserChats } = useContext(UserChatsContext);
+  const { data: chat } = useContext<ChatReducer>(ChatContext);
   const [chats, setChats] = useState<UserChatDocument[]>([]);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const UserChats = () => {
       {chats.length > 0 &&
         chats.map((userChat: UserChatDocument) => (
           userChat.userInfo && (
-            <div key={userChat.userInfo.uid}>
+            <div key={userChat.userInfo.uid} className={`${ chat.user.uid === userChat.userInfo.uid && 'current-chat-selected'}`}>
               <ChatThumbnail
                 userInfo={userChat.userInfo}
                 lastMessage={userChat.lastMessage?.text}

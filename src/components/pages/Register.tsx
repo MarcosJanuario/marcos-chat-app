@@ -143,8 +143,8 @@ const Register = () => {
       }
 
       resetLoading();
-      navigate('/');
       clearError();
+      navigate('/');
     } catch (error: any) {
       setError({ code: error.code || 0, message: error.message });
       resetLoading();

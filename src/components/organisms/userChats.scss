@@ -3,6 +3,10 @@
 
 .chats-wrapper {
 
+  .current-chat-selected {
+    background-color: $COLOR_PRIMARY_DARKEN_4;
+  }
+
   .user-chat {
     padding: 1rem;
     display: flex;

@@ -37,7 +37,7 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 .balloon-text-wrapper p {
   border-radius: $BORDER_RADIUS;
   max-width: 75%;
-  padding: $GAP_DEFAULT;
+  padding: .6rem;
   position: relative;
   word-wrap: break-word;
 }

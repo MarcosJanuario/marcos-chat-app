@@ -101,7 +101,6 @@ const Register = () => {
     event.preventDefault();
     if (userPermission.permission.persistUserEmail && userPermission.permission.uploadUserImages) {
       handleLoadingState({ message: 'Creating new user', visible: true });
-      event.preventDefault();
       signupUser();
     } else {
       dispatchUI({

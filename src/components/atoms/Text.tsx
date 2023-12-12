@@ -14,7 +14,7 @@ const Text = ({ type, color = '#1565C0FF', children, style }: TextProps) => {
 
   return (
     <span
-      className={`atomic-text-${type}`}
+      className={`app-name atomic-text-${type}`}
       style={{...style, color: color}}
     >{ children }
     </span>

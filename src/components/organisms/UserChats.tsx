@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ChatUser, UserChatDocument } from '../../utils/types';
+import { ChatUser, ImageSize, UserChatDocument } from '../../utils/types';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
 import './userChats.scss';
@@ -47,6 +47,7 @@ const UserChats = () => {
                 lastMessage={userChat.lastMessage?.text}
                 color={'#f5f5f5'}
                 onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
+                size={ImageSize.NORMAL}
               />
             </div>
           )

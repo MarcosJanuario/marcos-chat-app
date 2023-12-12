@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
+
 import Text from '../atoms/Text';
+import Button from '../atoms/Button';
+
+import { PermissionsContext, PermissionsReducer } from '../../store/context/PermissionContext';
 
 import { TextType } from '../../utils/types';
 
 import './modalPermissions.scss';
-import Button from '../atoms/Button';
-import { PermissionsContext, PermissionsReducer } from '../../store/context/PermissionContext';
 
 
 const ModalPermissions = () => {

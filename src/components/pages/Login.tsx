@@ -42,7 +42,6 @@ const Login = () => {
   }
 
   const handleLoginError = (error: any): void => {
-    console.log('login error: ', error.message);
     setLoading(LOADING_INITIAL_VALUES);
     setError({ code: error?.code ?? 0, message: error?.message ?? '' });
   }

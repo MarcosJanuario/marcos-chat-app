@@ -7,7 +7,6 @@ import ChatHeader from '../organisms/ChatHeader';
 
 const Chat = () => {
   const { data } = useContext<ChatReducer>(ChatContext);
-  console.log('[data]: ', data);
   return (
     <div className="chat-wrapper">
 

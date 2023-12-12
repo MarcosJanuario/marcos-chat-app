@@ -1,24 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
 
-import { ImageType, TextType } from '../../utils/types';
+import { TextType } from '../../utils/types';
 
 import './modalPermissions.scss';
-import Image from '../atoms/Image';
-import { DEFAULT_CLOSE_ICON } from '../../utils/consts';
 import Button from '../atoms/Button';
 import { PermissionsContext, PermissionsReducer } from '../../store/context/PermissionContext';
 
 
 const ModalPermissions = () => {
-  const { data: ui, dispatchUI } = useContext<UIReducer>(UIContext);
-  const { data: userPermission, dispatchPermissions } = useContext<PermissionsReducer>(PermissionsContext);
-
-  useEffect(() => {
-    console.log('[MODAL PERMISSIONS]: ', ui);
-  }, []);
-
+  const { dispatchUI } = useContext<UIReducer>(UIContext);
+  const { dispatchPermissions } = useContext<PermissionsReducer>(PermissionsContext);
   const handleOnClose = (): void => {
     dispatchUI({ type: 'RESET_MODAL'});
   }
@@ -39,15 +32,11 @@ const ModalPermissions = () => {
   return (
     <div className="modal-permissions-wrapper">
       <div className="modal-header-wrapper">
-        <div className={'modal-action-wrapper'}>
-          <Image image={DEFAULT_CLOSE_ICON} type={ImageType.ICON} onClick={handleOnClose} />
-        </div>
         <div className="modal-header">
-          <Text type={TextType.HEADER}>Permissions</Text>
+          <Text type={TextType.HEADER}>Permission Request: Marcos Chat</Text>
         </div>
       </div>
       <div className="content-text-wrapper">
-        <h2>Permission Request: Marcos Chat</h2>
 
         <p>Hello,</p>
 

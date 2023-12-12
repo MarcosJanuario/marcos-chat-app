@@ -1,7 +1,10 @@
 import { LoadingState, RegisterInputField, SizeMap } from './types';
 import DefaultUserIcon from '../assets/images/user-avatar.png';
 import DefaultCheckIcon from '../assets/images/check.png';
-import DefaulCloseIcon from '../assets/images/close.png';
+import DefaultCloseIcon from '../assets/images/close.png';
+import DefaultSearchIcon from '../assets/images/search.png';
+import DefaultClearIcon from '../assets/images/clear.png';
+import DefaultPlusIcon from '../assets/images/plus.png';
 
 export const LOADING_INITIAL_VALUES: LoadingState = {
   message: '',
@@ -19,7 +22,10 @@ export const MAX_STRING_CHARS = 17;
 
 export const DEFAULT_USER_AVATAR = DefaultUserIcon;
 export const DEFAULT_CHECK_ICON = DefaultCheckIcon;
-export const DEFAULT_CLOSE_ICON = DefaulCloseIcon;
+export const DEFAULT_CLOSE_ICON = DefaultCloseIcon;
+export const DEFAULT_SEARCH_ICON = DefaultSearchIcon;
+export const DEFAULT_CLEAR_ICON = DefaultClearIcon;
+export const DEFAULT_PLUS_ICON = DefaultPlusIcon;
 
 const convertSizeStringToBytes = (sizeString: string): number => {
   const sizeNumber = parseFloat(sizeString);
@@ -56,7 +62,7 @@ export const REGISTER_INPUT_FIELDS: RegisterInputField[] = [
   {
     id: '3',
     type: 'password',
-    placeholder: 'Password',
+    placeholder: 'Password with at least 8 characters',
     name: 'password',
     value: 'password',
   },

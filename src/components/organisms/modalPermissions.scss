@@ -14,7 +14,6 @@
   border-radius: $BORDER_RADIUS;
 
   .modal-header-wrapper {
-    display: flex;
     position: sticky;
     top: 0;
     background-color: $COLOR_DEFAULT_WHITE;
@@ -42,31 +41,18 @@
 
     .modal-header {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       width: 100%;
       padding: 0 0 .5rem 0;
     }
-
-    .modal-permission-text-wrapper {
-
-    }
-  }
-
-  .content-text-wrapper {
-    padding: 1rem;
   }
 
   .permissions-action-wrapper {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     gap: 1rem;
-    padding: 0 0 1rem 0
   }
-}
-
-.h-spacing {
-  width: .5rem;
 }

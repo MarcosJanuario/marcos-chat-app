@@ -4,7 +4,13 @@ import Text from '../atoms/Text';
 
 import { AppError, ChatUser, ImageSize, ImageType, LoadingState, TextType, UserChatDocument } from '../../utils/types';
 import Input from '../atoms/Input';
-import { DEFAULT_CLOSE_ICON, LOADING_INITIAL_VALUES, } from '../../utils/consts';
+import {
+  DEFAULT_CHECK_ICON,
+  DEFAULT_CLEAR_ICON,
+  DEFAULT_PLUS_ICON,
+  DEFAULT_SEARCH_ICON,
+  LOADING_INITIAL_VALUES,
+} from '../../utils/consts';
 import Button from '../atoms/Button';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import Image from '../atoms/Image';
@@ -75,44 +81,35 @@ const ModalAddUser = () => {
   return (
     <div className="modal-add-user-wrapper">
       <div className="modal-header-wrapper">
-        <div className={'modal-action-wrapper'}>
-          <Image image={DEFAULT_CLOSE_ICON} type={ImageType.ICON} onClick={handleOnClose} />
-        </div>
         <div className="modal-header">
-          <Text type={TextType.HEADER}>Add User</Text>
+          <Text type={TextType.HEADER}>Search User</Text>
         </div>
       </div>
 
       <div className="content">
         <div className="search-wrapper">
           <Input
-            type={'text'}
+            type={'email'}
             placeholder={'Search an user by email'}
             name={'findUser'}
             value={userEmail}
             handleOnChange={(e: ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)}
             handleOnKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
             style={{
-              flex: 2,
-              height: '1rem',
+              flex: 1,
               border: '1px solid #1565c0',
               color: '#212121',
               borderRadius: '.5rem'
             }}
           />
-          <div className={'h-spacing'}></div>
-          <Button text={'Search'} onClick={handleSearch}
-                  style={{ padding: '.5rem 0', width: '15%', flex: 1}}/>
-          <div className={'h-spacing'}></div>
-          <Button text={'Clear'} onClick={handleOnClear}
-                  disabled={usersFound.length === 0}
-                  style={{ padding: '.5rem 0', width: '15%', flex: 1}}/>
+          <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} />
+          <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} />
         </div>
 
         <div className="result-wrapper">
           {
             usersFound.length > 0 && usersFound.map((userFound: ChatUser) =>
-              <>
+              <div className={'result-item-wrapper'}>
                 <div className={'user-wrapper'} key={userFound.uid}>
                   <Image image={userFound.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.BIG} />
                   <div className="user-chat-info">
@@ -120,18 +117,19 @@ const ModalAddUser = () => {
                   </div>
                 </div>
                 <div className="user-action-wrapper">
-                  <Button
-                    text={`${alreadyAdded(userFound.uid) ? 'Already Added' : 'Add'}`}
-                    disabled={alreadyAdded(userFound.uid)}
-                    onClick={() => handleSelection(userFound)}
-                  />
+                  <Image image={alreadyAdded(userFound.uid) ? DEFAULT_CHECK_ICON : DEFAULT_PLUS_ICON}
+                         type={ImageType.ICON} onClick={() => handleSelection(userFound)} />
                 </div>
-              </>
+              </div>
             )
           }
           {
             error && <ErrorBlock text={error.message}/>
           }
+        </div>
+
+        <div className={'modal-action-wrapper'}>
+          <Button text={'Close'} onClick={handleOnClose} />
         </div>
 
       </div>

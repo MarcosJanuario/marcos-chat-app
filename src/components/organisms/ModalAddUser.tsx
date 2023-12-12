@@ -39,7 +39,7 @@ const ModalAddUser = () => {
       setError(null);
       setLoading({ message: '', visible: false });
       if (users.length === 0) {
-        setError({ code: 0, message: 'No user with this email found' });
+        setError({ code: 0, message: 'User not found' });
       } else {
         setUsersFound(users);
         setError(null);
@@ -103,7 +103,7 @@ const ModalAddUser = () => {
             }}
           />
           <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} />
-          <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} />
+          <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} disabled={!userEmail} />
         </div>
 
         <div className="result-wrapper">
@@ -118,7 +118,7 @@ const ModalAddUser = () => {
                 </div>
                 <div className="user-action-wrapper">
                   <Image image={alreadyAdded(userFound.uid) ? DEFAULT_CHECK_ICON : DEFAULT_PLUS_ICON}
-                         type={ImageType.ICON} onClick={() => handleSelection(userFound)} />
+                         type={ImageType.ICON} onClick={() => handleSelection(userFound)} disabled={alreadyAdded(userFound.uid)} />
                 </div>
               </div>
             )

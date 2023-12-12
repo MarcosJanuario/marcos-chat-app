@@ -3,7 +3,6 @@
 
 .modal-add-user-wrapper {
   display: flex;
-  position: relative;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -36,7 +35,7 @@
     position: relative;
     width: 100%;
     flex-direction: column;
-    padding: 1rem 0 0 0;
+    padding-top: 1rem;
 
     .search-wrapper {
       display: flex;
@@ -46,7 +45,7 @@
     }
 
     .result-wrapper {
-      padding: 1rem 0 0 0;
+      padding-top: 1rem;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -80,7 +79,7 @@
     }
 
     .modal-action-wrapper {
-      padding: 1rem 0 0 0;
+      padding-top: 1rem;
       display: flex;
       justify-content: flex-end;
       align-items: center;

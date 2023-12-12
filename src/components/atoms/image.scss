@@ -16,11 +16,11 @@
   transition: opacity .1s ease, transform .1s ease;
   @include not-draggable;
 
-  &:hover {
+  &:hover:not(.disabled) {
     opacity: .8;
   }
 
-  &:active {
+  &:active:not(.disabled) {
     transform: scale(.9);
   }
 }

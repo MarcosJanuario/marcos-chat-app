@@ -8,8 +8,9 @@ interface AvatarProps {
   type: ImageType;
   size?: ImageSize;
   onClick?: () => void;
+  disabled?: boolean;
 }
-const Image = ({ image, type, size = ImageSize.NORMAL, onClick }: AvatarProps) => {
+const Image = ({ image, type, size = ImageSize.NORMAL, onClick, disabled = false }: AvatarProps) => {
   const getSizeStyles = () => {
     switch (size) {
       case ImageSize.SMALL:
@@ -28,7 +29,7 @@ const Image = ({ image, type, size = ImageSize.NORMAL, onClick }: AvatarProps) =
     );
   } else {
     return (
-      <div className="clickable-icon" onClick={onClick}>
+      <div className={`clickable-icon ${disabled && 'disabled'}`} onClick={() => !disabled && onClick && onClick()}>
         <img src={image} alt="Image Avatar" className={'image-avatar'} style={{ ...getSizeStyles() }} />
       </div>
     )

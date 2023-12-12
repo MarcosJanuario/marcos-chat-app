@@ -1,26 +1,25 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { ImageSize, ImageType, MessageChat, TextType } from '../../utils/types';
+import { ImageSize, ImageType, MessageChat } from '../../utils/types';
 
 import './message.scss';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import DefaultUserIcon from '../../assets/images/user.png';
 import Image from '../atoms/Image';
-import Text from '../atoms/Text';
-import { dateConverter } from '../../utils/helpers';
+import BalloonText from '../atoms/BalloonText';
 
-type messageProps = {
+type MessageProps = {
   message: MessageChat;
 }
 
-const Message = ({ message }: messageProps) => {
+const Message = ({ message }: MessageProps) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const { data } = useContext<ChatReducer>(ChatContext);
 
   const ref = useRef<any>();
 
   useEffect(() => {
-    ref && ref.current?.scrollIntoView({ behaviour: 'smooth' });
+    ref && ref.current?.scrollIntoView({ behaviour: 'smooth' } as ScrollIntoViewOptions);
   }, []);
 
 
@@ -40,18 +39,10 @@ const Message = ({ message }: messageProps) => {
 
   return (
     <div className={`message-wrapper ${messageFromLoggedUser() && 'owner'}`} ref={ref}>
-
       <div className={`message-info-wrapper ${messageFromLoggedUser() ? 'left' : 'right'}`}>
         <Image image={getMessageOwnerImage()} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-        <Text type={TextType.SMALL} color={'#bdbdbd'} style={{ maxWidth: '3rem', textAlign: 'center' }}>
-          { dateConverter(message.date, 'dd.MM.yy HH:mm')}
-        </Text>
       </div>
-
-      <div className="message-content-wrapper">
-        <p className={`${messageFromLoggedUser() ? 'owner' : 'from-other'}`}>{ message.text }</p>
-        { message.image && <img src={message.image} alt={'user attached image'}/> }
-      </div>
+      <BalloonText message={message} />
     </div>
   );
 }

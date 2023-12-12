@@ -50,14 +50,22 @@ const ChatInput = () => {
 
   return (
     <div className="input-wrapper">
-      <textarea placeholder={'Enter a message'}
+      <>
+        {
+          data.chatID &&
+            <>
+              <textarea
+                placeholder={'Enter a message'}
                 value={text}
                 onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => handleOnKeyDown(e)}
                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
-      />
-      <div className="send-options-wrapper">
-        <Button text={'Send'} onClick={handleSendMessage} />
-      </div>
+              />
+              <div className="send-options-wrapper">
+                <Button text={'Send'} onClick={handleSendMessage} />
+              </div>
+            </>
+        }
+      </>
       {
         error && error?.message && <ErrorBlock text={error.message} />
       }

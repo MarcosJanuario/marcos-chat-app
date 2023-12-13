@@ -70,7 +70,7 @@ const UserChats = () => {
           style={{
             border: '1px solid #1565c0',
             color: '#212121',
-            width: '100%'
+            width: '84%'
           }}
         />
       </div>

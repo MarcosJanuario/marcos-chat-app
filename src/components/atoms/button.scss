@@ -1,8 +1,8 @@
 @import 'src/assets/styles/variables';
 
 button {
-  background-color: $COLOR_PRIMARY_LIGHTEN_4;
-  color: $COLOR_PRIMARY_DARKEN_3;
+  background-color: $COLOR_PRIMARY_DARKEN_3;
+  color: $COLOR_DEFAULT_WHITE;
   font-size: $FONT_SIZE_SMALL;
   border: none;
   padding: 1rem;
@@ -14,8 +14,8 @@ button {
   border-radius: .5rem;
 
   &:disabled {
-    background-color: $COLOR_DEFAULT_GRAY;
-    color: $COLOR_DEFAULT_WHITE;
+    background-color: #bdbdbd;
+    color: $COLOR_PRIMARY_DARKEN_3;
     cursor: not-allowed;
   }
 

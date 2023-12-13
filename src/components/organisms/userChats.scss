@@ -9,9 +9,14 @@ div.local-search-wrapper {
   @include tablet {
     display: none;
   }
+
+  input.atomic-input {
+    border-radius: 0.5rem;
+  }
 }
 
 div.chats-wrapper {
+  padding: $DEFAULT_GAP 0 0 0;
 
   .current-chat-selected {
     background-color: $COLOR_PRIMARY_DARKEN_4;

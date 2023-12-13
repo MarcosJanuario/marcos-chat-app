@@ -67,7 +67,7 @@ const ModalPermissions = () => {
         <Button
           text={'Decline'}
           onClick={handleOnClose}
-          style={{ backgroundColor: '#ffcdd2'}}
+          style={{ backgroundColor: '#ff1744'}}
         />
         <Button
           text={'Accept'}

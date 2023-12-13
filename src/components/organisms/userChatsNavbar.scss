@@ -8,8 +8,8 @@
   padding: 1rem;
   gap: $DEFAULT_GAP;
   justify-content: center;
-  background-color: $COLOR_PRIMARY_DARKEN_4;
-  color: $COLOR_PRIMARY_LIGHTEN_4 ;
+  color: $COLOR_PRIMARY_DARKEN_4 ;
+  border-radius: 1rem;
 
   div.user {
     display: flex;

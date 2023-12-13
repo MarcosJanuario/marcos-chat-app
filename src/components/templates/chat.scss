@@ -1,5 +1,9 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .chat-wrapper {
   flex: 2;
+  margin: $DEFAULT_GAP;
+  border-radius: $BORDER_RADIUS;
+  @include glass-background;
 }

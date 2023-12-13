@@ -17,7 +17,7 @@ const UserChatsNavbar = () => {
           image={user.photoURL ?? DEFAULT_USER_AVATAR}
           type={ImageType.AVATAR}
         />
-        <Text type={TextType.TITLE} color={'#f5f5f5'}>{ user.displayName }</Text>
+        <Text type={TextType.TITLE} color={'#0d47a1'}>{ user.displayName }</Text>
       </div>
     </div>
   );

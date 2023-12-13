@@ -7,10 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $COLOR_PRIMARY_LIGHTEN_4;
+  @include background-style;
 
   .login-form-container {
-    background-color: $COLOR_DEFAULT_WHITE;
     padding: 2rem;
     border-radius: $BORDER_RADIUS;
     display: flex;
@@ -18,6 +17,8 @@
     gap: 1rem;
     align-items: center;
     width: 20%;
+    @include glass-background;
+
     @include laptop {
       width: 30%;
     }
@@ -36,7 +37,7 @@
     }
 
     p {
-      color: $COLOR_DEFAULT_GRAY;
+      color: $COLOR_DEFAULT_BLACK;
       font-size: $FONT_SIZE_SMALL;
       margin-top: 1rem;
     }

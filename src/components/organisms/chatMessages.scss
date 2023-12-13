@@ -1,8 +1,9 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .messages-wrapper {
-  background-color: $COLOR_PRIMARY_LIGHTEN_5;
   padding: 1rem;
   height: calc(100% - 10rem);
   overflow: scroll;
+  @include glass-background;
 }

@@ -23,3 +23,15 @@
   -webkit-user-drag: none;
   -webkit-user-select: none;
 }
+
+@mixin background-style {
+  background: #474bff;
+  background: -webkit-linear-gradient(167deg, #474bff 0%, #bc48ff 100%);
+  background: linear-gradient(167deg, #474bff 0%, #bc48ff 100%);
+}
+
+@mixin glass-background {
+  background: rgba(255,255,255,0.5);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}

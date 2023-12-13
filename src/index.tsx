@@ -7,14 +7,15 @@ import { AuthContextProvider } from './store/context/AuthContext';
 import { ChatContextProvider } from './store/context/ChatContext';
 import { UIContextProvider } from './store/context/UIContext';
 import { UserChatsContextProvider } from './store/context/UserChatsContext';
-import { PermissionsContextProvider } from './store/context/PermissionContext';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <AuthContextProvider>
-    <PermissionsContextProvider>
+    <Provider store={store}>
       <ChatContextProvider>
         <UIContextProvider>
           <UserChatsContextProvider>
@@ -24,7 +25,7 @@ root.render(
           </UserChatsContextProvider>
         </UIContextProvider>
       </ChatContextProvider>
-    </PermissionsContextProvider>
+    </Provider>
   </AuthContextProvider>
 );
 

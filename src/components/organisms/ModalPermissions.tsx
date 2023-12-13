@@ -4,30 +4,25 @@ import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
 
-import { PermissionsContext, PermissionsReducer } from '../../store/context/PermissionContext';
-
 import { TextType } from '../../utils/types';
 
 import './modalPermissions.scss';
+import { useDispatch } from 'react-redux';
+import { updatePermissions } from '../../store/redux/reducer/permissions';
 
 
 const ModalPermissions = () => {
   const { dispatchUI } = useContext<UIReducer>(UIContext);
-  const { dispatchPermissions } = useContext<PermissionsReducer>(PermissionsContext);
+  const dispatch = useDispatch();
   const handleOnClose = (): void => {
     dispatchUI({ type: 'RESET_MODAL'});
   }
 
   const handlePermissionGranted = (): void => {
-    dispatchPermissions({
-      type: 'UPDATE_PERMISSION',
-      payload: {
-        permission: {
-          persistUserEmail: true,
-          uploadUserImages: true,
-        }
-      }
-    });
+    dispatch(updatePermissions({
+      userEmailPersistenceAllowed: true,
+      imageUploadAllowed: true
+    }));
     dispatchUI({ type: 'RESET_MODAL'});
   }
 

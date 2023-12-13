@@ -33,8 +33,8 @@ import Image from '../atoms/Image';
 import ErrorBlock from '../molecules/ErrorBlock';
 import { FIREBASE } from '../../utils/firebase';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
-import { PermissionsContext, PermissionsReducer } from '../../store/context/PermissionContext';
 import ModalPermissions from '../organisms/ModalPermissions';
+import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -45,11 +45,12 @@ const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
 };
 
 const Register = () => {
+  const { userEmailPersistenceAllowed, imageUploadAllowed } = useAppSelector((state: RootState) => state.permissions.permission)
+
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
   const [error, setError] = useState<AppError | null>(null);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);
   const { dispatchUI } = useContext<UIReducer>(UIContext);
-  const { data: userPermission, dispatchPermissions } = useContext<PermissionsReducer>(PermissionsContext);
   const navigate = useNavigate();
   const [modalAlreadyShown, setModalAlreadyShown] = useState<boolean>(false);
 
@@ -59,7 +60,7 @@ const Register = () => {
       handleLoadingState({ message: 'Creating new user', visible: true });
       signupUser();
     }
-  }, [userPermission]);
+  }, [userEmailPersistenceAllowed, imageUploadAllowed]);
 
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -99,7 +100,7 @@ const Register = () => {
   const handleSubmit = (event: FormEvent): void => {
     setModalAlreadyShown(true);
     event.preventDefault();
-    if (userPermission.permission.persistUserEmail && userPermission.permission.uploadUserImages) {
+    if (userEmailPersistenceAllowed && imageUploadAllowed) {
       handleLoadingState({ message: 'Creating new user', visible: true });
       signupUser();
     } else {

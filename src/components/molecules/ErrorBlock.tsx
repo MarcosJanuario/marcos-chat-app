@@ -1,8 +1,9 @@
 import React, { CSSProperties } from 'react';
 import Text from '../atoms/Text';
 
-import './errorBlock.scss';
 import { TextType } from '../../utils/types';
+
+import './errorBlock.scss';
 
 interface ErrorBlockProps {
   text: string;

@@ -1,16 +1,19 @@
 import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 
 import Button from '../atoms/Button';
-import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { AppError, FileType } from '../../utils/types';
 
-import './chatInput.scss';
 import { FIREBASE } from '../../utils/firebase';
 import ErrorBlock from '../molecules/ErrorBlock';
+import { RootState, useAppSelector } from '../../store/redux/hooks';
+
+import './chatInput.scss';
 
 const ChatInput = () => {
-  const { data: chat } = useContext<ChatReducer>(ChatContext);
+  // const { data: chat } = useContext<ChatReducer>(ChatContext);
+  const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
+
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
   const [text, setText] = useState<string>('');
@@ -22,15 +25,15 @@ const ChatInput = () => {
       const tempText = text;
       setText('');
       try {
-        if (chat.chatID) {
+        if (currentChatSelection.chatID) {
           if (image) {
-            await FIREBASE.uploadImageMessage(currentUser, chat.chatID, tempText, image);
+            await FIREBASE.uploadImageMessage(currentUser, currentChatSelection.chatID, tempText, image);
           } else {
-            await FIREBASE.sendTextMessage(currentUser, chat.chatID, tempText);
+            await FIREBASE.sendTextMessage(currentUser, currentChatSelection.chatID, tempText);
           }
 
-          await FIREBASE.updateUserChats(currentUser.uid, chat.chatID, tempText);
-          await FIREBASE.updateUserChats(chat.user.uid, chat.chatID, tempText);
+          await FIREBASE.updateUserChats(currentUser.uid, currentChatSelection.chatID, tempText);
+          await FIREBASE.updateUserChats(currentChatSelection.user.uid, currentChatSelection.chatID, tempText);
 
           setText('');
           setImage(null);
@@ -52,7 +55,7 @@ const ChatInput = () => {
     <div className="input-wrapper">
       <>
         {
-          chat.chatID &&
+          currentChatSelection.chatID &&
             <>
               <textarea
                 placeholder={'Enter a message'}

@@ -6,10 +6,10 @@ import Button from '../atoms/Button';
 
 import { TextType } from '../../utils/types';
 
-import './modalPermissions.scss';
 import { useDispatch } from 'react-redux';
 import { updatePermissions } from '../../store/redux/reducer/permissions';
 
+import './modalPermissions.scss';
 
 const ModalPermissions = () => {
   const { dispatchUI } = useContext<UIReducer>(UIContext);

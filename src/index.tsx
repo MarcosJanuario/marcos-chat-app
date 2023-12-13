@@ -4,9 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './store/context/AuthContext';
-import { ChatContextProvider } from './store/context/ChatContext';
 import { UIContextProvider } from './store/context/UIContext';
-import { UserChatsContextProvider } from './store/context/UserChatsContext';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -16,15 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <AuthContextProvider>
     <Provider store={store}>
-      <ChatContextProvider>
-        <UIContextProvider>
-          <UserChatsContextProvider>
-            <React.StrictMode>
-              <App />
-            </React.StrictMode>
-          </UserChatsContextProvider>
-        </UIContextProvider>
-      </ChatContextProvider>
+      <UIContextProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </UIContextProvider>
     </Provider>
   </AuthContextProvider>
 );

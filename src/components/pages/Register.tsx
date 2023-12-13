@@ -45,7 +45,7 @@ const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
 };
 
 const Register = () => {
-  const { userEmailPersistenceAllowed, imageUploadAllowed } = useAppSelector((state: RootState) => state.permissions.permission)
+  const { userEmailPersistenceAllowed, imageUploadAllowed } = useAppSelector((state: RootState) => state.permissions.permission);
 
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);
   const [error, setError] = useState<AppError | null>(null);

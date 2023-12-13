@@ -1,9 +1,9 @@
 import React from 'react';
 import Text from '../atoms/Text';
 
-import './modalMore.scss';
 import { TextType } from '../../utils/types';
 
+import './modalMore.scss';
 
 const ModalMore = () => {
   return (

@@ -2,11 +2,12 @@ import React from 'react';
 import { ImageSize, ChatUser, ImageType, TextType } from '../../utils/types';
 import DefaultUserIcon from '../../assets/images/user.png';
 
-import './chatThumbnail.scss';
 import { stringSizeLimiter } from '../../utils/helpers';
 import Image from '../atoms/Image';
 import Text from '../atoms/Text';
 import { MAX_STRING_CHARS } from '../../utils/consts';
+
+import './chatThumbnail.scss';
 
 interface UserChatComponentProps {
   userInfo: ChatUser;

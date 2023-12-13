@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import Image from '../atoms/Image';
 import { ImageSize, ImageType, TextType } from '../../utils/types';
 
@@ -11,15 +10,21 @@ import AddUser from '../../assets/images/add-user.png';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import ModalAddUser from './ModalAddUser';
 
-import './chatHeader.scss';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+import { RootState, useAppSelector } from '../../store/redux/hooks';
+import { useDispatch } from 'react-redux';
+import { clearCurrentChatSelection } from '../../store/redux/reducer/chats';
+
+import './chatHeader.scss';
 
 const ChatHeader = () => {
+  const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
   const { clearUser } = useContext<AuthContextType>(AuthContext);
-  const { data, dispatch } = useContext<ChatReducer>(ChatContext);
   const { dispatchUI } = useContext<UIReducer>(UIContext);
+
+  const dispatch = useDispatch();
 
   const handleOnClick = (content: JSX.Element): void => {
     dispatchUI({
@@ -35,8 +40,8 @@ const ChatHeader = () => {
 
   const signOutUser = (): void => {
     signOut(auth).then(() => {
+      dispatch(clearCurrentChatSelection());
       clearUser();
-      dispatch({ type: 'CLEAR' });
     })
   }
 
@@ -45,10 +50,10 @@ const ChatHeader = () => {
       {
         <div className="chat-user-info-wrapper">
           {
-            data.chatID &&
+            currentChatSelection.chatID &&
               <>
-                <Image image={data.user.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-                <Text type={TextType.BODY} color={'#bbdefb'}>{data.user.displayName}</Text>
+                <Image image={currentChatSelection.user.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
+                <Text type={TextType.BODY} color={'#bbdefb'}>{currentChatSelection.user.displayName}</Text>
               </>
           }
         </div>

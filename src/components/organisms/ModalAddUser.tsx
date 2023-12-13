@@ -17,15 +17,15 @@ import Image from '../atoms/Image';
 import DefaultUserIcon from '../../assets/images/user.png';
 import ErrorBlock from '../molecules/ErrorBlock';
 import Loading from '../molecules/Loading';
-import { UserChatsContext, UserChatsReducer } from '../../store/context/UserChatsContext';
 import { FIREBASE } from '../../utils/firebase';
+import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './modalAddUser.scss';
 
 const ModalAddUser = () => {
+  const { history: chatsHistory } = useAppSelector((state: RootState) => state.chats);
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const { dispatchUI } = useContext<UIReducer>(UIContext);
-  const { data: userChats } = useContext<UserChatsReducer>(UserChatsContext);
   const [ userEmail, setUserEmail ] = useState<string>('');
   const [error, setError] = useState<AppError | null>(null);
   const [ usersFound, setUsersFound ] = useState<ChatUser[]>([]);
@@ -50,7 +50,7 @@ const ModalAddUser = () => {
   }
 
   const alreadyAdded = (userFoundUID: string): boolean =>
-    userChats.userChats.some((chat: UserChatDocument) => chat.userInfo.uid === userFoundUID)
+    chatsHistory.some((chat: UserChatDocument) => chat.userInfo.uid === userFoundUID)
 
   const handleSelection = async (selectedUser: ChatUser): Promise<void> => {
     setLoading({ message: 'Adding user', visible: true});
@@ -109,7 +109,7 @@ const ModalAddUser = () => {
         <div className="result-wrapper">
           {
             usersFound.length > 0 && usersFound.map((userFound: ChatUser) =>
-              <div className={'result-item-wrapper'}>
+              <div className={'result-item-wrapper'} key={userFound.uid}>
                 <div className={'user-wrapper'} key={userFound.uid}>
                   <Image image={userFound.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.BIG} />
                   <div className="user-chat-info">

@@ -13,9 +13,7 @@ export type UserDataPersistencePermission = {
 }
 
 const permissionActions = {
-  updatePermissions: (state: PermissionsState, action: PayloadAction<UserDataPersistencePermission>) => {
-    console.log('[PERMISSIONS_ACTIONS] state: ', state.permission);
-    console.log('[PERMISSIONS_ACTIONS] action: ', action);
+  updatePermissions: (state: PermissionsState, action: PayloadAction<UserDataPersistencePermission>): void => {
     state.permission = action.payload;
   }
 };

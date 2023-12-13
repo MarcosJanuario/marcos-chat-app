@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
-import './chat.scss';
+import React from 'react';
 import ChatMessages from '../organisms/ChatMessages';
 import ChatInput from '../organisms/ChatInput';
-import { ChatContext, ChatReducer } from '../../store/context/ChatContext';
 import ChatHeader from '../organisms/ChatHeader';
 
+import './chat.scss';
+
 const Chat = () => {
-  const { data } = useContext<ChatReducer>(ChatContext);
   return (
     <div className="chat-wrapper">
 

@@ -3,53 +3,35 @@
 
 .navbar-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
   padding: 1rem;
-  justify-content: space-between;
+  gap: $DEFAULT_GAP;
+  justify-content: center;
   background-color: $COLOR_PRIMARY_DARKEN_4;
   color: $COLOR_PRIMARY_LIGHTEN_4 ;
-  @include tablet {
-    flex-direction: column;
-    height: 2rem;
-  }
-
-  span.app-name {
-    font-weight: bold;
-    text-transform: uppercase;
-    @include tablet {
-      display: none;
-    }
-  }
 
   div.user {
     display: flex;
     align-items: center;
     gap: .5rem;
 
-    span.current-user-name {
+    img {
+      width: 3rem;
+      height: 3rem;
+      min-width: 3rem;
+      min-height: 3rem;
+      @include tablet {
+        width: 2rem;
+        height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+      }
+    }
+
+    span.app-name {
       @include tablet {
         display: none;
-      }
-    }
-
-    img {
-      @include tablet {
-        width: 3rem;
-        height: 3rem;
-      }
-    }
-
-    button {
-      background-color: $COLOR_PRIMARY_LIGHTEN_4;
-      color: $COLOR_PRIMARY_DARKEN_3;
-      font-size: $FONT_SIZE_SMALL;
-      border: none;
-      padding: .5rem;
-      @include tablet {
-        width: 85%;
-        position: absolute;
-        bottom: 1rem;
-        left: 1rem;
       }
     }
   }

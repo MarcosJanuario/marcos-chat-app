@@ -1,7 +1,17 @@
 @import 'src/assets/styles/variables';
 @import 'src/assets/styles/mixins';
 
-.chats-wrapper {
+div.local-search-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include tablet {
+    display: none;
+  }
+}
+
+div.chats-wrapper {
 
   .current-chat-selected {
     background-color: $COLOR_PRIMARY_DARKEN_4;

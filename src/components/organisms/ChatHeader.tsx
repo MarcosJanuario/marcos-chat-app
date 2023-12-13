@@ -60,9 +60,9 @@ const ChatHeader = () => {
       }
 
       <div className="chat-icons-wrapper">
-        <Image image={AddUser} type={ImageType.ICON}
+        <Image image={AddUser} type={ImageType.ICON} size={ImageSize.NORMAL}
                onClick={() => handleOnClick(<ModalAddUser />)} />
-        <Image image={DefaultLogoutIcon} type={ImageType.ICON}
+        <Image image={DefaultLogoutIcon} type={ImageType.ICON} size={ImageSize.NORMAL}
                onClick={signOutUser} />
       </div>
     </div>

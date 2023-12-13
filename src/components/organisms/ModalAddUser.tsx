@@ -102,8 +102,8 @@ const ModalAddUser = () => {
               borderRadius: '.5rem'
             }}
           />
-          <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} disabled={!userEmail} />
-          <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} disabled={!userEmail} />
+          <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} disabled={!userEmail} size={ImageSize.NORMAL} />
+          <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} disabled={!userEmail} size={ImageSize.NORMAL} />
         </div>
 
         <div className="result-wrapper">
@@ -117,7 +117,7 @@ const ModalAddUser = () => {
                   </div>
                 </div>
                 <div className="user-action-wrapper">
-                  <Image image={alreadyAdded(userFound.uid) ? DEFAULT_CHECK_ICON : DEFAULT_PLUS_ICON}
+                  <Image image={alreadyAdded(userFound.uid) ? DEFAULT_CHECK_ICON : DEFAULT_PLUS_ICON} size={ImageSize.NORMAL}
                          type={ImageType.ICON} onClick={() => handleSelection(userFound)} disabled={alreadyAdded(userFound.uid)} />
                 </div>
               </div>

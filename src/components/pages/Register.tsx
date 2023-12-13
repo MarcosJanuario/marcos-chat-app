@@ -214,7 +214,7 @@ const Register = () => {
           <div className={'add-avatar-wrapper'}>
             <div className={'add-avatar-button-wrapper'}>
               <label htmlFor="add-avatar-file">
-                <Image image={DEFAULT_USER_AVATAR} type={ImageType.ICON} />
+                <Image image={DEFAULT_USER_AVATAR} type={ImageType.ICON} size={ImageSize.NORMAL} />
                 <span>Add avatar</span>
               </label>
             </div>

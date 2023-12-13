@@ -9,7 +9,7 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
   background-color: $COLOR_PRIMARY_LIGHTEN_5;
   display: flex;
   gap: .5rem;
-  margin-bottom: $GAP_DEFAULT;
+  margin-bottom: $DEFAULT_GAP;
 
   .message-info-wrapper {
     display: flex;

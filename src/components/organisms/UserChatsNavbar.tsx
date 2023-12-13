@@ -10,12 +10,14 @@ import './userChatsNavbar.scss';
 const UserChatsNavbar = () => {
   const { user } = useContext<AuthContextType>(AuthContext);
 
-  return (
+    return (
     <div className="navbar-wrapper">
-      <Text type={TextType.TITLE} color={'#f5f5f5'}>Marcos Chat</Text>
       <div className="user">
-        <Image image={user.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} />
-        <span className={'current-user-name'}>{ user.displayName }</span>
+        <Image
+          image={user.photoURL ?? DEFAULT_USER_AVATAR}
+          type={ImageType.AVATAR}
+        />
+        <Text type={TextType.TITLE} color={'#f5f5f5'}>{ user.displayName }</Text>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ interface AvatarProps {
   onClick?: () => void;
   disabled?: boolean;
 }
-const Image = ({ image, type, size = ImageSize.NORMAL, onClick, disabled = false }: AvatarProps) => {
+const Image = ({ image, type, size, onClick, disabled = false }: AvatarProps) => {
   const getSizeStyles = () => {
     switch (size) {
       case ImageSize.SMALL:
@@ -20,7 +20,7 @@ const Image = ({ image, type, size = ImageSize.NORMAL, onClick, disabled = false
       case ImageSize.BIG:
         return { width: '3rem', height: '3rem', minWidth: '3rem', minHeight: '3rem' };
       default:
-        return { width: '2rem', height: '2rem', minWidth: '2rem', minHeight: '2rem' };
+        return ;
     }
   };
   if (type === ImageType.AVATAR) {

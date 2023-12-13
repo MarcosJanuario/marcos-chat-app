@@ -11,12 +11,15 @@ While the user interface serves the purpose of a chat application, the emphasis 
 ## Key ReactJS Concepts Covered
 * **Component-Based Architecture:** Building the application using a modular and reusable component structure.
 * **State Management:** Effective state management using React's state and, if applicable, state management libraries like Redux or Context API.
+    - **React Context:** Leveraging React Context for state management.
+    - **Redux:** Utilizing Redux for centralized state management.
 * **Real-Time Communication:** Implementing real-time communication features for instant messaging.
 * **Component Lifecycle:** Understanding and leveraging React component lifecycle methods for efficient application behavior.
 * **Hooks:** Utilizing React hooks for stateful logic and side effects.
 * **Styling:** Applying styles to components using various styling approaches, such as CSS-in-JS or styled-components.
 * **Routing:** Implementing client-side routing for a seamless user experience.
 * **WebSockets:** Incorporating WebSockets for real-time data exchange with Firebase.
+
 
 ## About the Chat App
 ### Permissions
@@ -30,17 +33,17 @@ Since this app is still in development, having been created in less than a week 
 the following features are planned to be implemented (not necessarily in this order):
 
 - **Settings Menu**
-- **Change App color theme**
+- **Change App theme**
 - **Send text with image**
 - **Performance improvements by preventing multiple requests**
-- **See the information of my contacts**
-- **Being able to upload a new avatar image**
-- **Being able to delete/remove an avatar image**
-- **Remove a chat from the chat list**
+- **Check contacts information**
+- **Upload a new avatar image**
+- **Delete/remove avatar image**
+- **Remove chat from the chat list**
 - **Delete specific texts in a conversation**
 - **Delete account**
 - **Create group chat**
-- **Various small improvements that will be implemented on the go, such as improving the UI, since the initial focus was on demonstrating the functionality.**
+- **UI improvements on the go, since the initial focus was on demonstrating the functionality.**
 
 ## Live Demo
 Explore the live demo of this ReactJS Chat App [HERE](https://marcos-chat-ca0e1.web.app/).

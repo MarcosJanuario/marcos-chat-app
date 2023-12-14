@@ -54,7 +54,7 @@ const ChatHeader = () => {
             currentChatSelection.chatID &&
               <>
                 <Image image={currentChatSelection.user.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-                <Text type={TextType.BODY} color={'#bbdefb'}>{currentChatSelection.user.displayName}</Text>
+                <Text type={TextType.BODY} color={'#f5f5f5'}>{currentChatSelection.user.displayName}</Text>
               </>
           }
         </div>

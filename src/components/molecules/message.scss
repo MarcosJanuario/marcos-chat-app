@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 $OWNER_SPEECH_BALLOON_COLOR: $COLOR_PRIMARY_DARKEN_3;
 $OWNER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_WHITE;
@@ -7,8 +8,8 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 
 .message-wrapper {
   display: flex;
+  margin-bottom: 2rem;
   gap: .5rem;
-  margin-bottom: $DEFAULT_GAP;
 
   .message-info-wrapper {
     display: flex;
@@ -16,7 +17,10 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
     justify-content: flex-end;
     color: $COLOR_DEFAULT_GRAY;
     font-weight: 300;
-    padding-top: 2rem;
+
+    img {
+      @include default-shadow;
+    }
 
     &.left {
       align-items: flex-start;

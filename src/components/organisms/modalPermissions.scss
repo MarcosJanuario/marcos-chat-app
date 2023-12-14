@@ -16,13 +16,12 @@
   .modal-header-wrapper {
     position: sticky;
     top: 0;
-    background-color: $COLOR_DEFAULT_WHITE;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     z-index: 1;
-    border-radius: $BORDER_RADIUS;
+    background-color: rgba(187, 191, 196);
 
     .modal-action-wrapper {
       display: flex;
@@ -60,7 +59,6 @@
     gap: 1rem;
     position: sticky;
     bottom: 0;
-    background-color: #f5f5f5;
     padding: 1rem 0 0 0;
   }
 }

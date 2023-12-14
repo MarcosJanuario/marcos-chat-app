@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { ImageSize, ImageType, MessageChat } from '../../utils/types';
 
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
-import DefaultUserIcon from '../../assets/images/user.png';
 import Image from '../atoms/Image';
 import BalloonText from '../atoms/BalloonText';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './message.scss';
+import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 
 type MessageProps = {
   message: MessageChat;
@@ -30,11 +30,11 @@ const Message = ({ message }: MessageProps) => {
   const messageFromLoggedUser = (): boolean => message.senderID === currentUser.uid;
 
   const lookForLoggedUserImage = (): string => {
-    return currentUser.photoURL ?? DefaultUserIcon;
+    return currentUser.photoURL ?? DEFAULT_USER_AVATAR;
   }
 
   const lookForSelectedUserImage = (): string => {
-    return currentChatSelection.user.photoURL ?? DefaultUserIcon;
+    return currentChatSelection.user.photoURL ?? DEFAULT_USER_AVATAR;
   }
 
   return (

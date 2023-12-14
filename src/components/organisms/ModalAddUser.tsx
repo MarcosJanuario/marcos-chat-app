@@ -6,15 +6,13 @@ import { AppError, ChatUser, ImageSize, ImageType, LoadingState, TextType, UserC
 import Input from '../atoms/Input';
 import {
   DEFAULT_CHECK_ICON,
-  DEFAULT_CLEAR_ICON,
-  DEFAULT_PLUS_ICON,
-  DEFAULT_SEARCH_ICON,
+  DEFAULT_CLEAR_ICON, DEFAULT_PLUS_ICON,
+  DEFAULT_SEARCH_ICON, DEFAULT_USER_AVATAR,
   LOADING_INITIAL_VALUES,
 } from '../../utils/consts';
 import Button from '../atoms/Button';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import Image from '../atoms/Image';
-import DefaultUserIcon from '../../assets/images/user.png';
 import ErrorBlock from '../molecules/ErrorBlock';
 import Loading from '../molecules/Loading';
 import { FIREBASE } from '../../utils/firebase';
@@ -82,7 +80,7 @@ const ModalAddUser = () => {
     <div className="modal-add-user-wrapper">
       <div className="modal-header-wrapper">
         <div className="modal-header">
-          <Text type={TextType.HEADER}>Search User</Text>
+          <Text type={TextType.TITLE} color={'#757575'}>Search User</Text>
         </div>
       </div>
 
@@ -111,7 +109,7 @@ const ModalAddUser = () => {
             usersFound.length > 0 && usersFound.map((userFound: ChatUser) =>
               <div className={'result-item-wrapper'} key={userFound.uid}>
                 <div className={'user-wrapper'} key={userFound.uid}>
-                  <Image image={userFound.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.BIG} />
+                  <Image image={userFound.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={ImageSize.BIG} />
                   <div className="user-chat-info">
                     <Text type={TextType.TITLE} color={'#1565c0'}>{userFound.displayName}</Text>
                   </div>

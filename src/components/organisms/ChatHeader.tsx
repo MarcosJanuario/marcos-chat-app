@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Image from '../atoms/Image';
 import { ImageSize, ImageType, TextType } from '../../utils/types';
 
-import DefaultUserIcon from '../../assets/images/user.png';
 import DefaultLogoutIcon from '../../assets/images/exit.png';
 import Text from '../atoms/Text';
 import AddUser from '../../assets/images/add-user.png';
@@ -18,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { clearCurrentChatSelection } from '../../store/redux/reducer/chats';
 
 import './chatHeader.scss';
+import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 
 const ChatHeader = () => {
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
@@ -52,7 +52,7 @@ const ChatHeader = () => {
           {
             currentChatSelection.chatID &&
               <>
-                <Image image={currentChatSelection.user.photoURL ?? DefaultUserIcon} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
+                <Image image={currentChatSelection.user.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
                 <Text type={TextType.BODY} color={'#bbdefb'}>{currentChatSelection.user.displayName}</Text>
               </>
           }

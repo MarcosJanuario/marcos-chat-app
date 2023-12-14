@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @include background-style;
+  @include gradient-effect-background;
 
   .home-container {
     width: 100%;

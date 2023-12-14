@@ -19,7 +19,7 @@ div.chats-wrapper {
   padding: $DEFAULT_GAP 0 0 0;
 
   .current-chat-selected {
-    background-color: $COLOR_PRIMARY_DARKEN_4;
+    background-color: $COLOR_PRIMARY_DARKEN_2;
   }
 
   .user-chat {
@@ -31,7 +31,7 @@ div.chats-wrapper {
     cursor: pointer;
 
     &:hover {
-      background-color: $COLOR_PRIMARY_DARKEN_4;
+      background-color: $COLOR_PRIMARY_DARKEN_2;
     }
 
     .user-chat-info {

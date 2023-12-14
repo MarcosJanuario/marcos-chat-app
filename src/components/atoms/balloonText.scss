@@ -1,8 +1,9 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
-$OWNER_SPEECH_BALLOON_COLOR: $COLOR_PRIMARY_DARKEN_3;
+$OWNER_SPEECH_BALLOON_COLOR: #2196f3;
 $OWNER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_WHITE;
-$OTHER_SPEECH_BALLOON_COLOR: $COLOR_DEFAULT_GRAY;
+$OTHER_SPEECH_BALLOON_COLOR: #4db6ac;
 $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 
 .message-wrapper {
@@ -21,71 +22,38 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 }
 
 .balloon-text-wrapper {
-  max-width: 80%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
 
   p {
     background-color: $OTHER_SPEECH_BALLOON_COLOR;
     padding: $DEFAULT_GAP;
     border-radius: $BORDER_RADIUS;
-    max-width: max-content;
+    max-width: 75%;
     margin: 0;
-  }
-}
-.balloon-text-wrapper p {
-  border-radius: $BORDER_RADIUS;
-  max-width: 75%;
-  padding: .6rem;
-  position: relative;
-  word-wrap: break-word;
-}
+    position: relative;
+    word-wrap: break-word;
+    border: 1px solid #212121;
+    @include default-shadow;
 
-.balloon-text-wrapper p::before,
-.balloon-text-wrapper p::after {
-  bottom: -0.1rem;
-  content: "";
-  height: 1rem;
-  position: absolute;
+
+
+    &::before,
+    &::after {
+      bottom: -0.1rem;
+      content: "";
+      height: 1rem;
+      position: absolute;
+    }
+  }
 }
 
 p.owner {
   align-self: flex-end;
-  background-color: $OWNER_SPEECH_BALLOON_COLOR;
   color: $OWNER_SPEECH_BALLOON_TEXT_COLOR;
-}
-
-p.owner::before {
-  border-bottom-left-radius: 0.8rem 0.7rem;
-  border-right: 1rem solid $OWNER_SPEECH_BALLOON_COLOR;
-  right: -0.35rem;
-  transform: translate(0, -0.1rem);
-}
-
-p.owner::after {
-  background-color: $COLOR_PRIMARY_LIGHTEN_5;
-  border-bottom-left-radius: 0.5rem;
-  right: -40px;
-  transform:translate(-30px, -2px);
-  width: 10px;
+  @include glass-effect-background;
 }
 
 p.from-other {
   color: $OTHER_SPEECH_BALLOON_TEXT_COLOR;
-}
-
-p.from-other:before {
-  border-bottom-right-radius: 0.8rem 0.7rem;
-  border-left: 1rem solid $OTHER_SPEECH_BALLOON_COLOR;
-  left: -0.35rem;
-  transform: translate(0, -0.1rem);
-}
-
-p.from-other::after {
-  background-color: $COLOR_PRIMARY_LIGHTEN_5;
-  border-bottom-right-radius: 0.5rem;
-  left: 20px;
-  transform: translate(-30px, -2px);
-  width: 10px;
 }

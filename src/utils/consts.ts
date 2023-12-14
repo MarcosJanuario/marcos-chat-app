@@ -1,7 +1,6 @@
 import { LoadingState, RegisterInputField, SizeMap } from './types';
 import DefaultUserIcon from '../assets/images/user-avatar.png';
 import DefaultCheckIcon from '../assets/images/check.png';
-import DefaultCloseIcon from '../assets/images/close.png';
 import DefaultSearchIcon from '../assets/images/search.png';
 import DefaultClearIcon from '../assets/images/clear.png';
 import DefaultPlusIcon from '../assets/images/plus.png';
@@ -22,7 +21,6 @@ export const MAX_STRING_CHARS = 17;
 
 export const DEFAULT_USER_AVATAR = DefaultUserIcon;
 export const DEFAULT_CHECK_ICON = DefaultCheckIcon;
-export const DEFAULT_CLOSE_ICON = DefaultCloseIcon;
 export const DEFAULT_SEARCH_ICON = DefaultSearchIcon;
 export const DEFAULT_CLEAR_ICON = DefaultClearIcon;
 export const DEFAULT_PLUS_ICON = DefaultPlusIcon;

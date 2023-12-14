@@ -15,13 +15,12 @@
     display: flex;
     position: sticky;
     top: 0;
-    background-color: $COLOR_DEFAULT_WHITE;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     z-index: 1;
-    border-radius: $BORDER_RADIUS;
+    background-color: rgba(187, 191, 196);
 
     .modal-header {
       display: flex;
@@ -85,7 +84,6 @@
       justify-content: flex-end;
       align-items: center;
       width: 100%;
-      background-color: $COLOR_DEFAULT_WHITE;
 
       .clickable-icon {
         img {

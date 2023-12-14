@@ -5,5 +5,5 @@
   flex: 2;
   margin: $DEFAULT_GAP;
   border-radius: $BORDER_RADIUS;
-  @include glass-background;
+  @include glass-effect-background;
 }

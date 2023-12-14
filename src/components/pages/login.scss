@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @include background-style;
+  @include gradient-effect-background;
 
   .login-form-container {
     padding: 2rem;
@@ -17,7 +17,7 @@
     gap: 1rem;
     align-items: center;
     width: 20%;
-    @include glass-background;
+    @include glass-effect-background;
 
     @include laptop {
       width: 30%;

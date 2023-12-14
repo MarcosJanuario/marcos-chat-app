@@ -17,13 +17,16 @@ div.chats-wrapper {
   padding: $DEFAULT_GAP 0 0 0;
 
   .standard-user {
-    transition: transform .5s ease;
+    transition: box-shadow .5s ease, transform .5s ease;
     margin: 0 0 1rem 0;
   }
 
   .current-chat-selected {
     transform: scale(1.04);
+    border-radius: 1rem;
+    //box-shadow: 1px 1px 1px 1px #424242;
     @include user-selected-background;
+    @include default-shadow;
   }
 
   .user-chat {

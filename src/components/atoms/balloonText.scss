@@ -24,6 +24,7 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 .balloon-text-wrapper {
   display: flex;
   flex-direction: column;
+  @include flex-frame(column, null, null);
 
   p {
     background-color: $OTHER_SPEECH_BALLOON_COLOR;

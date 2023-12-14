@@ -2,19 +2,15 @@
 @import 'src/assets/styles/mixins';
 
 .navbar-wrapper {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
   padding: 1rem;
   gap: $DEFAULT_GAP;
-  justify-content: center;
   color: $COLOR_PRIMARY_DARKEN_4 ;
   border-radius: 1rem;
+  @include flex-frame(column, center, flex-start);
 
   div.user {
-    display: flex;
-    align-items: center;
     gap: .5rem;
+    @include flex-frame(row, null, center);
 
     img {
       width: 3rem;

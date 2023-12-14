@@ -3,11 +3,10 @@
 
 .molecule-chat-thumbnail-wrapper {
   padding: 1rem;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
   cursor: pointer;
   transition: opacity .3s ease, transform .3s ease;
+  @include flex-frame(row, null, center);
 
   &:active {
     opacity: .5;

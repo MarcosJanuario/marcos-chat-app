@@ -2,10 +2,8 @@
 @import 'src/assets/styles/mixins';
 
 .error-wrapper {
-  display: flex;
   width: 100%;
-  justify-content: flex-start;;
-  align-items: center;
+  @include flex-frame(row, flex-start, center);
 
   .atomic-text-small {
     width: 100%;

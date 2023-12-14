@@ -1,3 +1,6 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
 .loading-backdrop {
   position: fixed;
   top: 0;
@@ -5,17 +8,12 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
+  @include flex-frame(row, center, center);
 }
 
 .loading-spinner-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  @include flex-frame(column, center, center);
 }
 
 .spinner {

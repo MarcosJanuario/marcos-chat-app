@@ -39,3 +39,44 @@
 @mixin default-shadow {
   box-shadow: 1px 2px 3px 0 #212121;
 }
+
+@mixin flex-frame(
+  $direction: null,
+  $justifyContent: null,
+  $alignItems: null
+) {
+  display: flex;
+  @if $direction != null {
+    flex-direction: $direction;
+  }
+  @if $justifyContent != null {
+    justify-content: $justifyContent;
+  }
+  @if $alignItems != null {
+    align-items: $alignItems;
+  }
+}
+
+@mixin element-shape-frame(
+  $width: null,
+  $height: null,
+  $margin: null,
+  $padding: null,
+  $gap: null,
+) {
+  @if $width != null {
+    width: $width;
+  }
+  @if $height != null {
+    height: $height;
+  }
+  @if $margin != null {
+    margin: $margin;
+  }
+  @if $padding != null {
+    padding: $padding;
+  }
+  @if $gap != null {
+    gap: $gap;
+  }
+}

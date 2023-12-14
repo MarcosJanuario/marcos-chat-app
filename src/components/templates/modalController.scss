@@ -10,9 +10,7 @@
   backdrop-filter: blur(.2rem);
   filter: blur(.3px);
   -webkit-backdrop-filter: blur(.3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-frame(row, center, center);
 
   .modal-content-wrapper {
     width: 25%;
@@ -31,20 +29,15 @@
     }
 
     .modal-header-wrapper {
-      display: flex;
       position: sticky;
       top: 0;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
       width: 100%;
       background-color: rgba(187, 191, 196);
+      @include flex-frame(column, flex-start, center);
 
       .modal-header {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
         width: 100%;
+        @include flex-frame(row, flex-start, center);
       }
     }
   }

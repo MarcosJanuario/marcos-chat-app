@@ -3,37 +3,29 @@
 
 .login-wrapper {
   position: relative;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include element-shape-frame(null, 100vh, null, null, null);
+  @include flex-frame(row, center, center);
   @include gradient-effect-background;
 
   .login-form-container {
-    padding: 2rem;
     border-radius: $BORDER_RADIUS;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-    width: 20%;
+    @include element-shape-frame(20%, null, null, 2rem, 1rem);
+    @include flex-frame(column, null, center);
     @include glass-effect-background;
 
     @include laptop {
-      width: 30%;
+      @include element-shape-frame(30%, null, null, null, null);
     }
     @include tablet {
-      width: 60%;
+      @include element-shape-frame(60%, null, null, null, null);
     }
     @include mobile {
-      width: 90%;
+      @include element-shape-frame(90%, null, null, null, null);
     }
 
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      width: 80%;
+      @include flex-frame(column, null, null);
+      @include element-shape-frame(80%, null, null, null, 1rem);
     }
 
     p {

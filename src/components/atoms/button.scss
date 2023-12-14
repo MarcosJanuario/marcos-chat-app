@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 button {
   background-color: $COLOR_PRIMARY_DARKEN_3;
@@ -8,10 +9,8 @@ button {
   padding: 1rem;
   transition: opacity .1s ease, transform .1s ease;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: .5rem;
+  @include flex-frame(row, center, center);
 
   &:disabled {
     background-color: #bdbdbd;

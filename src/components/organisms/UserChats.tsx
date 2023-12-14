@@ -68,7 +68,6 @@ const UserChats = () => {
           value={userName}
           handleOnChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           style={{
-            border: '1px solid #1565c0',
             color: '#212121',
             width: '84%'
           }}

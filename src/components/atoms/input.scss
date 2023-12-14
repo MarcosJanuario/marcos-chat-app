@@ -3,8 +3,8 @@
 
 input.atomic-input {
   border: none;
-  border-bottom: .1rem solid $COLOR_PRIMARY_DARKEN_3;
   background-color: $COLOR_DEFAULT_WHITE;
+  border-radius: .5rem;
   @include element-shape-frame(null, null, null, .5rem, null);
 
   &::placeholder {

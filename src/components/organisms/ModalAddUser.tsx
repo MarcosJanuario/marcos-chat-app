@@ -89,9 +89,7 @@ const ModalAddUser = () => {
             handleOnKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
             style={{
               flex: 1,
-              border: '1px solid #1565c0',
               color: '#212121',
-              borderRadius: '.5rem'
             }}
           />
           <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} disabled={!userEmail} size={ImageSize.NORMAL} />
@@ -105,7 +103,7 @@ const ModalAddUser = () => {
                 <div className={'user-wrapper'} key={userFound.uid}>
                   <Image image={userFound.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={ImageSize.BIG} />
                   <div className="user-chat-info">
-                    <Text type={TextType.TITLE} color={'#1565c0'}>{userFound.displayName}</Text>
+                    <Text type={TextType.TITLE} color={'#757575'}>{userFound.displayName}</Text>
                   </div>
                 </div>
                 <div className="user-action-wrapper">

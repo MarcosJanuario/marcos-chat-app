@@ -18,6 +18,7 @@
     border-radius: $BORDER_RADIUS;
     position: relative;
     @include glass-effect-background(0.7);
+    @include default-shadow;
     @include laptop {
       width: 35%;
     }

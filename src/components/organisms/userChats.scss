@@ -24,7 +24,6 @@ div.chats-wrapper {
   .current-chat-selected {
     transform: scale(1.04);
     border-radius: 1rem;
-    //box-shadow: 1px 1px 1px 1px #424242;
     @include user-selected-background;
     @include default-shadow;
   }

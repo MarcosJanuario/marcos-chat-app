@@ -1,64 +1,19 @@
 @import 'src/assets/styles/variables';
 @import 'src/assets/styles/mixins';
 
-.modal-permissions-wrapper {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
+.content-text-wrapper {
+  font-size: $FONT_SIZE_SMALL;
   max-height: 50vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-radius: $BORDER_RADIUS;
+  overflow-x: scroll;
+}
 
-  .modal-header-wrapper {
-    position: sticky;
-    top: 0;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    z-index: 1;
-    background-color: rgba(187, 191, 196);
-
-    .modal-action-wrapper {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 100%;
-
-      .clickable-icon {
-        img {
-          margin: 0.5rem 0.5rem 0 0;
-          border-radius: 0;
-          background-color: $COLOR_DEFAULT_WHITE;
-        }
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-      padding: 0 0 .5rem 0;
-    }
-  }
-
-  .content-text-wrapper {
-    font-size: $FONT_SIZE_SMALL;
-  }
-
-  .permissions-action-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
-    position: sticky;
-    bottom: 0;
-    padding: 1rem 0 0 0;
-  }
+.permissions-action-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  bottom: 0;
+  padding: 1rem 0 0 0;
 }

@@ -1,95 +1,66 @@
 @import 'src/assets/styles/variables';
 @import 'src/assets/styles/mixins';
 
-.modal-add-user-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+
+.add-user-content {
   width: 100%;
-  max-height: 50vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  flex-direction: column;
+  padding-top: 1rem;
 
-  .modal-header-wrapper {
+  .search-wrapper {
     display: flex;
-    position: sticky;
-    top: 0;
-    flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    z-index: 1;
-    background-color: rgba(187, 191, 196);
-
-    .modal-header {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-    }
+    gap: 1rem;
   }
 
-  .content {
-    width: 100%;
-    flex-direction: column;
+  .result-wrapper {
     padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20vh;
+    overflow: scroll;
 
-    .search-wrapper {
+    .result-item-wrapper {
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
+      width: 100%;
+      height: 3rem;
+      margin-bottom: 1rem;
 
-    .result-wrapper {
-      padding-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 20vh;
-      overflow: scroll;
-
-      .result-item-wrapper {
+      .user-wrapper {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        height: 3rem;
-        margin-bottom: 1rem;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+      }
 
-        .user-wrapper {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: .5rem;
-        }
+      .user-action-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        .user-action-wrapper {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          button {
-            width: 100%;
-            border-radius: $BORDER_RADIUS;
-          }
+        button {
+          width: 100%;
+          border-radius: $BORDER_RADIUS;
         }
       }
     }
+  }
 
-    .modal-action-wrapper {
-      padding-top: 1rem;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 100%;
+  .modal-action-wrapper {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
 
-      .clickable-icon {
-        img {
-          border-radius: 0;
-          background-color: $COLOR_DEFAULT_WHITE;
-        }
+    .clickable-icon {
+      img {
+        border-radius: 0;
+        background-color: $COLOR_DEFAULT_WHITE;
       }
     }
   }

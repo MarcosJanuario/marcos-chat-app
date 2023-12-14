@@ -77,14 +77,8 @@ const ModalAddUser = () => {
   }
 
   return (
-    <div className="modal-add-user-wrapper">
-      <div className="modal-header-wrapper">
-        <div className="modal-header">
-          <Text type={TextType.TITLE} color={'#757575'}>Search User</Text>
-        </div>
-      </div>
-
-      <div className="content">
+    <>
+      <div className="add-user-content">
         <div className="search-wrapper">
           <Input
             type={'email'}
@@ -134,7 +128,7 @@ const ModalAddUser = () => {
       {
         loading.visible && <Loading message={loading.message} />
       }
-    </div>
+    </>
   );
 }
 

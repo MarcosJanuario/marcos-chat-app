@@ -31,6 +31,7 @@ const ChatHeader = () => {
       type: 'HANDLE_MODAL',
       payload: {
         modal: {
+          headerText: 'Add user',
           content: content,
           visibility: true
         }

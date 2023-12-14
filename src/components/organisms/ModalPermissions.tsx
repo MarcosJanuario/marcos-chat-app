@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 
-import Text from '../atoms/Text';
 import Button from '../atoms/Button';
-
-import { TextType } from '../../utils/types';
 
 import { useDispatch } from 'react-redux';
 import { updatePermissions } from '../../store/redux/reducer/permissions';
@@ -27,12 +24,7 @@ const ModalPermissions = () => {
   }
 
   return (
-    <div className="modal-permissions-wrapper">
-      <div className="modal-header-wrapper">
-        <div className="modal-header">
-          <Text type={TextType.TITLE} color={'#757575'}>Permission Request: Marcos Chat</Text>
-        </div>
-      </div>
+    <>
       <div className="content-text-wrapper">
 
         <p>Hello,</p>
@@ -59,8 +51,6 @@ const ModalPermissions = () => {
         <p>By using this web chat application, you agree to the collection and storage of your registration data for the
           purposes mentioned above. If you have any concerns or questions, please feel free to reach out.</p>
 
-        <p>Thank you for your understanding and cooperation.</p>
-
         <p>Best regards,<br/>Marcos Januário</p>
       </div>
       <div className="permissions-action-wrapper">
@@ -74,7 +64,7 @@ const ModalPermissions = () => {
           onClick={handlePermissionGranted}
         />
       </div>
-    </div>
+    </>
   );
 }
 

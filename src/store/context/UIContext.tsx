@@ -3,6 +3,7 @@ import { AuthContext, AuthContextType } from './AuthContext';
 
 export type UIContextType = {
   modal: {
+    headerText: string;
     content: JSX.Element | null;
     visibility: boolean;
   }
@@ -20,6 +21,7 @@ export type UIReducer = {
 
 const INITIAL_UI_CONTEXT = {
   modal: {
+    headerText: '',
     content: null,
     visibility: false
   }
@@ -42,6 +44,7 @@ export const UIContextProvider = ({ children }: UIContextProviderProps) => {
         }
         return {
           modal: {
+            headerText: action.payload.modal.headerText,
             content: action.payload.modal.content,
             visibility: action.payload.modal.visibility
           }

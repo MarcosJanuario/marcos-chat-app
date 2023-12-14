@@ -29,5 +29,23 @@
     @include mobile {
       width: 80%;
     }
+
+    .modal-header-wrapper {
+      display: flex;
+      position: sticky;
+      top: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      background-color: rgba(187, 191, 196);
+
+      .modal-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+      }
+    }
   }
 }

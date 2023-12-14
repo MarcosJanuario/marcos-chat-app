@@ -108,6 +108,7 @@ const Register = () => {
         type: 'HANDLE_MODAL',
         payload: {
           modal: {
+            headerText: 'Permissions',
             content: <ModalPermissions />,
             visibility: true
           }

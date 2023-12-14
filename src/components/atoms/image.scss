@@ -3,10 +3,9 @@
 
 .image-avatar {
   background-color: $COLOR_PRIMARY_LIGHTEN_4;
-  width: 1rem;
-  height: 1rem;
   border-radius: 50%;
   object-fit: cover;
+  @include element-shape-frame(1rem, 1rem, null, null, null);
   @include not-draggable;
 }
 

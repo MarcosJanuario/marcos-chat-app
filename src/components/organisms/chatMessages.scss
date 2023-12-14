@@ -2,8 +2,7 @@
 @import 'src/assets/styles/mixins';
 
 .messages-wrapper {
-  padding: 1rem;
-  height: calc(100% - 10rem);
   overflow: scroll;
+  @include element-shape-frame(null, calc(100% - 10rem), null, 1rem, null);
   @include glass-effect-background;
 }

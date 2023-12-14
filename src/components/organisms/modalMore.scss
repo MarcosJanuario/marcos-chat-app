@@ -5,14 +5,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  @include element-shape-frame(100%, 100%, null, null, null);
+  @include flex-frame(row, center, center);
 
   .modal-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 1rem;
+    @include flex-frame(row, center, center);
+    @include element-shape-frame(100%, null, null, 1rem, null);
   }
 }

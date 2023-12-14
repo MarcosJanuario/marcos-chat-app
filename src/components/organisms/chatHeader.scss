@@ -1,24 +1,17 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .chat-info-wrapper {
-  height: 2rem;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-frame(null, space-between, center);
+  @include element-shape-frame(row, 2rem, null, 1rem, null);
 
   .chat-user-info-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .5rem;
+    @include flex-frame(row, flex-start, center);
+    @include element-shape-frame(null, null, null, null, .5rem);
   }
 }
 
 .chat-icons-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: .5rem;
+    @include flex-frame(row, center, center);
+    @include element-shape-frame(null, null, null, null, .5rem);
 }

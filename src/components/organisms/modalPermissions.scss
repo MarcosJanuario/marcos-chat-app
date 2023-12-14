@@ -8,12 +8,8 @@
 }
 
 .permissions-action-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
   position: sticky;
   bottom: 0;
-  padding: 1rem 0 0 0;
+  @include element-shape-frame(100%, null, null, 1rem 0 0 0, 1rem);
+  @include flex-frame(row, flex-end, center);
 }

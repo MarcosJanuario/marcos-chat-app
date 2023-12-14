@@ -1,3 +1,5 @@
+@import 'src/assets/styles/variables';
+
 @mixin mobile {
   @media screen and (max-width: 480px) {
     @content;
@@ -30,6 +32,13 @@
   background: linear-gradient(158deg, #5652ff 0%, #74f0ac 100%);
 }
 
+@mixin user-selected-background {
+  border-radius: 1rem;
+  background: #5652ff;
+  background: -webkit-linear-gradient(166deg, #5652ff 0%, #74f0ac 100%);
+  background: linear-gradient(166deg, #5652ff 0%, #74f0ac 100%);
+}
+
 @mixin glass-effect-background($alpha: 0.1) {
   background: rgba(255, 255, 255, $alpha);
   -webkit-backdrop-filter: blur(2px);
@@ -37,7 +46,7 @@
 }
 
 @mixin default-shadow {
-  box-shadow: 1px 2px 3px 0 #212121;
+  box-shadow: 1px 2px 3px 0 #424242;
 }
 
 @mixin flex-frame(

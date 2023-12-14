@@ -22,19 +22,16 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 }
 
 .balloon-text-wrapper {
-  display: flex;
-  flex-direction: column;
   @include flex-frame(column, null, null);
 
   p {
     background-color: $OTHER_SPEECH_BALLOON_COLOR;
-    padding: $DEFAULT_GAP;
     border-radius: $BORDER_RADIUS;
     max-width: 75%;
-    margin: 0;
     position: relative;
     word-wrap: break-word;
     border: 1px solid #212121;
+    @include element-shape-frame(null, null, 0, $DEFAULT_GAP, null);
     @include default-shadow;
 
 

@@ -5,10 +5,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  @include element-shape-frame(100%, 100%, null, null, null);
   @include flex-frame(row, center, center);
 }
 
@@ -17,22 +16,21 @@
 }
 
 .spinner {
-  width: 56px;
-  height: 56px;
   display: grid;
   border: 4.5px solid #0000;
   border-radius: 50%;
   border-color: #69f0ae #0000;
   animation: spinner-e04l1k 1s infinite linear;
+  @include element-shape-frame(56px, 56px, null, null, null);
 }
 
 .spinner::before,
 .spinner::after {
   content: "";
   grid-area: 1/1;
-  margin: 2.2px;
   border: inherit;
   border-radius: 50%;
+  @include element-shape-frame(null, null, 2px, null, null);
 }
 
 .spinner::before {
@@ -43,7 +41,7 @@
 }
 
 .spinner::after {
-  margin: 8.9px;
+  @include element-shape-frame(null, null, 9px, null, null);
 }
 
 .loading-text {

@@ -7,9 +7,8 @@ $OTHER_SPEECH_BALLOON_COLOR: $COLOR_DEFAULT_GRAY;
 $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
 
 .message-wrapper {
-  margin-bottom: 2rem;
-  gap: .5rem;
   @include flex-frame(null, null, null);
+  @include element-shape-frame(null, null, 0 0 2rem 0, null, .5rem);
 
   .message-info-wrapper {
     color: $COLOR_DEFAULT_GRAY;
@@ -21,7 +20,6 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
     }
 
     &.left {
-      align-items: flex-start;
       @include flex-frame(null, null, flex-start);
 
       img {
@@ -30,7 +28,6 @@ $OTHER_SPEECH_BALLOON_TEXT_COLOR: $COLOR_DEFAULT_BLACK;
     }
 
     &.right {
-      align-items: flex-end;
       @include flex-frame(null, null, flex-end);
 
       img {

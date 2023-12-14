@@ -80,7 +80,7 @@ const UserChats = () => {
             .map((userChat: UserChatDocument) => (
               userChat.userInfo && (
                 <div key={userChat.userInfo.uid}
-                     className={`${ currentChatSelection.user.uid === userChat.userInfo.uid && 'current-chat-selected'}`}
+                     className={`standard-user ${ currentChatSelection.user.uid === userChat.userInfo.uid && 'current-chat-selected'}`}
                 >
                   <ChatThumbnail
                     userInfo={userChat.userInfo}

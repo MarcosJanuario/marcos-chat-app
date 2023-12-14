@@ -2,26 +2,24 @@
 @import 'src/assets/styles/mixins';
 
 .molecule-chat-thumbnail-wrapper {
-  padding: 1rem;
-  gap: 0.5rem;
   cursor: pointer;
   transition: opacity .3s ease, transform .3s ease;
   @include flex-frame(row, null, center);
+  @include element-shape-frame(null, null, null, 1rem, .5rem);
 
   &:active {
     opacity: .5;
   }
 
-
   &:hover {
-    background-color: $COLOR_PRIMARY_DARKEN_2;
+    @include user-selected-background;
   }
 
   .user-chat-info {
     p {
       font-size: $FONT_SIZE_SMALL;
       color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
-      margin: 0;
+      @include element-shape-frame(null, null, 0, null, null);
     }
 
     @include tablet {

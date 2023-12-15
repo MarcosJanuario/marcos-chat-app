@@ -8,6 +8,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import {
   arrayUnion,
   collection,
+  deleteDoc,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -126,10 +128,8 @@ export const FIREBASE = {
       const resChats = await getDoc(doc(db, CHATS_DOCUMENT, combinedID));
 
       if (!resChats.exists()) {
-        // create a new chats collection that will contain the whole conversation with each user
         await setDoc(doc(db, CHATS_DOCUMENT, combinedID), { messages: [] });
 
-        // update userChats, where this will hold all the chats the SELECTED user is having with
         await updateDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
           [combinedID + '.userInfo']: {
             uid: currentUser.uid,
@@ -140,7 +140,6 @@ export const FIREBASE = {
           [combinedID + '.date']: serverTimestamp(),
         });
 
-        // update userChats, where this will hold all the chats the LOGGEDIN user is having with
         await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
           [combinedID + '.userInfo']: {
             uid: selectedUser.uid,
@@ -196,11 +195,17 @@ export const FIREBASE = {
   },
 
   updateUserChats: async (uid: string, chatID: string, text: string): Promise<void> => {
-    // Update userChats for both users
     await updateDoc(doc(db, USER_CHATS_DOCUMENT, uid), {
       [chatID + '.lastMessage']: { text: text },
       [chatID + '.date']: serverTimestamp(),
     });
   },
+
+  deleteChatConversation: async (documentId: string, combinedID: string): Promise<void> => {
+    await updateDoc(doc(db, USER_CHATS_DOCUMENT, documentId), {
+      [combinedID]: deleteField(),
+    });
+    await deleteDoc(doc(db, CHATS_DOCUMENT, combinedID));
+  }
 
 }

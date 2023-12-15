@@ -14,7 +14,7 @@ div.local-search-wrapper {
 }
 
 div.chats-wrapper {
-  padding: $DEFAULT_GAP 0 0 0;
+  @include element-shape-frame(null, null, null, $DEFAULT_GAP 0 0 0, null);
 
   .standard-user {
     transition: box-shadow .5s ease, transform .5s ease;
@@ -26,18 +26,5 @@ div.chats-wrapper {
     border-radius: 1rem;
     @include user-selected-background;
     @include default-shadow;
-  }
-
-  .user-chat {
-    color: $COLOR_DEFAULT_WHITE;
-    cursor: pointer;
-    @include flex-frame(row, null, center);
-    @include element-shape-frame(null, null, null, 1rem, .5rem);
-
-    .user-chat-info {
-      @include mobile {
-        display: none;
-      }
-    }
   }
 }

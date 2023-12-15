@@ -4,7 +4,7 @@
 .molecule-chat-thumbnail-wrapper {
   cursor: pointer;
   transition: opacity .3s ease, transform .3s ease;
-  @include flex-frame(row, null, center);
+  @include flex-frame(null, null, center);
   @include element-shape-frame(null, null, null, 1rem, .5rem);
 
   &:active {
@@ -15,15 +15,21 @@
     @include user-selected-background;
   }
 
-  .user-chat-info {
-    p {
-      font-size: $FONT_SIZE_SMALL;
-      color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
-      @include element-shape-frame(null, null, 0, null, null);
-    }
+  .user-info-wrapper {
+    flex: 1;
+    @include flex-frame(null, null, center);
+    @include element-shape-frame(null, null, null, null, .5rem);
 
-    @include tablet {
-      display: none;
+    .user-chat-info {
+      p {
+        font-size: $FONT_SIZE_SMALL;
+        color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
+        @include element-shape-frame(null, null, 0, null, null);
+      }
+
+      @include tablet {
+        display: none;
+      }
     }
   }
 }

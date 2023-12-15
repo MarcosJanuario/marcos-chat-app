@@ -1,0 +1,31 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+.options-wrapper {
+  position: relative;
+  @include flex-frame(null, center, center);
+
+  .options-item-wrapper {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    border: 1px solid #212121;
+    border-radius: $BORDER_RADIUS;
+    @include glass-effect-background(.7);
+    @include flex-frame(column, center, center);
+    @include element-shape-frame(5rem, null, null, null, null);
+    @include default-shadow;
+
+    .item-wrapper {
+      cursor: pointer;
+      transition: background-color .3s ease;
+      border-radius: 0.5rem;
+      @include element-shape-frame(100%, null, null, .5rem 0, null);
+      @include flex-frame(null, center, center);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .2);
+      }
+    }
+  }
+}

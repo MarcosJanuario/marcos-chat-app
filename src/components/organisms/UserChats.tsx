@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { ChatUser, ImageSize, UserChatDocument } from '../../utils/types';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
@@ -87,6 +87,7 @@ const UserChats = () => {
                     color={'#f5f5f5'}
                     onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
                     size={ImageSize.NORMAL}
+                    showOptions={true}
                   />
                 </div>
               )

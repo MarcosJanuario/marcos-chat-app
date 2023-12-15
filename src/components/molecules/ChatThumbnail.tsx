@@ -1,32 +1,69 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ImageSize, ChatUser, ImageType, TextType } from '../../utils/types';
 
 import { stringSizeLimiter } from '../../utils/helpers';
 import Image from '../atoms/Image';
 import Text from '../atoms/Text';
-import { DEFAULT_USER_AVATAR, MAX_STRING_CHARS } from '../../utils/consts';
+import { DEFAULT_USER_AVATAR, getCombinedID, MAX_STRING_CHARS } from '../../utils/consts';
 
 import './chatThumbnail.scss';
+import MenuOptions, { MenuOption } from './MenuOptions';
+import { FIREBASE } from '../../utils/firebase';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
-interface UserChatComponentProps {
+type UserChatProps = {
   userInfo: ChatUser;
   lastMessage?: string;
   onClick?: (user: ChatUser) => void;
   color?: string;
   size?: ImageSize;
-}
+  showOptions?: boolean;
+};
 
-const ChatThumbnail = ({ userInfo, lastMessage, onClick, color, size }: UserChatComponentProps) => {
-  return (
-    <div key={userInfo.uid} className="molecule-chat-thumbnail-wrapper" onClick={() => onClick && onClick(userInfo)}>
-      <Image image={userInfo.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={size ?? ImageSize.BIG} />
-      <div className="user-chat-info">
-        <Text type={TextType.TITLE} color={color && '#f5f5f5'}>{userInfo.displayName}</Text>
-        {
-          lastMessage &&
-            <p>{ stringSizeLimiter(lastMessage, MAX_STRING_CHARS)}</p>
+const MENU_OPTIONS: MenuOption[] = [
+  {
+    key: 'delete',
+    label: 'Delete'
+  }
+];
+
+const ChatThumbnail = ({ userInfo, lastMessage, onClick, color, size, showOptions }: UserChatProps) => {
+  const { user : currentUser } = useContext<AuthContextType>(AuthContext);
+
+  const handleOptionClick = (option: MenuOption): void => {
+    switch (option.key) {
+      case 'delete':
+        const userChatPropertyId = `${getCombinedID(currentUser, userInfo)}`
+        try {
+          FIREBASE.deleteChatConversation(currentUser.uid, userChatPropertyId)
+            .then(() => console.log('Document deleted successfully'));
+        } catch (error: any) {
+          console.error('ERROR ON DELETING DOCUMENT: ', error);
         }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+
+  return (
+    <div key={userInfo.uid} className="molecule-chat-thumbnail-wrapper">
+      <div className="user-info-wrapper" onClick={() => onClick && onClick(userInfo)}>
+        <Image image={userInfo.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={size ?? ImageSize.BIG} />
+        <div className="user-chat-info">
+          <Text type={TextType.TITLE} color={color && '#f5f5f5'}>{userInfo.displayName}</Text>
+          {
+            lastMessage &&
+            <p>{ stringSizeLimiter(lastMessage, MAX_STRING_CHARS)}</p>
+          }
+        </div>
       </div>
+      {
+        showOptions &&
+          <MenuOptions options={MENU_OPTIONS} onOptionClick={(option: MenuOption) => handleOptionClick(option)} />
+      }
     </div>
   );
 };

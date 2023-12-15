@@ -1,9 +1,11 @@
-import { LoadingState, RegisterInputField, SizeMap } from './types';
+import { ChatUser, LoadingState, RegisterInputField, SizeMap } from './types';
 import DefaultUserIcon from '../assets/images/user-avatar.png';
 import DefaultCheckIcon from '../assets/images/check.png';
 import DefaultSearchIcon from '../assets/images/search.png';
 import DefaultClearIcon from '../assets/images/clear.png';
 import DefaultPlusIcon from '../assets/images/plus.png';
+import DefaultMoreIcon from '../assets/images/more.png';
+import { User } from 'firebase/auth';
 
 export const LOADING_INITIAL_VALUES: LoadingState = {
   message: '',
@@ -24,6 +26,7 @@ export const DEFAULT_CHECK_ICON = DefaultCheckIcon;
 export const DEFAULT_SEARCH_ICON = DefaultSearchIcon;
 export const DEFAULT_CLEAR_ICON = DefaultClearIcon;
 export const DEFAULT_PLUS_ICON = DefaultPlusIcon;
+export const DEFAULT_MORE_ICON = DefaultMoreIcon;
 
 const convertSizeStringToBytes = (sizeString: string): number => {
   const sizeNumber = parseFloat(sizeString);
@@ -72,4 +75,8 @@ export const REGISTER_INPUT_FIELDS: RegisterInputField[] = [
     value: 'passwordRepeat',
   },
 ];
+
+export const getCombinedID = (currentUser: User, selectedUser: ChatUser): string => {
+  return currentUser.uid > selectedUser.uid ? currentUser.uid + selectedUser.uid : selectedUser.uid + currentUser.uid;
+}
 

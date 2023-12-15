@@ -9,6 +9,7 @@ import ErrorBlock from '../molecules/ErrorBlock';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './chatInput.scss';
+import Input from '../atoms/Input';
 
 const ChatInput = () => {
   // const { data: chat } = useContext<ChatReducer>(ChatContext);
@@ -21,6 +22,7 @@ const ChatInput = () => {
   const [error, setError] = useState<AppError | null>(null);
 
   const handleSendMessage = async (): Promise<void> => {
+    console.log('[handleSendMessage]: ', text.trim().length > 0);
     if (text.trim().length > 0) {
       const tempText = text;
       setText('');
@@ -39,6 +41,7 @@ const ChatInput = () => {
           setImage(null);
         }
       } catch (error) {
+        console.log('[SENDING MESSAGE error]: ', error);
         setError({ code: 0, message: 'Error by sending the message' });
       }
       setImage(null);
@@ -57,11 +60,18 @@ const ChatInput = () => {
         {
           currentChatSelection.chatID &&
             <>
-              <textarea
+              <Input
+                type={'email'}
                 placeholder={'Enter a message'}
+                name={'text-message'}
                 value={text}
-                onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => handleOnKeyDown(e)}
-                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
+                handleOnChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+                handleOnKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleOnKeyDown(e)}
+                style={{
+                  flex: 1,
+                  color: '#212121',
+                  height: '100%'
+                }}
               />
               <div className="send-options-wrapper">
                 <Button text={'Send'} onClick={handleSendMessage} />

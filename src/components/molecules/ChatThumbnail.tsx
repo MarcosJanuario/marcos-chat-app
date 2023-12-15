@@ -36,7 +36,9 @@ const ChatThumbnail = ({ userInfo, lastMessage, onClick, color, size, showOption
         const userChatPropertyId = `${getCombinedID(currentUser, userInfo)}`
         try {
           FIREBASE.deleteChatConversation(currentUser.uid, userChatPropertyId)
-            .then(() => console.log('Document deleted successfully'));
+            .then(() => {
+              onClick && onClick({} as ChatUser);
+            });
         } catch (error: any) {
           console.error('ERROR ON DELETING DOCUMENT: ', error);
         }

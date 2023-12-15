@@ -5,7 +5,7 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import ChatThumbnail from '../molecules/ChatThumbnail';
 import { FIREBASE } from '../../utils/firebase';
 import { useDispatch } from 'react-redux';
-import { updateHistory, updateCurrentChatSelection } from '../../store/redux/reducer/chats';
+import { updateHistory, updateCurrentChatSelection, clearCurrentChatSelection } from '../../store/redux/reducer/chats';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './userChats.scss';

@@ -2,7 +2,7 @@ import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 
 import Button from '../atoms/Button';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
-import { AppError, FileType } from '../../utils/types';
+import { AppError, ChatUser, FileType } from '../../utils/types';
 
 import { FIREBASE } from '../../utils/firebase';
 import ErrorBlock from '../molecules/ErrorBlock';
@@ -10,9 +10,12 @@ import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './chatInput.scss';
 import Input from '../atoms/Input';
+import { getCombinedID } from '../../utils/consts';
+import { cloneDeep } from 'lodash';
+import { User } from 'firebase/auth';
+import { ChatSelection } from '../../store/redux/actions/chats';
 
 const ChatInput = () => {
-  // const { data: chat } = useContext<ChatReducer>(ChatContext);
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
 
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
@@ -22,21 +25,28 @@ const ChatInput = () => {
   const [error, setError] = useState<AppError | null>(null);
 
   const handleSendMessage = async (): Promise<void> => {
-    console.log('[handleSendMessage]: ', text.trim().length > 0);
+    const tempCurrentUser: User = cloneDeep(currentUser);
+    const tempChatSelectionData: ChatSelection = cloneDeep(currentChatSelection);
     if (text.trim().length > 0) {
       const tempText = text;
       setText('');
       try {
-        if (currentChatSelection.chatID) {
+        if (tempChatSelectionData.chatID) {
           if (image) {
-            await FIREBASE.uploadImageMessage(currentUser, currentChatSelection.chatID, tempText, image);
+            await FIREBASE.uploadImageMessage(tempCurrentUser, tempChatSelectionData.chatID ?? '', tempText, image);
           } else {
-            await FIREBASE.sendTextMessage(currentUser, currentChatSelection.chatID, tempText);
+            await FIREBASE.updateChatsMessages(tempCurrentUser, tempChatSelectionData.chatID ?? '', tempText);
           }
+          const combinedId = getCombinedID(tempCurrentUser, tempChatSelectionData.user);
+          await FIREBASE.updateUserChats(tempCurrentUser.uid, combinedId, tempText, tempChatSelectionData.user);
 
-          await FIREBASE.updateUserChats(currentUser.uid, currentChatSelection.chatID, tempText);
-          await FIREBASE.updateUserChats(currentChatSelection.user.uid, currentChatSelection.chatID, tempText);
-
+          const userInfo: ChatUser = {
+            uid: tempCurrentUser.uid,
+            email: tempCurrentUser.email ?? '',
+            displayName: tempCurrentUser.displayName ?? '',
+            ...(tempCurrentUser.photoURL && { photoURL: tempCurrentUser.photoURL }),
+          }
+          await FIREBASE.updateUserChats(tempChatSelectionData.user.uid, combinedId, tempText, userInfo);
           setText('');
           setImage(null);
         }

@@ -17,7 +17,6 @@ import {
   query,
   serverTimestamp,
   setDoc, Timestamp,
-  updateDoc,
   where
 } from 'firebase/firestore';
 import { ChatUser, FileType, MessageChat, UserChatDocument } from './types';
@@ -72,8 +71,8 @@ export const FIREBASE = {
           const userChatsDocument = snapshot.data();
           const userChatsArray: UserChatDocument[] = Object.values(userChatsDocument).map(
             (value: any) => ({
-              date: value.date,
-              lastMessage: value.lastMessage,
+              date: value?.date ?? '',
+              lastMessage: value?.lastMessage ?? '',
               userInfo: value.userInfo
             })
           );
@@ -125,31 +124,30 @@ export const FIREBASE = {
     combinedID: string
   ): Promise<void> => {
     try {
-      const resChats = await getDoc(doc(db, CHATS_DOCUMENT, combinedID));
-
-      if (!resChats.exists()) {
-        await setDoc(doc(db, CHATS_DOCUMENT, combinedID), { messages: [] });
-
-        await updateDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
-          [combinedID + '.userInfo']: {
+      await setDoc(doc(db, CHATS_DOCUMENT, combinedID), { messages: [] });
+      await setDoc(doc(db, USER_CHATS_DOCUMENT, selectedUser.uid), {
+        [combinedID]: {
+          userInfo: {
             uid: currentUser.uid,
             email: currentUser.email,
             displayName: currentUser.displayName,
             ...(currentUser.photoURL && { photoURL: currentUser.photoURL }),
           },
-          [combinedID + '.date']: serverTimestamp(),
-        });
+          date: serverTimestamp()
+        }
+      }, { merge: true });
 
-        await updateDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
-          [combinedID + '.userInfo']: {
+      await setDoc(doc(db, USER_CHATS_DOCUMENT, currentUser.uid), {
+        [combinedID]: {
+          userInfo: {
             uid: selectedUser.uid,
             email: selectedUser.email,
             displayName: selectedUser.displayName,
             ...(selectedUser.photoURL && { photoURL: selectedUser.photoURL }),
           },
-          [combinedID + '.date']: serverTimestamp(),
-        });
-      }
+          date: serverTimestamp()
+        }
+      }, { merge: true });
     } catch (error) {
       throw new Error('Error adding the user');
     }
@@ -166,7 +164,7 @@ export const FIREBASE = {
 
       const downloadURL = await FIREBASE.getDownloadURL(uploadTask.snapshot.ref);
       if (chatID) {
-        await updateDoc(doc(db, CHATS_DOCUMENT, chatID), {
+        await setDoc(doc(db, CHATS_DOCUMENT, chatID), {
           messages: arrayUnion({
             id: uuid(),
             text: text,
@@ -174,37 +172,42 @@ export const FIREBASE = {
             date: Timestamp.now(),
             image: downloadURL,
           }),
-        });
+        }, { merge: true });
       }
     } catch (error: any) {
       throw new Error(`Error uploading image`);
     }
   },
 
-  sendTextMessage: async (currentUser: User, chatID: string, text: string): Promise<void> => {
+  updateChatsMessages: async (currentUser: User, chatID: string, text: string): Promise<void> => {
     if (chatID) {
-      await updateDoc(doc(db, CHATS_DOCUMENT, chatID), {
+      await setDoc(doc(db, CHATS_DOCUMENT, chatID), {
         messages: arrayUnion({
           id: uuid(),
           text: text,
           senderID: currentUser.uid,
           date: Timestamp.now(),
         }),
-      });
+      }, { merge: true });
     }
   },
 
-  updateUserChats: async (uid: string, chatID: string, text: string): Promise<void> => {
-    await updateDoc(doc(db, USER_CHATS_DOCUMENT, uid), {
-      [chatID + '.lastMessage']: { text: text },
-      [chatID + '.date']: serverTimestamp(),
-    });
+  updateUserChats: async (uid: string, combinedID: string, text: string, userInfo: ChatUser): Promise<void> => {
+    await setDoc(doc(db, USER_CHATS_DOCUMENT, uid), {
+      [combinedID]: {
+        lastMessage: {
+          text: text
+        },
+        date: Timestamp.now(),
+        userInfo: userInfo
+      }
+    }, { merge: true });
   },
 
   deleteChatConversation: async (documentId: string, combinedID: string): Promise<void> => {
-    await updateDoc(doc(db, USER_CHATS_DOCUMENT, documentId), {
+    await setDoc(doc(db, USER_CHATS_DOCUMENT, documentId), {
       [combinedID]: deleteField(),
-    });
+    }, { merge: true });
     await deleteDoc(doc(db, CHATS_DOCUMENT, combinedID));
   }
 

@@ -4,12 +4,14 @@ import { User } from 'firebase/auth';
 import { chatsInitialState } from '../reducer/chats';
 import { isEmpty } from 'lodash';
 
+export type ChatSelection = {
+  user: ChatUser;
+  chatID: string | null;
+};
+
 export type ChatsState = {
   history: UserChatDocument[];
-  currentChatSelection: {
-    user: ChatUser;
-    chatID: string | null;
-  }
+  currentChatSelection: ChatSelection;
 };
 
 export type UpdateCurrentChatSelectionAction = {

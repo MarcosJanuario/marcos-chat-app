@@ -12,7 +12,6 @@ const ChatMessages = () => {
 
   useEffect(() => {
     let unsubscribe: () => void;
-
     if (currentChatSelection.chatID) {
       unsubscribe = FIREBASE.getChatMessages(currentChatSelection.chatID,
         (chatMessages: MessageChat[]) => {
@@ -29,7 +28,8 @@ const ChatMessages = () => {
 
   return (
     <div className="messages-wrapper">
-      {messages.map((message: MessageChat) => (
+      {Object.keys(currentChatSelection.user).length > 0
+        && messages.map((message: MessageChat) => (
         <div key={message.id}>
           <Message message={message} />
         </div>

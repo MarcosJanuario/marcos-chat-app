@@ -36,6 +36,7 @@ const ChatThumbnail = ({ userInfo, lastMessage, onClick, color, size, showOption
         const userChatPropertyId = `${getCombinedID(currentUser, userInfo)}`
         try {
           FIREBASE.deleteChatConversation(currentUser.uid, userChatPropertyId)
+          FIREBASE.deleteChatConversation(userInfo.uid, userChatPropertyId)
             .then(() => {
               onClick && onClick({} as ChatUser);
             });

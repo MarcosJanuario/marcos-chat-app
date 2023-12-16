@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ImageSize, ImageType } from '../../utils/types';
 
 import './image.scss';
@@ -10,7 +10,7 @@ interface AvatarProps {
   onClick?: () => void;
   disabled?: boolean;
 }
-const Image = ({ image, type, size, onClick, disabled = false }: AvatarProps) => {
+const Image: FC<AvatarProps> = ({ image, type, size, onClick, disabled = false }) => {
   const getSizeStyles = () => {
     switch (size) {
       case ImageSize.SMALL:

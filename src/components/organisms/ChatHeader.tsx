@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import Image from '../atoms/Image';
 import { ImageSize, ImageType, TextType } from '../../utils/types';
 
@@ -19,7 +19,7 @@ import { clearCurrentChatSelection } from '../../store/redux/reducer/chats';
 import './chatHeader.scss';
 import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 
-const ChatHeader = () => {
+const ChatHeader: FC = () => {
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
   const { clearUser } = useContext<AuthContextType>(AuthContext);
   const { dispatchUI } = useContext<UIReducer>(UIContext);

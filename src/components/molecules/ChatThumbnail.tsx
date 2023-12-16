@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, FC } from 'react';
 import { ImageSize, ChatUser, ImageType, TextType } from '../../utils/types';
 
 import { stringSizeLimiter } from '../../utils/helpers';
@@ -27,19 +27,19 @@ const MENU_OPTIONS: MenuOption[] = [
   }
 ];
 
-const ChatThumbnail = ({ userInfo, lastMessage, onClick, color, size, showOptions }: UserChatProps) => {
+const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, color, size, showOptions }) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
-  const handleOptionClick = (option: MenuOption): void => {
+  const handleOptionClick = async (option: MenuOption): Promise<void> => {
     switch (option.key) {
       case 'delete':
         const userChatPropertyId = `${getCombinedID(currentUser, userInfo)}`
         try {
-          FIREBASE.deleteChatConversation(currentUser.uid, userChatPropertyId)
-          FIREBASE.deleteChatConversation(userInfo.uid, userChatPropertyId)
-            .then(() => {
-              onClick && onClick({} as ChatUser);
-            });
+          await Promise.all([
+            FIREBASE.deleteChatConversation(currentUser.uid, userChatPropertyId),
+            FIREBASE.deleteChatConversation(userInfo.uid, userChatPropertyId),
+          ]);
+          onClick && onClick({} as ChatUser);
         } catch (error: any) {
           console.error('ERROR ON DELETING DOCUMENT: ', error);
         }

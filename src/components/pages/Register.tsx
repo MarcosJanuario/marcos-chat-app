@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react';
 import './register.scss';
 import Button from '../atoms/Button';
 import { User, UserCredential } from 'firebase/auth';
@@ -44,7 +44,7 @@ const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   file: '',
 };
 
-const Register = () => {
+const Register: FC = () => {
   const { userEmailPersistenceAllowed, imageUploadAllowed } = useAppSelector((state: RootState) => state.permissions.permission);
 
   const [formData, setFormData] = useState<RegisterFormData>(FORM_DATA_INITIAL_VALUES);

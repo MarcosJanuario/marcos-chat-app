@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 import Image from '../atoms/Image';
@@ -7,7 +7,7 @@ import Text from '../atoms/Text';
 
 import './userChatsNavbar.scss';
 
-const UserChatsNavbar = () => {
+const UserChatsNavbar: FC = () => {
   const { user } = useContext<AuthContextType>(AuthContext);
 
     return (

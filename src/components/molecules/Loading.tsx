@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import './loading.scss';
 
@@ -6,7 +6,7 @@ type LoadingProps = {
   message: string;
 }
 
-const Loading = ({ message }: LoadingProps) => {
+const Loading: FC<LoadingProps> = ({ message }) => {
   return (
     <div className="loading-backdrop">
       <div className="loading-spinner-container">

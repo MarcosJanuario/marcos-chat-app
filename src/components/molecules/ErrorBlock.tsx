@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import Text from '../atoms/Text';
 
 import { TextType } from '../../utils/types';
@@ -9,7 +9,7 @@ interface ErrorBlockProps {
   text: string;
   style?: CSSProperties;
 }
-const ErrorBlock = ({ text, style }: ErrorBlockProps) => {
+const ErrorBlock: FC<ErrorBlockProps> = ({ text, style }) => {
   return (
     <div className={'error-wrapper'} style={{...style}}>
       <Text type={TextType.SMALL} color={'#ff5252'}>{ text }</Text>

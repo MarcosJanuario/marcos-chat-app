@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useGlobalClickListener = (callback: any) => {
+const useGlobalClickListener = (callback: any): void => {
   useEffect(() => {
     const handleClick = (event: any) => {
       callback(event);

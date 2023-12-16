@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Text from '../atoms/Text';
 
 import { TextType } from '../../utils/types';
 
 import './modalMore.scss';
 
-const ModalMore = () => {
+const ModalMore: FC = () => {
   return (
     <div className="modal-more-wrapper">
       <div className="modal-header">

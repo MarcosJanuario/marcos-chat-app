@@ -1,17 +1,17 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react';
 import { ChatUser, ImageSize, UserChatDocument } from '../../utils/types';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
 import ChatThumbnail from '../molecules/ChatThumbnail';
 import { FIREBASE } from '../../utils/firebase';
 import { useDispatch } from 'react-redux';
-import { updateHistory, updateCurrentChatSelection, clearCurrentChatSelection } from '../../store/redux/reducer/chats';
+import { updateHistory, updateCurrentChatSelection } from '../../store/redux/reducer/chats';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './userChats.scss';
 import Input from '../atoms/Input';
 
-const UserChats = () => {
+const UserChats: FC = () => {
   const { history: chatsHistory, currentChatSelection } = useAppSelector((state: RootState) => state.chats);
 
   const { user: currentUser } = useContext<AuthContextType>(AuthContext);

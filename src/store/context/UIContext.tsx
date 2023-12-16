@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, FC, useContext, useReducer } from 'react';
 import { AuthContext, AuthContextType } from './AuthContext';
 
 export type UIContextType = {
@@ -33,7 +33,7 @@ type UIContextProviderProps = {
   children: JSX.Element;
 }
 
-export const UIContextProvider = ({ children }: UIContextProviderProps) => {
+export const UIContextProvider: FC<UIContextProviderProps> = ({ children }) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 
   const uiReducer = (state: UIContextType, action?: UIDispatchAction): UIContextType => {

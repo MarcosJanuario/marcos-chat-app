@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 
 import Button from '../atoms/Button';
@@ -8,7 +8,7 @@ import { updatePermissions } from '../../store/redux/reducer/permissions';
 
 import './modalPermissions.scss';
 
-const ModalPermissions = () => {
+const ModalPermissions: FC = () => {
   const { dispatchUI } = useContext<UIReducer>(UIContext);
   const dispatch = useDispatch();
   const handleOnClose = (): void => {

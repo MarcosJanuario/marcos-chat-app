@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { FC, useContext, useEffect, useRef } from 'react';
 import { ImageSize, ImageType, MessageChat } from '../../utils/types';
 
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
@@ -13,7 +13,7 @@ type MessageProps = {
   message: MessageChat;
 }
 
-const Message = ({ message }: MessageProps) => {
+const Message: FC<MessageProps> = ({ message }) => {
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
 

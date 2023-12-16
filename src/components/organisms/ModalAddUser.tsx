@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useContext, useState } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
 
@@ -20,7 +20,7 @@ import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './modalAddUser.scss';
 
-const ModalAddUser = () => {
+const ModalAddUser: FC = () => {
   const { history: chatsHistory } = useAppSelector((state: RootState) => state.chats);
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const { dispatchUI } = useContext<UIReducer>(UIContext);

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Sidebar from '../templates/Sidebar';
 import Chat from '../templates/Chat';
 import './home.scss';
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <div className="home-wrapper">
       <div className="home-container">

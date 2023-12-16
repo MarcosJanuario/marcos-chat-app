@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { MessageChat } from '../../utils/types';
 
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
@@ -9,7 +9,7 @@ type BalloonTextProps = {
   message: MessageChat;
 }
 
-const BalloonText = ({ message }: BalloonTextProps) => {
+const BalloonText: FC<BalloonTextProps> = ({ message }) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const messageFromLoggedUser = (): boolean => message.senderID === currentUser.uid;
 

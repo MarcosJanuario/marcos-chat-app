@@ -1,4 +1,4 @@
-import React, { ChangeEvent, CSSProperties, KeyboardEvent } from 'react';
+import React, { ChangeEvent, CSSProperties, FC, KeyboardEvent } from 'react';
 
 import './input.scss';
 
@@ -12,7 +12,7 @@ export type InputProps = {
   style?: CSSProperties;
 }
 
-const Input = ({
+const Input: FC<InputProps> = ({
                  type,
                  placeholder,
                  name,
@@ -20,7 +20,7 @@ const Input = ({
                  handleOnChange,
                  handleOnKeyDown,
                  style
-}: InputProps) => {
+}) => {
   return (
     <input
       className={'atomic-input'}

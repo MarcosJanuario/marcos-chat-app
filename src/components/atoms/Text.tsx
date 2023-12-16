@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { TextType } from '../../utils/types';
 
 import './text.scss';
@@ -10,7 +10,7 @@ export type TextProps = {
   style?: CSSProperties;
 }
 
-const Text = ({ type, color = '#1565C0FF', children, style }: TextProps) => {
+const Text: FC<TextProps> = ({ type, color = '#1565C0FF', children, style }) => {
 
   return (
     <span

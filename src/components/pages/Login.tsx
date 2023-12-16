@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { UserCredential } from 'firebase/auth';
 
 import './login.scss';
@@ -18,7 +18,7 @@ const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   password: ''
 }
 
-const Login = () => {
+const Login: FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>(LOGIN_FORM_DATA_INITIAL_VALUES);
   const [loading, setLoading] = useState<LoadingState>(LOADING_INITIAL_VALUES);

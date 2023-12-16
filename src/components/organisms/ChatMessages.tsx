@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Message from '../molecules/Message';
 import { MessageChat } from '../../utils/types';
 import { FIREBASE } from '../../utils/firebase';
@@ -6,7 +6,7 @@ import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import './chatMessages.scss';
 
-const ChatMessages = () => {
+const ChatMessages: FC = () => {
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
   const [messages, setMessages] = useState<MessageChat[]>([]);
 

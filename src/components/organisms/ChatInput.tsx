@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useContext, useState } from 'react';
 
 import Button from '../atoms/Button';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
@@ -15,7 +15,7 @@ import { cloneDeep } from 'lodash';
 import { User } from 'firebase/auth';
 import { ChatSelection } from '../../store/redux/actions/chats';
 
-const ChatInput = () => {
+const ChatInput: FC = () => {
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
 
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);

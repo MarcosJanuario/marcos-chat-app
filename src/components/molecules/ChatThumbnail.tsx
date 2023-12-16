@@ -1,4 +1,4 @@
-import React, { useContext, FC } from 'react';
+import React, { useContext, FC, useState } from 'react';
 import { ImageSize, ChatUser, ImageType, TextType } from '../../utils/types';
 
 import { stringSizeLimiter } from '../../utils/helpers';
@@ -22,13 +22,14 @@ type UserChatProps = {
 
 const MENU_OPTIONS: MenuOption[] = [
   {
-    key: 'delete',
-    label: 'Delete'
+    key: 'remove',
+    label: 'Remove'
   }
 ];
 
 const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, color, size, showOptions }) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleOptionClick = async (option: MenuOption): Promise<void> => {
     switch (option.key) {
@@ -52,7 +53,12 @@ const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, colo
 
 
   return (
-    <div key={userInfo.uid} className="molecule-chat-thumbnail-wrapper">
+    <div
+      key={userInfo.uid}
+      className="molecule-chat-thumbnail-wrapper"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="user-info-wrapper" onClick={() => onClick && onClick(userInfo)}>
         <Image image={userInfo.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={size ?? ImageSize.BIG} />
         <div className="user-chat-info">
@@ -64,7 +70,7 @@ const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, colo
         </div>
       </div>
       {
-        showOptions &&
+        showOptions && isHovered &&
           <MenuOptions options={MENU_OPTIONS} onOptionClick={(option: MenuOption) => handleOptionClick(option)} />
       }
     </div>

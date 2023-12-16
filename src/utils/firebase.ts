@@ -11,7 +11,6 @@ import {
   deleteDoc,
   deleteField,
   doc,
-  getDoc,
   getDocs,
   onSnapshot,
   query,

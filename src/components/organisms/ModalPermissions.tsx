@@ -7,12 +7,13 @@ import { useDispatch } from 'react-redux';
 import { updatePermissions } from '../../store/redux/reducer/permissions';
 
 import './modalPermissions.scss';
+import { UIReducerType } from '../../utils/enums';
 
 const ModalPermissions: FC = () => {
   const { dispatchUI } = useContext<UIReducer>(UIContext);
   const dispatch = useDispatch();
   const handleOnClose = (): void => {
-    dispatchUI({ type: 'RESET_MODAL'});
+    dispatchUI({ type: UIReducerType.RESET_MODAL});
   }
 
   const handlePermissionGranted = (): void => {
@@ -20,7 +21,7 @@ const ModalPermissions: FC = () => {
       userEmailPersistenceAllowed: true,
       imageUploadAllowed: true
     }));
-    dispatchUI({ type: 'RESET_MODAL'});
+    dispatchUI({ type: UIReducerType.RESET_MODAL});
   }
 
   return (

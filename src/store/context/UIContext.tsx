@@ -1,5 +1,6 @@
 import React, { createContext, FC, useContext, useReducer } from 'react';
 import { AuthContext, AuthContextType } from './AuthContext';
+import { UIReducerType } from '../../utils/enums';
 
 export type UIContextType = {
   modal: {
@@ -10,7 +11,7 @@ export type UIContextType = {
 }
 
 export type UIDispatchAction = {
-  type: string;
+  type: UIReducerType;
   payload?: UIContextType;
 }
 
@@ -38,7 +39,7 @@ export const UIContextProvider: FC<UIContextProviderProps> = ({ children }) => {
 
   const uiReducer = (state: UIContextType, action?: UIDispatchAction): UIContextType => {
     switch (action?.type) {
-      case 'HANDLE_MODAL':
+      case UIReducerType.HANDLE_MODAL:
         if (!action?.payload) {
           return state;
         }
@@ -49,7 +50,7 @@ export const UIContextProvider: FC<UIContextProviderProps> = ({ children }) => {
             visibility: action.payload.modal.visibility
           }
         }
-      case 'RESET_MODAL':
+      case UIReducerType.RESET_MODAL:
         return INITIAL_UI_CONTEXT
       default:
         return state;

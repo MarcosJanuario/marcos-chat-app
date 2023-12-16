@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState } from 'react';
-import { ChatUser, LoadingState, TextType } from '../../utils/types';
+import { ChatUser, LoadingState } from '../../utils/types';
 
 import { getCombinedID, LOADING_INITIAL_VALUES } from '../../utils/consts';
 
@@ -10,8 +10,10 @@ import Text from '../atoms/Text';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import { FIREBASE } from '../../utils/firebase';
 
-import './modalRemoveChat.scss';
 import Loading from '../molecules/Loading';
+import { TextType, UIReducerType } from '../../utils/enums';
+
+import './modalRemoveChat.scss';
 
 type ModalRemoveChatProps = {
   currentUser: User;
@@ -32,14 +34,14 @@ const ModalRemoveChat: FC<ModalRemoveChatProps> = ({ currentUser, selectedUser }
         FIREBASE.deleteChatConversation(selectedUser.uid, userChatPropertyId),
       ]);
       setLoading({ message: 'R', visible: false });
-      dispatchUI({ type: 'RESET_MODAL' });
+      dispatchUI({ type: UIReducerType.RESET_MODAL });
     } catch (error: any) {
       console.error('ERROR ON REMOVING CHAT: ', error);
     }
   }
 
   const handleOnCancel = (): void => {
-    dispatchUI({ type: 'RESET_MODAL' });
+    dispatchUI({ type: UIReducerType.RESET_MODAL });
   }
 
   return (

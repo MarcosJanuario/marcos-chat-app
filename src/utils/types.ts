@@ -15,20 +15,6 @@ export type LoginFormData = {
   password: string;
 }
 
-export enum ImageSize {
-  SMALL = 'SMALL',
-  NORMAL = 'NORMAL',
-  BIG = 'BIG',
-}
-
-export enum TextType {
-  HEADER = 'header',
-  TITLE = 'title',
-  BODY = 'body',
-  SMALL = 'small',
-  ERROR = 'error',
-}
-
 export type AppError = {
   code: number;
   message: string;
@@ -80,8 +66,3 @@ export type RegisterInputField = {
   id?: string;
   accept?: string;
 };
-
-export enum ImageType {
-  AVATAR,
-  ICON
-}

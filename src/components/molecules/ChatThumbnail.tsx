@@ -1,5 +1,5 @@
 import React, { useContext, FC, useState } from 'react';
-import { ImageSize, ChatUser, ImageType, TextType } from '../../utils/types';
+import { ChatUser } from '../../utils/types';
 
 import { stringSizeLimiter } from '../../utils/helpers';
 import Image from '../atoms/Image';
@@ -9,6 +9,8 @@ import MenuOptions, { MenuOption } from './MenuOptions';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import ModalRemoveChat from '../organisms/ModalRemoveChat';
+
+import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
 
 import './chatThumbnail.scss';
 
@@ -37,7 +39,7 @@ const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, colo
     switch (option.key) {
       case 'remove':
         dispatchUI({
-          type: 'HANDLE_MODAL',
+          type: UIReducerType.HANDLE_MODAL,
           payload: {
             modal: {
               headerText: 'Confirm Chat Removal',

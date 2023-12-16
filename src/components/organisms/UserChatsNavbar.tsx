@@ -2,8 +2,9 @@ import React, { FC, useContext } from 'react';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 import Image from '../atoms/Image';
-import { ImageType, TextType } from '../../utils/types';
 import Text from '../atoms/Text';
+
+import { ImageType, TextType } from '../../utils/enums';
 
 import './userChatsNavbar.scss';
 

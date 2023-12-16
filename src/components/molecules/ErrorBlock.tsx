@@ -1,7 +1,7 @@
 import React, { CSSProperties, FC } from 'react';
 import Text from '../atoms/Text';
 
-import { TextType } from '../../utils/types';
+import { TextType } from '../../utils/enums';
 
 import './errorBlock.scss';
 

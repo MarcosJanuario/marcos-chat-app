@@ -2,12 +2,12 @@ import React, { ChangeEvent, FC, KeyboardEvent, useContext, useState } from 'rea
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
 
-import { AppError, ChatUser, ImageSize, ImageType, LoadingState, TextType, UserChatDocument } from '../../utils/types';
+import { AppError, ChatUser, LoadingState, UserChatDocument } from '../../utils/types';
 import Input from '../atoms/Input';
 import {
   DEFAULT_CHECK_ICON,
-  DEFAULT_CLEAR_ICON, DEFAULT_PLUS_ICON,
-  DEFAULT_SEARCH_ICON, DEFAULT_USER_AVATAR,
+  DEFAULT_CLEAR_ICON, DEFAULT_CLEAR_ICON_DISABLED, DEFAULT_PLUS_ICON,
+  DEFAULT_SEARCH_ICON, DEFAULT_SEARCH_ICON_DISABLED, DEFAULT_USER_AVATAR,
   LOADING_INITIAL_VALUES,
 } from '../../utils/consts';
 import Button from '../atoms/Button';
@@ -17,6 +17,8 @@ import ErrorBlock from '../molecules/ErrorBlock';
 import Loading from '../molecules/Loading';
 import { FIREBASE } from '../../utils/firebase';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
+
+import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
 
 import './modalAddUser.scss';
 
@@ -68,7 +70,7 @@ const ModalAddUser: FC = () => {
 
   const handleOnClose = (): void => {
     handleOnClear();
-    dispatchUI({ type: 'RESET_MODAL'});
+    dispatchUI({ type: UIReducerType.RESET_MODAL});
   }
 
   const handleOnClear = (): void => {
@@ -92,8 +94,16 @@ const ModalAddUser: FC = () => {
               color: '#212121',
             }}
           />
-          <Image image={DEFAULT_SEARCH_ICON} type={ImageType.ICON} onClick={handleSearch} disabled={!userEmail} size={ImageSize.NORMAL} />
-          <Image image={DEFAULT_CLEAR_ICON} type={ImageType.ICON} onClick={handleOnClear} disabled={!userEmail} size={ImageSize.NORMAL} />
+          <Image
+            image={userEmail ? DEFAULT_SEARCH_ICON : DEFAULT_SEARCH_ICON_DISABLED}
+            type={ImageType.ICON} onClick={handleSearch} disabled={!userEmail}
+            size={ImageSize.NORMAL}
+          />
+          <Image
+            image={userEmail ? DEFAULT_CLEAR_ICON : DEFAULT_CLEAR_ICON_DISABLED}
+            type={ImageType.ICON} onClick={handleOnClear} disabled={!userEmail}
+            size={ImageSize.NORMAL}
+          />
         </div>
 
         <div className="result-wrapper">

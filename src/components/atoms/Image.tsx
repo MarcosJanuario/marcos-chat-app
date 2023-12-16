@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { ImageSize, ImageType } from '../../utils/types';
+
+import { ImageSize, ImageType } from '../../utils/enums';
 
 import './image.scss';
 

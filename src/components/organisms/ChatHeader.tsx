@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react';
 import Image from '../atoms/Image';
-import { ImageSize, ImageType, TextType } from '../../utils/types';
 
 import DefaultLogoutIcon from '../../assets/images/exit.png';
 import Text from '../atoms/Text';
@@ -15,9 +14,10 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 import { useDispatch } from 'react-redux';
 import { clearCurrentChatSelection } from '../../store/redux/reducer/chats';
+import { DEFAULT_USER_AVATAR } from '../../utils/consts';
+import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
 
 import './chatHeader.scss';
-import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 
 const ChatHeader: FC = () => {
   const { currentChatSelection } = useAppSelector((state: RootState) => state.chats);
@@ -28,7 +28,7 @@ const ChatHeader: FC = () => {
 
   const handleOnClick = (content: JSX.Element): void => {
     dispatchUI({
-      type: 'HANDLE_MODAL',
+      type: UIReducerType.HANDLE_MODAL,
       payload: {
         modal: {
           headerText: 'Add user',

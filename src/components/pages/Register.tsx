@@ -1,19 +1,10 @@
 import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react';
-import './register.scss';
 import Button from '../atoms/Button';
 import { User, UserCredential } from 'firebase/auth';
 import { db } from '../../firebase';
 import { doc } from 'firebase/firestore';
 
-import {
-  AppError,
-  ImageSize,
-  ImageType,
-  LoadingState,
-  RegisterFormData,
-  RegisterInputField,
-  TextType
-} from '../../utils/types';
+import { AppError, LoadingState, RegisterFormData, RegisterInputField, } from '../../utils/types';
 import Loading from '../molecules/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -35,6 +26,9 @@ import { FIREBASE } from '../../utils/firebase';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import ModalPermissions from '../organisms/ModalPermissions';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
+import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
+
+import './register.scss';
 
 const FORM_DATA_INITIAL_VALUES: RegisterFormData = {
   displayName: '',
@@ -105,7 +99,7 @@ const Register: FC = () => {
       signupUser();
     } else {
       dispatchUI({
-        type: 'HANDLE_MODAL',
+        type: UIReducerType.HANDLE_MODAL,
         payload: {
           modal: {
             headerText: 'Permissions',

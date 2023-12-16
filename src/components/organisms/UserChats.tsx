@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react';
-import { ChatUser, ImageSize, UserChatDocument } from '../../utils/types';
+import { ChatUser, UserChatDocument } from '../../utils/types';
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
 import ChatThumbnail from '../molecules/ChatThumbnail';
@@ -8,8 +8,10 @@ import { useDispatch } from 'react-redux';
 import { updateHistory, updateCurrentChatSelection } from '../../store/redux/reducer/chats';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
-import './userChats.scss';
 import Input from '../atoms/Input';
+import { ImageSize } from '../../utils/enums';
+
+import './userChats.scss';
 
 const UserChats: FC = () => {
   const { history: chatsHistory, currentChatSelection } = useAppSelector((state: RootState) => state.chats);

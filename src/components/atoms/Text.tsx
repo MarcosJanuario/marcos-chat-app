@@ -1,7 +1,8 @@
 import React, { CSSProperties, FC } from 'react';
-import { TextType } from '../../utils/types';
 
 import './text.scss';
+
+import { TextType } from '../../utils/enums';
 
 export type TextProps = {
   children: any;

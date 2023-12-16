@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
+import Text from '../atoms/Text';
+import { TextType } from '../../utils/enums';
 
 import './modalController.scss';
-import Text from '../atoms/Text';
-import { TextType } from '../../utils/types';
 
 type ModalHandlerProps = {
   children: JSX.Element;

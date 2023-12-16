@@ -1,13 +1,15 @@
 import React, { FC, useContext, useEffect, useRef } from 'react';
-import { ImageSize, ImageType, MessageChat } from '../../utils/types';
+import { MessageChat } from '../../utils/types';
 
 import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import Image from '../atoms/Image';
 import BalloonText from '../atoms/BalloonText';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
-import './message.scss';
 import { DEFAULT_USER_AVATAR } from '../../utils/consts';
+import { ImageSize, ImageType } from '../../utils/enums';
+
+import './message.scss';
 
 type MessageProps = {
   message: MessageChat;

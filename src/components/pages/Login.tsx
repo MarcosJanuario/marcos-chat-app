@@ -1,9 +1,7 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { UserCredential } from 'firebase/auth';
-
-import './login.scss';
 import Button from '../atoms/Button';
-import { AppError, LoadingState, LoginFormData, TextType } from '../../utils/types';
+import { AppError, LoadingState, LoginFormData } from '../../utils/types';
 import { useNavigate, Link } from 'react-router-dom';
 import Loading from '../molecules/Loading';
 import { LOADING_INITIAL_VALUES, PASSWORD_MIN_CHARS } from '../../utils/consts';
@@ -12,6 +10,9 @@ import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import ErrorBlock from '../molecules/ErrorBlock';
 import { FIREBASE } from '../../utils/firebase';
+import { TextType } from '../../utils/enums';
+
+import './login.scss';
 
 const LOGIN_FORM_DATA_INITIAL_VALUES: LoginFormData = {
   email: '',

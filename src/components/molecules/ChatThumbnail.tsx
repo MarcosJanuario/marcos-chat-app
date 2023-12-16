@@ -4,12 +4,13 @@ import { ImageSize, ChatUser, ImageType, TextType } from '../../utils/types';
 import { stringSizeLimiter } from '../../utils/helpers';
 import Image from '../atoms/Image';
 import Text from '../atoms/Text';
-import { DEFAULT_USER_AVATAR, getCombinedID, MAX_STRING_CHARS } from '../../utils/consts';
+import { DEFAULT_USER_AVATAR, MAX_STRING_CHARS } from '../../utils/consts';
+import MenuOptions, { MenuOption } from './MenuOptions';
+import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
+import { UIContext, UIReducer } from '../../store/context/UIContext';
+import ModalRemoveChat from '../organisms/ModalRemoveChat';
 
 import './chatThumbnail.scss';
-import MenuOptions, { MenuOption } from './MenuOptions';
-import { FIREBASE } from '../../utils/firebase';
-import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 
 type UserChatProps = {
   userInfo: ChatUser;
@@ -30,27 +31,27 @@ const MENU_OPTIONS: MenuOption[] = [
 const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, color, size, showOptions }) => {
   const { user : currentUser } = useContext<AuthContextType>(AuthContext);
   const [isHovered, setIsHovered] = useState(false);
+  const { dispatchUI } = useContext<UIReducer>(UIContext);
 
   const handleOptionClick = async (option: MenuOption): Promise<void> => {
     switch (option.key) {
-      case 'delete':
-        const userChatPropertyId = `${getCombinedID(currentUser, userInfo)}`
-        try {
-          await Promise.all([
-            FIREBASE.deleteChatConversation(currentUser.uid, userChatPropertyId),
-            FIREBASE.deleteChatConversation(userInfo.uid, userChatPropertyId),
-          ]);
-          onClick && onClick({} as ChatUser);
-        } catch (error: any) {
-          console.error('ERROR ON DELETING DOCUMENT: ', error);
-        }
+      case 'remove':
+        dispatchUI({
+          type: 'HANDLE_MODAL',
+          payload: {
+            modal: {
+              headerText: 'Confirm Chat Removal',
+              content: <ModalRemoveChat currentUser={currentUser} selectedUser={userInfo} />,
+              visibility: true
+            }
+          }
+        })
         break;
 
       default:
         break;
     }
   };
-
 
   return (
     <div

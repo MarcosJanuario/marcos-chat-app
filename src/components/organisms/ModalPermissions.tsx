@@ -41,7 +41,8 @@ const ModalPermissions: FC = () => {
         <p>In order to provide you with a seamless experience, the data information you provided in the Registration form need to be stored during the
           registration process in the Google Firebase database. This includes your registration details and, if uploaded,
           your profile image. Rest assured that this information will be used exclusively for the purpose of demonstrating
-          the functionality of the chat application. There are no financial goals associated with this application.</p>
+          the functionality of the chat application, but in any case, you can also use some fake email to register yourself,
+          since no confirmation email system is setup. There are no financial goals associated with this application.</p>
 
         <p>Data Deletion:</p>
         <p>Since this application is solely for demonstration purposes, I want to let you know that periodically

@@ -1,0 +1,17 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+.confirm-removal-content {
+  flex-direction: column;
+  @include element-shape-frame(100%, null, null, 1rem 0 0 0, null);
+
+  .message-wrapper {
+    @include element-shape-frame(null, 20vh, null, 1rem 0 0 0, null);
+    @include flex-frame(column, space-between, null);
+  }
+
+  .modal-action-wrapper {
+    @include element-shape-frame(100%, null, null, 1rem 0 0 0, 1rem);
+    @include flex-frame(row, flex-end, center);
+  }
+}

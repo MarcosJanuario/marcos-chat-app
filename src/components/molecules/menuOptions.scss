@@ -5,7 +5,9 @@
   position: relative;
   @include flex-frame(null, center, center);
 
-  .options-item-wrapper {
+  .options-dropdown {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     position: absolute;
     right: 0;
     top: 1.5rem;
@@ -16,13 +18,20 @@
     @include element-shape-frame(null, null, null, null, null);
     @include default-shadow;
 
-    span.atomic-text-small {
+    &.open {
+      opacity: 1;
+    }
+
+    .options-item-wrapper {
       padding: .5rem;
-      border-radius: 0.5rem;
 
       &:hover {
         background-color: rgba(0, 0, 0, .2);
       }
+    }
+
+    span.atomic-text-small {
+      border-radius: 0.5rem;
     }
   }
 }

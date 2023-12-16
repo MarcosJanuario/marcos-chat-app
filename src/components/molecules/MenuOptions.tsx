@@ -26,19 +26,17 @@ const MenuOptions: FC<MenuOptionsProps> = ({ options, onOptionClick }) => {
   };
 
   return (
-    <div className={`options-wrapper ${open ? 'open' : ''}`} onClick={() => setOpen((prevOpen) => !prevOpen)}>
+    <div className={`options-wrapper`} onClick={() => setOpen((prevOpen) => !prevOpen)}>
       <Image image={DEFAULT_MORE_ICON} type={ImageType.ICON} size={ImageSize.SMALL} />
-      {open && (
-        <div className="options-dropdown">
-          {options.map((option: MenuOption) => (
-            <div key={option.key} className="options-item-wrapper" onClick={(e) => handleOptionClick(e, option)}>
-              <Text type={TextType.SMALL} color="#212121">
-                {option.label}
-              </Text>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className={`options-dropdown ${open ? 'open' : ''}`}>
+        {options.map((option: MenuOption) => (
+          <div key={option.key} className="options-item-wrapper" onClick={(e) => handleOptionClick(e, option)}>
+            <Text type={TextType.SMALL} color="#212121">
+              {option.label}
+            </Text>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -17,14 +17,18 @@ div.chats-wrapper {
   @include element-shape-frame(null, null, null, $DEFAULT_GAP 0 0 0, null);
 
   .standard-user {
-    transition: box-shadow .5s ease, transform .5s ease;
+    transition: box-shadow .2s ease, transform .2s ease, translateX .2s ease;
+    transform: translateX(0rem);
     margin: 0 0 1rem 0;
   }
 
   .current-chat-selected {
-    transform: scale(1.04);
+    transform: scale(1) translateX(.6rem);
     border-radius: 1rem;
     @include user-selected-background;
     @include default-shadow;
+    @include tablet {
+      transform: scale(1.1) translateX(0rem);
+    }
   }
 }

@@ -3,7 +3,7 @@
 
 .molecule-chat-thumbnail-wrapper {
   cursor: pointer;
-  transition: opacity .3s ease, transform .3s ease;
+  transition: opacity .1s ease, transform .1s ease;
   @include flex-frame(null, null, center);
   @include element-shape-frame(null, null, null, 1rem, .5rem);
 

@@ -61,8 +61,9 @@ const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, colo
       className="molecule-chat-thumbnail-wrapper"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onClick && onClick(userInfo)}
     >
-      <div className="user-info-wrapper" onClick={() => onClick && onClick(userInfo)}>
+      <div className="user-info-wrapper">
         <Image image={userInfo.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={size ?? ImageSize.BIG} />
         <div className="user-chat-info">
           <Text type={TextType.TITLE} color={color ?? TextColor.BLACK}>{userInfo.displayName}</Text>

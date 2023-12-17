@@ -1,0 +1,13 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+div.side-menu-wrapper {
+  border-radius: $BORDER_RADIUS;
+  @include element-shape-frame(63px, null, 1rem 0 1rem 1rem, null, null);
+  @include flex-frame(column, flex-start, center);
+  @include glass-effect-background;
+
+  div.side-menu-user-info-wrapper {
+    @include element-shape-frame(null, null, null, 1rem 0 0 0, null);
+  }
+}

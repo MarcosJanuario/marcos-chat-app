@@ -1,12 +1,13 @@
 @import 'src/assets/styles/variables';
 @import 'src/assets/styles/mixins';
 
-.sidebar-wrapper {
+.sidebar-chats-wrapper {
   flex: 1;
   position: relative;
   max-width: 20rem;
   margin: $DEFAULT_GAP 0 $DEFAULT_GAP $DEFAULT_GAP;
   border-radius: $BORDER_RADIUS;
+  @include element-shape-frame(null, null, null, 1rem 0 0 0, null);
   @include glass-effect-background;
   @include tablet {
     max-width: 63px;

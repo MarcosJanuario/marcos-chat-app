@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
-import Sidebar from '../templates/Sidebar';
+import SidebarChats from '../templates/SidebarChats';
 import Chat from '../templates/Chat';
 import './home.scss';
+import SidebarMenu from '../templates/SidebarMenu';
 
 const Home: FC = () => {
   return (
     <div className="home-wrapper">
       <div className="home-container">
-        <Sidebar />
+        <SidebarMenu />
+        <SidebarChats />
         <Chat />
       </div>
     </div>

@@ -10,7 +10,6 @@ import ModalController from './components/templates/ModalController';
 const App = () => {
   const { user } = useContext<AuthContextType>(AuthContext);
   const [loggedIn, setLoggedIn] = useState(false);
-  // console.log('[USER]: ', user);
 
   useEffect(() => {
     if (user.uid) {
@@ -31,7 +30,7 @@ const App = () => {
               <Route index element={<Login />} />
             )}
             <Route path={'login'} element={loggedIn ? <Navigate to="/" /> : <Login />} />
-            <Route path={'register'} element={<Register />} />
+            <Route path={'register'} element={loggedIn ? <Navigate to="/" /> : <Register />} />
           </Route>
         </Routes>
       </BrowserRouter>

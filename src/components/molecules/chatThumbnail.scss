@@ -21,11 +21,7 @@
     @include element-shape-frame(null, null, null, null, .5rem);
 
     .user-chat-info {
-      p {
-        font-size: $FONT_SIZE_SMALL;
-        color: $COLOR_PRIMARY_GREY_LIGHTEN_3;
-        @include element-shape-frame(null, null, 0, null, null);
-      }
+      @include flex-frame(column, null, flex-start);
 
       @include tablet {
         display: none;

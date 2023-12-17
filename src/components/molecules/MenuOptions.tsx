@@ -4,7 +4,7 @@ import Text from '../atoms/Text';
 import Image from '../atoms/Image';
 import { DEFAULT_MORE_ICON } from '../../utils/consts';
 
-import { ImageSize, ImageType, TextType } from '../../utils/enums';
+import { ImageSize, ImageType, TextColor, TextType } from '../../utils/enums';
 
 import './menuOptions.scss';
 
@@ -32,7 +32,7 @@ const MenuOptions: FC<MenuOptionsProps> = ({ options, onOptionClick }) => {
       <div className={`options-dropdown ${open ? 'open' : ''}`}>
         {options.map((option: MenuOption) => (
           <div key={option.key} className="options-item-wrapper" onClick={(e) => handleOptionClick(e, option)}>
-            <Text type={TextType.SMALL} color="#212121">
+            <Text type={TextType.SMALL} color={TextColor.BLACK}>
               {option.label}
             </Text>
           </div>

@@ -10,7 +10,7 @@ import { AuthContext, AuthContextType } from '../../store/context/AuthContext';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import ModalRemoveChat from '../organisms/ModalRemoveChat';
 
-import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
+import { ImageSize, ImageType, TextColor, TextType, UIReducerType } from '../../utils/enums';
 
 import './chatThumbnail.scss';
 
@@ -18,7 +18,7 @@ type UserChatProps = {
   userInfo: ChatUser;
   lastMessage?: string;
   onClick?: (user: ChatUser) => void;
-  color?: string;
+  color?: TextColor;
   size?: ImageSize;
   showOptions?: boolean;
 };
@@ -65,10 +65,12 @@ const ChatThumbnail: FC<UserChatProps> = ({ userInfo, lastMessage, onClick, colo
       <div className="user-info-wrapper" onClick={() => onClick && onClick(userInfo)}>
         <Image image={userInfo.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={size ?? ImageSize.BIG} />
         <div className="user-chat-info">
-          <Text type={TextType.TITLE} color={color && '#f5f5f5'}>{userInfo.displayName}</Text>
+          <Text type={TextType.TITLE} color={color ?? TextColor.BLACK}>{userInfo.displayName}</Text>
           {
             lastMessage &&
-            <p>{ stringSizeLimiter(lastMessage, MAX_STRING_CHARS)}</p>
+            <Text type={TextType.SMALL} color={color ?? TextColor.BLACK}>
+              {stringSizeLimiter(lastMessage, MAX_STRING_CHARS)}
+            </Text>
           }
         </div>
       </div>

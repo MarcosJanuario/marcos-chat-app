@@ -18,7 +18,7 @@ import Loading from '../molecules/Loading';
 import { FIREBASE } from '../../utils/firebase';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
-import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
+import { ImageSize, ImageType, TextColor, TextType, UIReducerType } from '../../utils/enums';
 
 import './modalAddUser.scss';
 
@@ -113,11 +113,11 @@ const ModalAddUser: FC = () => {
                 <div className={'user-wrapper'} key={userFound.uid}>
                   <Image image={userFound.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={ImageSize.BIG} />
                   <div className="user-chat-info">
-                    <Text type={TextType.TITLE} color={'#757575'}>{userFound.displayName}</Text>
+                    <Text type={TextType.TITLE} color={TextColor.BLACK}>{userFound.displayName}</Text>
                   </div>
                 </div>
                 <div className="user-action-wrapper">
-                  <Image image={alreadyAdded(userFound.uid) ? DEFAULT_CHECK_ICON : DEFAULT_PLUS_ICON} size={ImageSize.NORMAL}
+                  <Image image={alreadyAdded(userFound.uid) ? DEFAULT_CHECK_ICON : DEFAULT_PLUS_ICON} size={ImageSize.SMALL}
                          type={ImageType.ICON} onClick={() => handleSelection(userFound)} disabled={alreadyAdded(userFound.uid)} />
                 </div>
               </div>

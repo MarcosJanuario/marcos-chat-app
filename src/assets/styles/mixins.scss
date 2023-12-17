@@ -27,16 +27,16 @@
 }
 
 @mixin gradient-effect-background {
-  background: #5652ff;
-  background: -webkit-linear-gradient(158deg, #5652ff 0%, #74f0ac 100%);
-  background: linear-gradient(158deg, #5652ff 0%, #74f0ac 100%);
+  background: #2b2f77;
+  background: -webkit-linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
+  background: linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
 }
 
 @mixin user-selected-background {
   border-radius: 1rem;
-  background: #5652ff;
-  background: -webkit-linear-gradient(166deg, #5652ff 0%, #74f0ac 100%);
-  background: linear-gradient(166deg, #5652ff 0%, #74f0ac 100%);
+  background: #1488cc;
+  background: -webkit-linear-gradient(0deg, #1488cc 0%, #2b32b2 100%);
+  background: linear-gradient(0deg, #1488cc 0%, #2b32b2 100%);
 }
 
 @mixin glass-effect-background($alpha: 0.1) {

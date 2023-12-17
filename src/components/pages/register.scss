@@ -35,8 +35,6 @@
         @include flex-frame(row, null, center);
 
         span {
-          font-size: $FONT_SIZE_SMALL;
-          color: $COLOR_PRIMARY_DARKEN_3;
           cursor: pointer;
         }
       }
@@ -51,7 +49,7 @@
     }
 
     p {
-      color: $COLOR_DEFAULT_BLACK;
+      color: $COLOR_DEFAULT_WHITE;
       font-size: $FONT_SIZE_SMALL;
       margin-top: 1rem;
     }

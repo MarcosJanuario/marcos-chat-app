@@ -11,7 +11,7 @@ import { UIContext, UIReducer } from '../../store/context/UIContext';
 import { FIREBASE } from '../../utils/firebase';
 
 import Loading from '../molecules/Loading';
-import { TextType, UIReducerType } from '../../utils/enums';
+import { TextColor, TextType, UIReducerType } from '../../utils/enums';
 
 import './modalRemoveChat.scss';
 
@@ -49,7 +49,7 @@ const ModalRemoveChat: FC<ModalRemoveChatProps> = ({ currentUser, selectedUser }
       <div className="confirm-removal-content">
 
         <div className="result-wrapper">
-          <Text type={TextType.BODY} color={'#212121'}>Are you sure you want to remove this chat?</Text>
+          <Text type={TextType.BODY} color={TextColor.BLACK}>Are you sure you want to remove this chat?</Text>
         </div>
 
         <div className={'modal-action-wrapper'}>

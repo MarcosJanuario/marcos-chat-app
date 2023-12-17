@@ -10,7 +10,7 @@ import Input from '../atoms/Input';
 import Text from '../atoms/Text';
 import ErrorBlock from '../molecules/ErrorBlock';
 import { FIREBASE } from '../../utils/firebase';
-import { TextType } from '../../utils/enums';
+import { TextColor, TextType } from '../../utils/enums';
 
 import './login.scss';
 
@@ -61,8 +61,8 @@ const Login: FC = () => {
   return (
     <div className={'login-wrapper'}>
       <div className={'login-form-container'}>
-        <Text type={TextType.HEADER}>Marcos Chat App</Text>
-        <Text type={TextType.SMALL}>Login</Text>
+        <Text type={TextType.HEADER} color={TextColor.WHITE}>Marcos Chat App</Text>
+        <Text type={TextType.SMALL} color={TextColor.WHITE}>Login</Text>
         <form onSubmit={handleSubmit}>
           <Input
             type={'email'}

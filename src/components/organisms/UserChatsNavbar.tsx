@@ -4,7 +4,7 @@ import { DEFAULT_USER_AVATAR } from '../../utils/consts';
 import Image from '../atoms/Image';
 import Text from '../atoms/Text';
 
-import { ImageType, TextType } from '../../utils/enums';
+import { ImageType, TextColor, TextType } from '../../utils/enums';
 
 import './userChatsNavbar.scss';
 
@@ -18,7 +18,7 @@ const UserChatsNavbar: FC = () => {
           image={user.photoURL ?? DEFAULT_USER_AVATAR}
           type={ImageType.AVATAR}
         />
-        <Text type={TextType.HEADER} color={'#f5f5f5'}>{ user.displayName?.toUpperCase() }</Text>
+        <Text type={TextType.HEADER} color={TextColor.WHITE}>{ user.displayName?.toUpperCase() }</Text>
       </div>
     </div>
   );

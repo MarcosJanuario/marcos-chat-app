@@ -15,7 +15,7 @@ import { RootState, useAppSelector } from '../../store/redux/hooks';
 import { useDispatch } from 'react-redux';
 import { clearCurrentChatSelection } from '../../store/redux/reducer/chats';
 import { DEFAULT_USER_AVATAR } from '../../utils/consts';
-import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
+import { ImageSize, ImageType, TextColor, TextType, UIReducerType } from '../../utils/enums';
 
 import './chatHeader.scss';
 
@@ -54,7 +54,7 @@ const ChatHeader: FC = () => {
             currentChatSelection.chatID &&
               <>
                 <Image image={currentChatSelection.user.photoURL ?? DEFAULT_USER_AVATAR} type={ImageType.AVATAR} size={ImageSize.NORMAL} />
-                <Text type={TextType.BODY} color={'#f5f5f5'}>{currentChatSelection.user.displayName}</Text>
+                <Text type={TextType.BODY} color={TextColor.WHITE}>{currentChatSelection.user.displayName}</Text>
               </>
           }
         </div>

@@ -9,7 +9,7 @@ import { updateHistory, updateCurrentChatSelection } from '../../store/redux/red
 import { RootState, useAppSelector } from '../../store/redux/hooks';
 
 import Input from '../atoms/Input';
-import { ImageSize } from '../../utils/enums';
+import { ImageSize, TextColor } from '../../utils/enums';
 
 import './userChats.scss';
 
@@ -86,7 +86,7 @@ const UserChats: FC = () => {
                   <ChatThumbnail
                     userInfo={userChat.userInfo}
                     lastMessage={userChat.lastMessage?.text}
-                    color={'#f5f5f5'}
+                    color={TextColor.WHITE}
                     onClick={(selectedUser: ChatUser) => handleSelect(selectedUser)}
                     size={ImageSize.NORMAL}
                     showOptions={true}

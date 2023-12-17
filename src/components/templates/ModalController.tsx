@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import Text from '../atoms/Text';
-import { TextType } from '../../utils/enums';
+import { TextColor, TextType } from '../../utils/enums';
 
 import './modalController.scss';
 
@@ -23,7 +23,7 @@ const ModalController = ({ children }: ModalHandlerProps) => {
           <div className="modal-content-wrapper">
             <div className="modal-header-wrapper">
               <div className="modal-header">
-                <Text type={TextType.TITLE} color={'#757575'}>{ ui.modal.headerText}</Text>
+                <Text type={TextType.TITLE} color={TextColor.GRAY}>{ ui.modal.headerText}</Text>
               </div>
             </div>
 

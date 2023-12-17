@@ -21,3 +21,10 @@ export enum UIReducerType {
   HANDLE_MODAL,
   RESET_MODAL
 }
+
+export enum TextColor {
+  WHITE = 'white',
+  GRAY = 'gray',
+  BLACK = 'black',
+  RED = 'red'
+}

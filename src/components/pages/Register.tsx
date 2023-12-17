@@ -26,7 +26,7 @@ import { FIREBASE } from '../../utils/firebase';
 import { UIContext, UIReducer } from '../../store/context/UIContext';
 import ModalPermissions from '../organisms/ModalPermissions';
 import { RootState, useAppSelector } from '../../store/redux/hooks';
-import { ImageSize, ImageType, TextType, UIReducerType } from '../../utils/enums';
+import { ImageSize, ImageType, TextColor, TextType, UIReducerType } from '../../utils/enums';
 
 import './register.scss';
 
@@ -183,8 +183,8 @@ const Register: FC = () => {
   return (
     <div className={'register-wrapper'}>
       <div className={'register-form-container'}>
-        <Text type={TextType.HEADER}>Marcos Chat App</Text>
-        <Text type={TextType.SMALL}>Register</Text>
+        <Text type={TextType.HEADER} color={TextColor.WHITE}>Marcos Chat App</Text>
+        <Text type={TextType.SMALL} color={TextColor.WHITE}>Register</Text>
         <form onSubmit={handleSubmit}>
           {REGISTER_INPUT_FIELDS.map((inputField: RegisterInputField) => (
             <Input
@@ -210,7 +210,7 @@ const Register: FC = () => {
             <div className={'add-avatar-button-wrapper'}>
               <label htmlFor="add-avatar-file">
                 <Image image={DEFAULT_USER_AVATAR} type={ImageType.ICON} size={ImageSize.NORMAL} />
-                <span>Add avatar</span>
+                <Text type={TextType.SMALL} color={TextColor.WHITE}>Add avatar</Text>
               </label>
             </div>
             {formData.file && <Image image={DEFAULT_CHECK_ICON} type={ImageType.ICON} size={ImageSize.SMALL} />}
